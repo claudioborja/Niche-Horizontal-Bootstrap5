@@ -259,7 +259,7 @@ color:#ccc
 	border-left: 0;
 	border-right: 0;
 	border-top: 0;
- content:;
+	content: "";
 	margin: 0;
 	display: inherit;
 }
@@ -937,12 +937,6 @@ ul.list-inline li {
 .sidebar-mini.sidebar-collapse .sidebar-menu>li>a {
 	margin-right: 0
 }
-.sidebar-mini.sidebar-collapse .sidebar-menu>li>a>span {
-/*border-top-right-radius: 4px*/
-}
-.sidebar-mini.sidebar-collapse .sidebar-menu>li:not(.treeview)>a>span {
-/*border-bottom-right-radius: 4px*/
-}
 .sidebar-mini.sidebar-collapse .sidebar-menu>li>.treeview-menu {
 	padding-top: 5px;
 	padding-bottom: 5px;
@@ -950,7 +944,8 @@ ul.list-inline li {
 }
 .sidebar-mini.sidebar-collapse .main-sidebar .user-panel>.info, .sidebar-mini.sidebar-collapse .sidebar-form, .sidebar-mini.sidebar-collapse .sidebar-menu>li>a>span, .sidebar-mini.sidebar-collapse .sidebar-menu>li>.treeview-menu, .sidebar-mini.sidebar-collapse .sidebar-menu>li>a>.pull-right, .sidebar-mini.sidebar-collapse .sidebar-menu li.header {
 	display: none !important;
-	-webkit-transform: translateZ(0)
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
 }
 .sidebar-mini.sidebar-collapse .main-header .logo {
 	width: 50px
@@ -1594,6 +1589,9 @@ input[type="file"] {
 }
 .custom-file-control {
 	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 	background-color: #fff;
 	border: 1px solid #e4e7ed;
 	border-radius: 0.25rem;
@@ -1802,7 +1800,6 @@ input[type="file"] {
 	background-color: rgba(255, 255, 255, 0.1);
 	border-radius: 50%;
 	color: #ffffff;
-	display: inline-block;
 	float: left;
 	font-size: 30px;
 	height: 60px;
@@ -5487,6 +5484,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e73f7c', endCo
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	-ms-user-select: none;
+	user-select: none;
 }
 .chart svg, .chart canvas {
 	width: 100% !important
@@ -5714,7 +5712,129 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e73f7c', endCo
 .main-header .navbar .navbar-nav > li.p-ph-res > a {
 	padding: 22px 18px 21px 18px;
 }
+}
 
+/* Bootstrap 5 Link Override - Fix underline issues */
+a, a:hover, a:focus, a:active, a:visited {
+	text-decoration: none !important;
+}
 
+/* Specific link styles for navigation and UI elements */
+.nav-link, .nav-link:hover, .nav-link:focus, .nav-link:active {
+	text-decoration: none !important;
+}
 
+.dropdown-menu a, .dropdown-menu a:hover, .dropdown-menu a:focus {
+	text-decoration: none !important;
+}
+
+.sidebar-nav a, .sidebar-nav a:hover, .sidebar-nav a:focus {
+	text-decoration: none !important;
+}
+
+.breadcrumb a, .breadcrumb a:hover, .breadcrumb a:focus {
+	text-decoration: none !important;
+}
+
+.btn, .btn:hover, .btn:focus, .btn:active {
+	text-decoration: none !important;
+}
+
+/* Tab navigation links */
+.nav-tabs a, .nav-tabs a:hover, .nav-tabs a:focus, .nav-tabs a:active {
+	text-decoration: none !important;
+}
+
+/* Menu and navigation specific */
+.ace-responsive-menu a, .ace-responsive-menu a:hover, .ace-responsive-menu a:focus {
+	text-decoration: none !important;
+}
+
+/* Timeline and special components */
+.timeline a, .timeline a:hover, .timeline a:focus {
+	text-decoration: none !important;
+}
+
+/* Cards and content links */
+.card a, .card a:hover, .card a:focus {
+	text-decoration: none !important;
+}
+
+/* Footer links */
+.main-footer a, .main-footer a:hover, .main-footer a:focus {
+	text-decoration: none !important;
+}
+
+/* Breadcrumb Spacing Improvements */
+.content-header > .breadcrumb {
+	padding: 10px 15px;
+}
+
+.content-header > .breadcrumb > li {
+	display: inline-block;
+	margin-right: 8px;
+	margin-left: 2px;
+	vertical-align: middle;
+	line-height: 1.4;
+}
+
+.content-header > .breadcrumb > li > a {
+	padding: 2px 4px;
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 1.4;
+}
+
+.content-header > .breadcrumb > li > i {
+	margin: 0 8px;
+	color: #999;
+	font-size: 11px;
+	vertical-align: middle;
+	line-height: 1.4;
+}
+
+.content-header > .breadcrumb > li.sub-bread {
+	vertical-align: middle;
+	line-height: 1.4;
+}
+
+.content-header > .breadcrumb > li.sub-bread > i {
+	margin: 0 8px;
+	color: #999;
+	font-size: 11px;
+	vertical-align: middle;
+	line-height: 1.4;
+}
+
+/* Bootstrap 5 breadcrumb improvements */
+.breadcrumb-item {
+	padding-right: 8px;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+	padding-right: 8px;
+	padding-left: 8px;
+}
+
+/* Additional spacing for better readability */
+.breadcrumb {
+	padding: 12px 20px;
+	margin-bottom: 20px;
+	border-radius: 4px;
+	background-color: #f8f9fa;
+}
+
+@media (max-width: 991px) {
+	.content-header > .breadcrumb {
+		padding: 8px 12px;
+		margin-top: 8px;
+	}
+	
+	.content-header > .breadcrumb > li {
+		margin-right: 6px;
+	}
+	
+	.content-header > .breadcrumb > li > i {
+		margin: 0 6px;
+	}
 }
