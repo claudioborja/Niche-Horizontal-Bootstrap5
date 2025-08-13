@@ -1,4 +1,54 @@
-# Niche Horizontal - Bootstrap 5 Admin Template
+# Niche Horizontal - Bootstrap- **🌐 Cross-browser** - Compatible con todos los navegadores modernos
+- **🎯 Profesional** - Diseño UI/UX limpio y empresarial
+
+## 🔄 Mejoras y Actualizaciones Realizadas
+
+### 🎨 **Mejoras en Páginas de Autenticación**
+- **Login Principal (pages-login.html)**: Diseño completamente renovado con card moderna, efectos glassmorphism y gradientes
+- **Login Lateral (pages-login-2.html)**: Diseño lateral con imagen de fondo, hero content y formulario moderno
+- **Registro (pages-register.html)**: Formulario completo con validaciones y diseño responsive
+- **Registro Lateral (pages-register2.html)**: Versión lateral con imagen de fondo y contenido hero
+- **Lockscreen (pages-lockscreen.html)**: Centrado perfecto con flexbox, imagen de usuario circular
+- **Recuperar Password (pages-recover-password.html)**: Formulario simplificado con icono y diseño moderno
+
+### ⚡ **Mejoras Técnicas**
+- **Bootstrap 5.3.2**: Migración completa desde versiones anteriores
+- **Grid System Moderno**: Reemplazo de clases obsoletas `col-xs-*` por sistema actual
+- **Flexbox Layout**: Uso de flexbox para centrado perfecto y layouts responsivos
+- **CSS Moderno**: Implementación de gradientes, glassmorphism y efectos hover
+- **Responsive Design**: Optimización para dispositivos móviles y tablets
+
+### 🎯 **Correcciones de UX/UI**
+- **Alineación de Formularios**: Corrección de problemas de alineación en todos los formularios
+- **Botones Sociales**: Mejora de diseño y estados hover/focus
+- **Campos de Entrada**: Estilos modernos con focus states y transiciones suaves
+- **Navegación**: Enlaces y rutas corregidas entre páginas
+- **Tipografía**: Mejora de jerarquía y legibilidad
+
+## 📝 **Historial de Cambios**
+- **v2.0 (Agosto 2025)**: Actualización completa a Bootstrap 5, mejoras en autenticación
+- **v1.x**: Versión original propietaria (base del proyecto)
+
+## 📁 Estructura del Proyectodmin Template (Updated Version)
+
+## ⚠️ Aviso Importante
+Esta plantilla ha sido **actualizada y modernizada** desde una versión propietaria original. Las mejoras incluyen:
+
+- ✅ **Migración completa a Bootstrap 5.3.2** desde versiones anteriores
+- ✅ **Corrección de problemas de alineación** en formularios de autenticación
+- ✅ **Modernización del diseño** con efectos glassmorphism y gradientes
+- ✅ **Mejoras en responsive design** para dispositivos móviles
+- ✅ **Optimización de estructura HTML** con grid system moderno
+- ✅ **Actualización de componentes UI** y estilos CSS
+
+### 📄 Descarga de Responsabilidad
+Este proyecto es una **versión actualizada y mejorada** de una plantilla administrativa. El código original no es de mi autoría, pero las modificaciones, mejoras y actualizaciones sí han sido realizadas por mí. 
+
+**Uso bajo tu propia responsabilidad:**
+- Este template se proporciona "tal como está" sin garantías
+- Verifica siempre las licencias de los componentes incluidos
+- Realiza tus propias pruebas antes de usar en producción
+- No me hago responsable por problemas derivados de su uso
 
 ## 🚀 Descripción
 **Niche Horizontal** es un template de administración moderno y completo construido con **Bootstrap 5.3.2**. Este template proporciona una interfaz administrativa profesional con componentes UI avanzados, gráficos interactivos, formularios dinámicos y layouts responsivos para el desarrollo de aplicaciones web empresariales.
@@ -194,10 +244,39 @@ Este template es ideal para:
 - **📈 index3.html** - Dashboard de reportes
 - **💼 index4.html** - Dashboard ejecutivo
 
+## 🤝 Contribuciones y Mantenimiento
+Este proyecto está **activamente mantenido** con mejoras continuas. Si encuentras problemas o tienes sugerencias:
+
+1. 🐛 **Reporta bugs** mediante issues
+2. 💡 **Sugiere mejoras** para futuras versiones
+3. 🔧 **Contribuye** con pull requests
+
+## 📋 Licencia y Uso
+- **Uso educativo y comercial permitido**
+- **Verificar licencias** de componentes de terceros incluidos
+- **Atribución apreciada** pero no requerida para las mejoras realizadas
+- **Sin garantías** - usar bajo propia responsabilidad
+
+## 🎯 Próximas Mejoras Planificadas
+- 🔄 Actualización de más componentes a Bootstrap 5
+- 📱 Mejoras adicionales en responsive design
+- ⚡ Optimización de performance
+- 🎨 Nuevos temas de color
+- 📊 Componentes adicionales
+
 ---
 
-**Versión:** 2.0 (Bootstrap 5 Migration)  
-**Última Actualización:** 12 de Agosto, 2025  
+## 📄 Información del Proyecto
+
+**Versión Actualizada:** 2.0 (Bootstrap 5 Migration)  
+**Fecha de Actualización:** 13 de Agosto, 2025  
 **Bootstrap:** 5.3.2  
 **Total de Páginas:** 67 archivos HTML  
 **Mantenido por:** [@claudioborja](https://github.com/claudioborja)
+
+### 📞 Contacto y Soporte
+- **GitHub:** [Niche-Horizontal-Bootstrapt5](https://github.com/claudioborja/Niche-Horizontal-Bootstrapt5)
+- **Issues:** Para reportar problemas o sugerencias
+- **Documentación:** README.md (este archivo)
+
+**⚠️ Recordatorio:** Esta es una versión actualizada y mejorada de un template propietario. Todas las mejoras y actualizaciones han sido realizadas independientemente para modernizar el código y corregir problemas existentes.
