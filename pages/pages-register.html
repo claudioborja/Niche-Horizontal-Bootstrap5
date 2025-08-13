@@ -21,6 +21,57 @@
 <link rel="stylesheet" href="../assets/css/themify-icons/themify-icons.css">
 <link rel="stylesheet" href="../assets/plugins/hmenu/ace-responsive-menu.css">
 
+<!-- Custom styles for this page -->
+<style>
+.login-enhancement {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.login-card {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  border: none;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+}
+.login-card .card-body {
+  padding: 3rem;
+}
+.form-control-enhanced {
+  border: 2px solid #e1e5e9;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+.form-control-enhanced:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+.btn-register {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 10px;
+  padding: 12px 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+.btn-register:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+.logo-container {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.logo-container img {
+  max-width: 150px;
+  height: auto;
+}
+</style>
+
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -29,43 +80,73 @@
 <![endif]-->
 
 </head>
-<body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-box-body">
-    <h3 class="login-box-msg">Sign Up</h3>
-    <form action="index.html" method="post">
-      <div class="form-group has-feedback">
-        <input type="email" class="form-control sty1" placeholder="Name">
-      </div>
-      <div class="form-group has-feedback">
-        <input type="email" class="form-control sty1" placeholder="Email">
-      </div>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control sty1" placeholder="Password">
-      </div>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control sty1" placeholder="Conform Password">
-      </div>
-      <div>
-        <div class="col-xs-8">
-          <div class="checkbox icheck">
-            <label>
-              <input type="checkbox">
-               I agree to all Terms </label>
-             </div>
+<body class="login-enhancement">
+<div class="container-fluid">
+  <div class="row justify-content-center align-items-center min-vh-100">
+    <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+      <div class="card login-card">
+        <div class="card-body">
+          <!-- Logo -->
+          <div class="logo-container">
+            <img src="../assets/img/logo-blue.png" alt="Niche Admin" class="img-fluid">
+          </div>
+          
+          <!-- Welcome Message -->
+          <div class="text-center mb-4">
+            <h3 class="fw-bold text-dark mb-2">Create Account</h3>
+            <p class="text-muted">Join us today and start your journey</p>
+          </div>
+
+          <!-- Register Form -->
+          <form action="../index.html" method="post">
+            <div class="mb-3">
+              <label for="name" class="form-label fw-semibold">Full Name</label>
+              <input type="text" class="form-control form-control-enhanced" id="name" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="mb-3">
+              <label for="email" class="form-label fw-semibold">Email Address</label>
+              <input type="email" class="form-control form-control-enhanced" id="email" placeholder="Enter your email" required>
+            </div>
+            
+            <div class="mb-3">
+              <label for="password" class="form-label fw-semibold">Password</label>
+              <input type="password" class="form-control form-control-enhanced" id="password" placeholder="Create a password" required>
+            </div>
+            
+            <div class="mb-3">
+              <label for="confirm-password" class="form-label fw-semibold">Confirm Password</label>
+              <input type="password" class="form-control form-control-enhanced" id="confirm-password" placeholder="Confirm your password" required>
+            </div>
+            
+            <div class="mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="terms" required>
+                <label class="form-check-label" for="terms">
+                  I agree to all <a href="#" class="text-decoration-none">Terms & Conditions</a>
+                </label>
+              </div>
+            </div>
+            
+            <div class="d-grid mb-3">
+              <button type="submit" class="btn btn-primary btn-register">
+                <i class="fa fa-user-plus me-2"></i>Create Account
+              </button>
+            </div>
+          </form>
+
+          <!-- Sign In Link -->
+          <div class="text-center">
+            <p class="mb-0 text-muted">
+              Already have an account? 
+              <a href="../pages/pages-login.html" class="text-decoration-none fw-semibold">Sign In Here</a>
+            </p>
+          </div>
         </div>
-        <!-- /.col -->
-        <div class="col-xs-4 m-t-1">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign UP</button>
-        </div>
-        <!-- /.col --> 
       </div>
-    </form>
-    <div class="m-t-2">Already have an account? <a href="../pages/pages-login.html" class="text-center">Sign In</a></div>
+    </div>
   </div>
-  <!-- /.login-box-body --> 
-</div>
-<!-- /.login-box --> 
+</div> 
 
 <!-- jQuery 3 --> 
 <script src="../assets/plugins/jquery-3.7.1/jquery.min.js"></script> 

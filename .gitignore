@@ -8,7 +8,7 @@
 
 # Archivos de documentación y reportes generados automáticamente
 # Documentation and reports files generated automatically
-
+.gitignore
 # Plugin update reports
 PLUGIN_UPDATES_REPORT.md
 *_REPORT.md

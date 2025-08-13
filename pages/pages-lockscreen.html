@@ -21,6 +21,96 @@
 <link rel="stylesheet" href="../assets/css/themify-icons/themify-icons.css">
 <link rel="stylesheet" href="../assets/plugins/hmenu/ace-responsive-menu.css">
 
+<!-- Custom styles for lockscreen -->
+<style>
+.lockscreen {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.lockscreen-wrapper {
+  max-width: 400px;
+  width: 100%;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+.lockscreen-logo {
+  margin-bottom: 2rem;
+}
+.lockscreen-logo img {
+  max-width: 120px;
+  height: auto;
+}
+.lockscreen-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+.lockscreen-image {
+  margin: 0 auto 2rem;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+.lockscreen-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.form-control {
+  border: 2px solid #e1e5e9;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+.form-control:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+.input-group-btn .btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  color: white;
+  transition: all 0.3s ease;
+}
+.input-group-btn .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+.help-block {
+  color: #666;
+  margin: 1.5rem 0;
+  font-size: 14px;
+}
+.lockscreen-footer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e1e5e9;
+}
+@media (max-width: 768px) {
+  .lockscreen {
+    padding: 0.5rem;
+  }
+  .lockscreen-wrapper {
+    padding: 1.5rem;
+  }
+}
+</style>
+
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
