@@ -1,6 +1,7 @@
 """Replace legacy editors, mini charts and gallery markup without breaking URLs."""
 from html import escape
 import re
+from page_dependencies import prune
 
 
 def migrate(path, original):
@@ -87,4 +88,4 @@ def migrate(path, original):
     theme_script = '<script src="' + prefix + 'js/chart-theme.js"></script>'
     if theme_script in text and 'js/chart-accessibility.js' not in text:
         text = text.replace(theme_script, theme_script + '\n<script src="' + prefix + 'js/chart-accessibility.js"></script>')
-    return text.encode('utf-8')
+    return prune(path, text.encode('utf-8'))

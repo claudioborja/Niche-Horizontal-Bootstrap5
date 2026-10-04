@@ -15,6 +15,7 @@ from playwright.async_api import async_playwright
 from check_native_components import check_native
 from check_design_quality import check_design
 from check_chart_accessibility import check_chart_accessibility
+from page_dependencies import needs_jquery
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -40,8 +41,11 @@ async def check(browser, base_url):
                     if response.status >= 400 and response.url.startswith(base_url) else None)
             await page.goto(base_url + '/' + path.as_posix(), wait_until='load')
             await page.wait_for_timeout(600)
-            assert await page.evaluate('jQuery.fn.jquery') == '4.0.0', str(path)
-            assert await page.evaluate("typeof jQuery.migrateVersion === 'undefined'"), str(path)
+            if needs_jquery((ROOT / path).read_text()):
+                assert await page.evaluate('jQuery.fn.jquery') == '4.0.0', str(path)
+                assert await page.evaluate("typeof jQuery.migrateVersion === 'undefined'"), str(path)
+            else:
+                assert await page.evaluate("typeof jQuery === 'undefined'"), str(path)
             await page.evaluate('document.fonts.ready')
             assert await page.evaluate("document.fonts.check('400 16px Poppins')"), str(path)
             await page.add_script_tag(path=str(ROOT / 'tools/test-vendor/axe-core-4.13.0/axe.min.js'))
@@ -55,7 +59,7 @@ async def check(browser, base_url):
     pages = sorted(path.relative_to(ROOT) for path in ROOT.rglob('*.html'))
     await asyncio.gather(*(check_page(path) for path in pages))
     assert not failures, '\n'.join(failures)
-    print(f'PASS: {len(pages)} pages load with jQuery 4, no JavaScript errors or missing local resources.', flush=True)
+    print(f'PASS: {len(pages)} pages load with jQuery only where required, no JavaScript errors or missing local resources.', flush=True)
     print('PASS: local Poppins loads and axe checks text contrast, image alternatives, control names, form labels, zoom and valid ARIA on every page.', flush=True)
 
     # Record instances inside the test browser without exposing application globals.
@@ -102,7 +106,7 @@ FullCalendar.Calendar = class extends FullCalendar.Calendar {
     await page.wait_for_function("!Chart.getChart('line-chart').isDatasetVisible(0)")
     await page.mouse.click(chart_legend['x'], chart_legend['y'])
     await page.wait_for_function("Chart.getChart('line-chart').isDatasetVisible(0)")
-    assert await page.evaluate("typeof jQuery.fn.layout.Constructor === 'function' && !!jQuery('body').data('lte.layout')")
+    assert await page.evaluate("!!Niche.getComponent(document.body, 'layout') && typeof jQuery === 'undefined'")
     assert await page.evaluate("document.getElementById('respMenu').dataset.nicheMenuInitialized === 'true'")
     await page.set_viewport_size({'width': 390, 'height': 844})
     await page.wait_for_timeout(300)
@@ -117,7 +121,7 @@ FullCalendar.Calendar = class extends FullCalendar.Calendar {
 
     await visit('apps/apps-mailbox.html')
     box = page.locator('.box').first
-    await page.evaluate("jQuery('.box').boxWidget()")  # Reusing the plugin must not bind click handlers again.
+    await page.evaluate("Niche.component(document.querySelector('.box'), 'boxWidget')")
     await box.locator('[data-widget=collapse]').click()
     await page.wait_for_function("document.querySelector('.box').classList.contains('collapsed-box')")
     assert await box.locator('[data-widget=collapse]').get_attribute('aria-expanded') == 'false'

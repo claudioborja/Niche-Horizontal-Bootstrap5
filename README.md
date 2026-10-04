@@ -63,7 +63,6 @@ Versiones incluidas y referenciadas por las páginas después de la actualizaci�
 | Bootstrap | 5.3.8 | Layout, estilos y componentes de interfaz |
 | Popper | 2.11.8 | Posicionamiento de dropdowns, tooltips y popovers |
 | jQuery | 4.0.0 | Plugins e inicializadores pendientes de migración |
-| jQuery UI | 1.14.2 | Componentes utilizados por las páginas de ejemplo |
 | Chart.js | 4.5.1 | Gráficos en dashboards y página de demostración |
 | DataTables | 3.1.3 | Tablas con integración Bootstrap 5 |
 | FullCalendar | 7.1.0 | Calendarios y arrastre de eventos |
@@ -414,6 +413,239 @@ cambiar el control. Sigue las recomendaciones de
 Conserva las rutas relativas al mover páginas entre carpetas. Los datos de ejemplo
 pueden sustituirse por respuestas de tu API en los inicializadores correspondientes.
 
+## Carga de recursos por página
+
+54 de las 67 páginas funcionan sin cargar jQuery ni su adaptador. Las otras
+13 mantienen jQuery por sus plugins o inicializadores. jQuery UI permanece
+almacenado para compatibilidad, pero ninguna página lo carga: no hay controles
+que lo utilicen. Los estilos de DataTables, pestañas y wizard se cargan solo
+cuando la página contiene el componente correspondiente.
+
+`tools/page_dependencies.py` mantiene esta selección al ejecutar el actualizador.
+Conserva jQuery ante scripts desconocidos para no romper nuevas integraciones.
+Si agregas un plugin, declara sus dependencias en el HTML y comprueba su página.
+El núcleo, Bootstrap, iconos y fuentes siguen compartidos; los archivos de
+bibliotecas disponibles en `assets/plugins` no se eliminan.
+
+## Ejemplos mínimos de componentes
+
+Los siguientes fragmentos usan rutas desde la raíz del proyecto. Si tu página
+está en una subcarpeta, antepone `../` a las rutas de `assets/`. Guarda el código
+JavaScript en archivos externos y cárgalos después de sus bibliotecas.
+
+### Estilos y núcleo compartidos
+
+Incluye estos estilos en `<head>`, en este orden:
+
+```html
+<link rel="stylesheet" href="assets/plugins/bootstrap-5.3.8/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/plugins/poppins-5.3.0/poppins.css">
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/plugins/bootstrap-icons-1.13.1/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="assets/css/icon-compat.css">
+<link rel="stylesheet" href="assets/plugins/hmenu/ace-responsive-menu.css">
+<link rel="stylesheet" href="assets/css/accessibility.css">
+```
+
+Incluye estos scripts antes de `</body>`. El núcleo funciona sin jQuery:
+
+```html
+<script src="assets/plugins/popper-2.11.8/popper.min.js"></script>
+<script src="assets/plugins/bootstrap-5.3.8/js/bootstrap.min.js"></script>
+<script src="assets/js/bootstrap-components.js"></script>
+<script src="assets/js/niche.js"></script>
+<script src="assets/js/niche/layout.js"></script>
+<script src="assets/js/niche/navigation.js"></script>
+<script src="assets/js/niche/widgets.js"></script>
+```
+
+Para personalizar colores, fuentes o espaciado, carga tu CSS después de los
+estilos compartidos y modifica las variables de `theme.css`. Para copiar una
+página completa con cabecera y pie, parte de [pages/pages-blank.html](pages/pages-blank.html).
+
+### Menú con submenú
+
+Coloca este bloque dentro de `.wrapper`. Usa rutas reales en los enlaces.
+`navigation.js` configura apertura, teclado y comportamiento móvil:
+
+```html
+<nav aria-label="Main navigation">
+  <div class="menu-toggle">
+    <button id="menu-btn" type="button" aria-label="Toggle navigation"
+            aria-controls="respMenu" aria-expanded="false">Menu</button>
+  </div>
+  <ul id="respMenu" class="ace-responsive-menu" data-menu-style="horizontal">
+    <li><a href="index.html">Home</a></li>
+    <li>
+      <a href="#" role="button">Examples</a>
+      <ul>
+        <li><a href="tables/table-data-table.html">Tables</a></li>
+        <li><a href="forms/form-elements.html">Forms</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+```
+
+Conserva un único `respMenu` y `menu-btn` por página. Cambia etiquetas y destinos;
+no hace falta añadir un inicializador jQuery.
+
+### Panel colapsable
+
+`widgets.js` conecta los botones mediante `data-widget`. Los botones con iconos
+necesitan nombre accesible:
+
+```html
+<section class="box">
+  <div class="box-header">
+    <h3 class="box-title">Report</h3>
+    <div class="box-tools">
+      <button class="btn btn-box-tool" type="button" data-widget="collapse"
+              aria-label="Collapse report">
+        <i class="fa fa-minus" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+  <div class="box-body">Your content goes here.</div>
+</section>
+```
+
+Puedes controlarlo desde un archivo externo con
+`Niche.component(document.querySelector('.box'), 'boxWidget', 'collapse')`.
+Para varios paneles, utiliza un selector específico para cada uno.
+
+### Formulario con validación nativa
+
+Este ejemplo comprueba un correo y muestra el resultado sin enviarlo. Para
+formularios con varios pasos, consulta [forms/form-wizard.html](forms/form-wizard.html)
+y su inicializador `assets/js/form-wizard.js`.
+
+```html
+<form id="contact-demo">
+  <label for="contact-email" class="form-label">Email address</label>
+  <input id="contact-email" name="email" type="email" class="form-control"
+         required aria-describedby="contact-email-help">
+  <p id="contact-email-help" class="form-text">Use an address such as name@example.com.</p>
+  <button type="submit" class="btn btn-primary">Check email</button>
+  <p id="contact-result" role="status"></p>
+</form>
+```
+
+Guarda este código en `assets/js/contact-demo.js` y añade su `<script src>` al
+final de la página. El navegador muestra el error y enfoca el campo inválido;
+`role="status"` anuncia el resultado cuando el correo es válido:
+
+```javascript
+// assets/js/contact-demo.js
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('contact-demo');
+    const result = document.getElementById('contact-result');
+    form.addEventListener('invalid', function () { result.textContent = ''; }, true);
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        result.textContent = 'Valid email. No information was sent.';
+    });
+});
+```
+
+### Tabla con búsqueda y paginación
+
+Añade este CSS después de Bootstrap:
+
+```html
+<link rel="stylesheet" href="assets/plugins/datatables-3.1.3/css/dataTables.bootstrap5.min.css">
+```
+
+La tabla necesita encabezados y un ID propio:
+
+```html
+<div class="table-responsive">
+  <table id="people" class="table table-striped">
+    <caption>Example contacts</caption>
+    <thead><tr><th scope="col">Name</th><th scope="col">Email</th></tr></thead>
+    <tbody>
+      <tr><td>Ada</td><td>ada@example.com</td></tr>
+      <tr><td>Linus</td><td>linus@example.com</td></tr>
+    </tbody>
+  </table>
+</div>
+```
+
+Carga estos scripts en orden, después del núcleo y antes de `</body>`. jQuery es
+necesario para DataTables; incluye una sola copia por página:
+
+```html
+<script src="assets/plugins/jquery-4.0.0/jquery.min.js"></script>
+<script src="assets/plugins/datatables-3.1.3/dataTables.min.js"></script>
+<script src="assets/plugins/datatables-3.1.3/dataTables.bootstrap5.min.js"></script>
+<script src="assets/js/people-table.js"></script>
+```
+
+Guarda este inicializador en `assets/js/people-table.js`:
+
+```javascript
+// assets/js/people-table.js
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#people', { pageLength: 10 });
+});
+```
+
+Para exportación de filas filtradas, copia las dependencias y el inicializador
+de [tables/table-data-table.html](tables/table-data-table.html). Para edición,
+consulta [tables/table-jsgrid.html](tables/table-jsgrid.html), que usa Tabulator.
+El adaptador `niche/jquery-bridge.js` solo es necesario si también quieres usar
+las antiguas llamadas como `$('.box').boxWidget()`; colócalo después de los
+módulos del núcleo y de jQuery.
+
+### Gráfico con tabla accesible
+
+El contenedor fija la altura del canvas; el resumen y la tabla se añaden fuera
+de ese contenedor. Usa un ID diferente para cada gráfico:
+
+```html
+<section class="info-box">
+  <h4>Weekly sales</h4>
+  <div class="position-relative" style="height:300px">
+    <canvas id="weekly-sales" role="img" aria-label="Weekly sales"></canvas>
+  </div>
+</section>
+```
+
+Carga los scripts en este orden:
+
+```html
+<script src="assets/plugins/chart-js-4.5.1/chart.umd.js"></script>
+<script src="assets/js/chart-theme.js"></script>
+<script src="assets/js/chart-accessibility.js"></script>
+<script src="assets/js/weekly-sales.js"></script>
+```
+
+Guarda el inicializador en `assets/js/weekly-sales.js`. Sustituye etiquetas,
+valores y nombre de la serie por los tuyos:
+
+```javascript
+// assets/js/weekly-sales.js
+document.addEventListener('DOMContentLoaded', function () {
+    const sales = new Chart(document.getElementById('weekly-sales'), {
+        type: 'bar',
+        data: {
+            labels: ['Monday', 'Tuesday', 'Wednesday'],
+            datasets: [{ label: 'Sales', data: [12, 18, 15] }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { y: { beginAtZero: true } }
+        }
+    });
+    // To refresh values later: change sales.data, then call sales.update().
+});
+```
+
+El resumen y la tabla accesible se generan con esos datos y se actualizan al
+llamar a `sales.update()`. No necesitan una segunda copia manual de los valores.
+
 ## JavaScript de la plantilla
 
 La lógica de aplicación está en archivos externos. El núcleo funciona con
@@ -445,14 +677,14 @@ elemento y componente. También acepta un selector y un nombre de método como
 tercer argumento. `Niche.defineComponent` permite registrar componentes nuevos.
 Los callbacks nativos de tareas reciben el checkbox DOM como `this`.
 
-Las páginas existentes cargan después `assets/js/niche/jquery-bridge.js`, un
+Las páginas que requieren jQuery cargan después `assets/js/niche/jquery-bridge.js`, un
 adaptador opcional para las llamadas jQuery `layout`, `pushMenu`, `tree`,
 `controlSidebar`, `boxWidget`, `todoList` y `directChat`. Conserva las instancias
 `data('lte.*')`, eventos y `noConflict`, y conecta las llamadas con el mismo
 componente nativo. Se puede omitir al usar únicamente la API `Niche`.
 
 jQuery se mantiene para los plugins e inicializadores de terceros que todavía
-lo utilizan, por ejemplo jQuery UI, Ion.RangeSlider, Knob y el formulario por
+lo utilizan, por ejemplo DataTables, Ion.RangeSlider, Knob y el formulario por
 pasos. Migrar el núcleo no elimina esa dependencia del conjunto de la plantilla.
 
 Los scripts específicos se cargan después de sus bibliotecas:

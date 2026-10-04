@@ -49,7 +49,9 @@ class Migrations(unittest.TestCase):
             self.assertEqual(updater.migrate(path, result), result)
 
     def test_native_core_removes_vendor_menu_and_keeps_one_optional_bridge(self):
-        old = b'''<script src="assets/js/niche/widgets.js"></script>
+        old = b'''<script src="assets/plugins/jquery-4.0.0/jquery.min.js"></script>
+<script src="assets/js/custom-jquery-integration.js"></script>
+<script src="assets/js/niche/widgets.js"></script>
 <script src="assets/plugins/hmenu/ace-responsive-menu.js"></script>
 <script src="assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>'''
         path = ROOT / 'index.html'
