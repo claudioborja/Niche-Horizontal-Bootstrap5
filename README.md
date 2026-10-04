@@ -1,6 +1,6 @@
-# Niche Horizontal — Bootstrap 5
+# Horizonte Admin
 
-[![Pruebas de la plantilla](https://github.com/claudioborja/Niche-Horizontal-Bootstrap5/actions/workflows/tests.yml/badge.svg)](https://github.com/claudioborja/Niche-Horizontal-Bootstrap5/actions/workflows/tests.yml)
+[![Pruebas de la plantilla](https://github.com/claudioborja/horizonte-admin/actions/workflows/tests.yml/badge.svg)](https://github.com/claudioborja/horizonte-admin/actions/workflows/tests.yml)
 
 Plantilla de administración con navegación horizontal, construida con HTML, CSS
 y JavaScript. Incluye **67 páginas de ejemplo**, cuatro dashboards y componentes
@@ -18,8 +18,8 @@ No hay un paso de compilación ni dependencias que instalar con npm.
 Si todavía no tienes el repositorio:
 
 ```bash
-git clone https://github.com/claudioborja/Niche-Horizontal-Bootstrap5.git
-cd Niche-Horizontal-Bootstrap5
+git clone https://github.com/claudioborja/horizonte-admin.git
+cd horizonte-admin
 ```
 
 Desde la raíz del proyecto:
@@ -128,7 +128,7 @@ Para usar Google Maps en tu aplicación, configura tu propia clave en
 ## Estructura del proyecto
 
 ```text
-Niche-Horizontal-Bootstrap5/
+horizonte-admin/
 ├── index.html                   # Dashboard principal
 ├── index2.html                  # Dashboards alternativos
 ├── index3.html
@@ -305,7 +305,7 @@ también cuando los crees desde JavaScript. Ambas hojas usan la misma fuente loc
 
 ### Pruebas automáticas en GitHub
 
-[GitHub Actions](https://github.com/claudioborja/Niche-Horizontal-Bootstrap5/actions/workflows/tests.yml)
+[GitHub Actions](https://github.com/claudioborja/horizonte-admin/actions/workflows/tests.yml)
 ejecuta las comprobaciones en cada push y pull request. También permite iniciarlas
 desde el botón **Run workflow** de la pestaña Actions.
 
@@ -914,7 +914,7 @@ otro que verifica las páginas completas y el adaptador de compatibilidad.
 
 ## Contribuciones
 
-Abre un [issue](https://github.com/claudioborja/Niche-Horizontal-Bootstrap5/issues)
+Abre un [issue](https://github.com/claudioborja/horizonte-admin/issues)
 con la página afectada, los pasos para reproducir el problema y el navegador usado.
 Para proponer cambios, envía un pull request y describe las comprobaciones realizadas.
 
