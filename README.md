@@ -88,8 +88,11 @@ nueva fuente se conservan como SVG de Font Awesome (SIL OFL 1.1). Las banderas
 y los iconos meteorológicos conservan sus bibliotecas especializadas.
 
 jQuery permanece en 3.7.1 para mantener la compatibilidad con los plugins
-que todavía lo requieren. Los archivos de bibliotecas reemplazadas se conservan
-en sus carpetas, pero las páginas migradas no los cargan.
+que todavía lo requieren. La limpieza retiró las versiones antiguas de Bootstrap, Chart.js, DataTables,
+FullCalendar y Summernote, además de Morris, Raphaël, Chartist, iCheck, Moment
+y otros plugins sin uso. Dropify, Dropzone, jsGrid y las fuentes de iconos
+anteriores se conservan mientras esté pendiente su migración. El historial
+de Git permite recuperar los archivos retirados.
 
 Las dependencias principales se sirven desde `assets/plugins/`. Algunas páginas
 cargan recursos externos, como Google Fonts y Google Maps, que requieren conexión.
@@ -147,8 +150,9 @@ una escritura, intenta restaurar los archivos que ya había modificado.
 
 Para los paquetes npm utiliza jsDelivr, con UNPKG como alternativa. SheetJS se
 descarga desde su CDN. Summernote y Bootstrap Icons incluyen las fuentes necesarias para sus iconos.
-Las carpetas antiguas con versiones distintas se conservan; jQuery UI se actualiza
-en su ubicación existente.
+El actualizador no elimina carpetas automáticamente; jQuery UI se actualiza
+en su ubicación existente. Después de nuevas migraciones, comprueba las
+referencias antes de retirar recursos adicionales.
 
 Las comprobaciones de contenido detectan respuestas inesperadas; no sustituyen
 las pruebas de funcionamiento en el navegador.
@@ -158,6 +162,13 @@ recursos instalados:
 
 ```bash
 python3 tools/test_component_migrations.py
+```
+
+Para revisar las referencias locales de scripts, estilos, imágenes, favicon
+y recursos de CSS, sin acceso a Internet:
+
+```bash
+python3 tools/check_assets.py
 ```
 
 Estas pruebas verifican rutas, opciones conservadas, catálogos de iconos y que
@@ -214,6 +225,15 @@ Conserva las rutas relativas al mover páginas entre carpetas. Los datos de ejem
 pueden sustituirse por respuestas de tu API en los inicializadores correspondientes.
 
 ## Historial de cambios
+
+### Limpieza de recursos — octubre de 2026
+
+- Eliminación de 21 carpetas de plugins y siete inicializadores sin referencias activas.
+- Retirada de cargas sobrantes de tooltip/popover en las páginas de carrusel y listas.
+- Corrección de rutas de fuentes de Weather Icons y Dropify.
+- Sustitución de fondos e imágenes de pago ausentes por colores e insignias de texto.
+- Comprobador de recursos locales e exclusión de cachés Python en Git.
+- Conservación de los componentes cuya migración todavía necesita descargar bibliotecas.
 
 ### Compatibilidad con Bootstrap 5 — octubre de 2026
 

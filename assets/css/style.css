@@ -63,7 +63,7 @@ body {
 	position: relative
 }
 .layout-boxed {
-	background: url('../img/boxed-bg.jpg') repeat fixed;
+	background: #eef5f9;
 }
 .content-wrapper, .main-footer {
 	-webkit-transition: -webkit-transform .3s ease-in-out, margin .3s ease-in-out;
@@ -807,7 +807,7 @@ ul.fa-ul{
 	width: 100%;
 	padding: 20px 10px;
 	overflow: hidden;
-	background: url('../img/user-bg.jpg') no-repeat left top;
+	background: #5867dd;
 }
 .user-panel:before, .user-panel:after {
 	content: " ";
@@ -2000,7 +2000,7 @@ input[type="file"] {
 	-ms-transition: opacity .25s ease-in-out;
 	-o-transition: opacity .25s ease-in-out;
 	transition: opacity .25s ease-in-out;
-	background: url(../img/img11.png) left top repeat;
+	background: rgba(0, 0, 0, .55);
 }
 .img-hover-st-2 .text a.hov_circle {
 	position: absolute;
@@ -2100,7 +2100,7 @@ input[type="file"] {
 	-ms-transition: opacity .25s ease-in-out;
 	-o-transition: opacity .25s ease-in-out;
 	transition: opacity .25s ease-in-out;
-	background: url(../img/img11.png) left top repeat;
+	background: rgba(0, 0, 0, .55);
 }
 .img-hover-st-3 .text h3 {
 	position: absolute;
@@ -2177,7 +2177,7 @@ input[type="file"] {
 	left: 0px;
 	top:270px;
 	z-index: 100;
-	background: url(../img/img11.png) left top repeat;
+	background: rgba(0, 0, 0, .55);
 	transition: top .3s ease-in-out;
 }
 .img-hover-st-4 .text h3 {
@@ -2234,7 +2234,7 @@ input[type="file"] {
 	top: 0px;
 	z-index: 100;
 	transition: left .5s ease-in-out;
-	background: url(../img/img11.png) left top repeat;
+	background: rgba(0, 0, 0, .55);
 }
 .img-hover-st-5 .text h3 {
 	color: #fff;
@@ -3817,7 +3817,7 @@ table.text-center, table.text-center td, table.text-center th {
 .user-profile-box{
 	padding:60px 20px 50px 20px;
 	border-radius:3px;
-	background:url(../img/user-bg.jpg) no-repeat center top;
+	background: #5867dd;
 }
 .widget-user .widget-user-username {
 	margin-top: 0;
@@ -4037,11 +4037,11 @@ table.text-center, table.text-center td, table.text-center th {
 	color: #444
 }
 .login-page, .register-page {
-	background:url(../img/body-bg.jpg) no-repeat center top;
+	background: #eef5f9;
 	background-size:cover;
 }
 .login-page.sty1, .register-page.sty1{
-	background:url(../img/body-bg1.jpg) no-repeat center top;
+	background: #eef5f9;
 	background-size:cover;
 }
 .login-box, .register-box {
