@@ -8,15 +8,15 @@ import tempfile
 import urllib.request
 import urllib.error
 import component_migrations
+import legacy_widget_migrations
 
 ROOT = Path(__file__).resolve().parents[1]
 # Each asset has its own content marker; small CSS/integration files are valid.
-# Legacy widgets use removed jQuery APIs; load the official bridge only on those pages.
-JQUERY_MIGRATE_PAGES = {'apps/apps-compose-mail.html', 'forms/form-summernote.html',
-                        'charts/chart-peity.html', 'index3.html', 'pages/pages-gallery.html'}
 UPDATES = (
-    ('jquery-migrate', 'jquery-migrate-4.0.2', (
-        ('jquery-migrate.min.js', 'https://cdn.jsdelivr.net/npm/jquery-migrate@4.0.2/dist/jquery-migrate.min.js', b'Migrate v4.0.2'),
+    ('jodit', 'jodit-4.17.1', (
+        ('jodit.min.js', 'https://cdn.jsdelivr.net/npm/jodit@4.17.1/es2021/jodit.min.js', b'Version: v4.17.1'),
+        ('jodit.min.css', 'https://cdn.jsdelivr.net/npm/jodit@4.17.1/es2021/jodit.min.css', b'.jodit-'),
+        ('LICENSE.txt', 'https://cdn.jsdelivr.net/npm/jodit@4.17.1/LICENSE.txt', b'Permission is hereby granted'),
     )),
     ('jquery-3.7.1', 'jquery-4.0.0', (
         ('jquery.min.js', 'https://cdn.jsdelivr.net/npm/jquery@4.0.0/dist/jquery.min.js', b'jQuery v4.0.0'),
@@ -45,10 +45,6 @@ UPDATES = (
         ('css/skeleton.css', 'https://cdn.jsdelivr.net/npm/fullcalendar@7.1.0/skeleton.css', b'fc-'),
         ('js/bootstrap5.js', 'https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5@7.1.0/global.min.js', b'v7.1.0'),
         ('css/bootstrap5.css', 'https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5@7.1.0/theme.css', b'.fc-bootstrap5-'),
-    )),
-    ('summernote', 'summernote-0.9.1', (
-        ('summernote-bs5.min.js', 'https://cdn.jsdelivr.net/npm/summernote@0.9.1/dist/summernote-bs5.min.js', b'v0.9.1'),
-        ('summernote-bs5.min.css', 'https://cdn.jsdelivr.net/npm/summernote@0.9.1/dist/summernote-bs5.min.css', b'.note-editor'),
     )),
     ('jquery-validation', 'jquery-validation-1.22.1', (
         ('jquery.validate.min.js', 'https://cdn.jsdelivr.net/npm/jquery-validation@1.22.1/dist/jquery.validate.min.js', b'v1.22.1'),
@@ -136,9 +132,6 @@ def migrate(path, original):
             updated = re.sub(rb'(<h4[^>]*)(>[^<]*</h4>\s*)<div id="(range_\d+)"></div>',
                              lambda m: m[1] + b' id="' + m[3] + b'-label"' + m[2]
                              + b'<input type="text" id="' + m[3] + b'" aria-labelledby="' + m[3] + b'-label">', updated)
-        if str(path.relative_to(ROOT)) in JQUERY_MIGRATE_PAGES and b'jquery-migrate-4.0.2/jquery-migrate.min.js' not in updated:
-            updated = re.sub(rb'(<script src="([^"]*assets/plugins/)jquery-4\.0\.0/jquery\.min\.js"></script>)',
-                             lambda match: match[1] + b'\n<script src="' + match[2] + b'jquery-migrate-4.0.2/jquery-migrate.min.js"></script>', updated)
         calendar_script = b'<script src="../assets/plugins/fullcalendar-7.1.0/js/fullcalendar.min.js"></script>'
         if calendar_script in updated:
             if b'fullcalendar-7.1.0/css/skeleton.css' not in updated:
@@ -175,7 +168,7 @@ def migrate(path, original):
             (b'- **Summernote**', b'- **Summernote 0.9.1**'),
         ]:
             updated = updated.replace(old, new)
-    return updated
+    return legacy_widget_migrations.migrate(path, updated)
 
 
 def main():
@@ -202,14 +195,7 @@ def main():
 
         for _, target, files in UPDATES:
             for filename, url, marker in files:
-                data = stage(target + '/' + filename, url, marker)
-                if target == 'summernote-0.9.1' and filename.endswith('.css'):
-                    # Font URLs must resolve locally after moving the editor CSS.
-                    for font in set(re.findall(rb'url\([\'\"]?((?:\./)?font/[^)\'\"?#]+)', data)):
-                        relative = font.decode('ascii').removeprefix('./')
-                        if '..' in Path(relative).parts:
-                            raise ValueError('Unexpected Summernote font path')
-                        stage(target + '/' + relative, 'https://cdn.jsdelivr.net/npm/summernote@0.9.1/dist/' + relative, None)
+                stage(target + '/' + filename, url, marker)
 
         icon_css = staged[ROOT / 'assets/plugins/bootstrap-icons-1.13.1/font/bootstrap-icons.min.css']
         staged.update(component_migrations.icon_assets(ROOT, icon_css.decode('utf-8')))
@@ -250,7 +236,7 @@ def main():
                     path.write_bytes(backups[path])
             raise
         print('Updated Bootstrap 5.3.8, Chart.js 4.5.1, jQuery UI 1.14.2, DataTables 3.1.3, '
-              'jQuery 4.0.0, jQuery Migrate 4.0.2, Ion.RangeSlider 2.5.0, FullCalendar 7.1.0, Summernote 0.9.1, jQuery Validation 1.22.1, SheetJS 0.20.3, '
+              'jQuery 4.0.0, Ion.RangeSlider 2.5.0, FullCalendar 7.1.0, Jodit 4.17.1, jQuery Validation 1.22.1, SheetJS 0.20.3, '
               'FilePond 4.32.12, Tabulator 6.6.1 and Bootstrap Icons 1.13.1.')
         print('Checked local JavaScript and CSS references in', len(pages), 'HTML pages.')
 

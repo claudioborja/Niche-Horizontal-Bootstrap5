@@ -32,15 +32,12 @@ class Migrations(unittest.TestCase):
         self.assertLess(text.index('fullcalendar-7.1.0/js/fullcalendar.min.js'), text.index('fullcalendar-7.1.0/js/bootstrap5.js'))
         self.assertLess(text.index('fullcalendar-7.1.0/js/bootstrap5.js'), text.index('functions/calendar-init.js'))
 
-    def test_jquery_bridge_is_scoped_and_ordered(self):
+    def test_jquery_bridge_is_removed_and_not_reinstalled(self):
         for path in ROOT.rglob('*.html'):
             text = updater.migrate(path, path.read_bytes()).decode()
             self.assertNotIn('jquery-3.7.1/', text)
-            expected = str(path.relative_to(ROOT)) in updater.JQUERY_MIGRATE_PAGES
-            self.assertEqual('jquery-migrate-4.0.2/' in text, expected, str(path))
-            if expected:
-                self.assertEqual(text.count('jquery-migrate-4.0.2/'), 1)
-                self.assertLess(text.index('jquery-4.0.0/'), text.index('jquery-migrate-4.0.2/'))
+            self.assertNotIn('jquery-migrate', text, str(path))
+        self.assertFalse(any('jquery-migrate' in target for _, target, _ in updater.UPDATES))
 
     def test_range_sliders_use_labelled_inputs(self):
         text = updater.migrate(ROOT / 'ui/ui-range-slider.html', (ROOT / 'ui/ui-range-slider.html').read_bytes()).decode()
@@ -48,6 +45,46 @@ class Migrations(unittest.TestCase):
         for number in ('01', '02', '03', '04', '16', '18', '22'):
             self.assertIn('type="text" id="range_' + number + '" aria-labelledby="range_' + number + '-label"', text)
             self.assertIn('id="range_' + number + '-label"', text)
+
+    def test_legacy_editor_is_replaced_without_losing_initial_content(self):
+        path = ROOT / 'apps/apps-compose-mail.html'
+        old = b'''<link rel="stylesheet" href="../assets/plugins/summernote-0.9.1/summernote-bs5.min.css">
+<textarea id="compose-textarea" class="form-control"><p>Initial message</p></textarea>
+<script src="../assets/plugins/jquery-migrate-4.0.2/jquery-migrate.min.js"></script>
+<script src="../assets/plugins/summernote-0.9.1/summernote-bs5.min.js"></script>'''
+        text = updater.migrate(path, old)
+        self.assertIn(b'<p>Initial message</p>', text)
+        self.assertIn(b'jodit-4.17.1/jodit.min.js', text)
+        self.assertIn(b'jodit-4.17.1/jodit.min.css', text)
+        self.assertNotIn(b'jquery-migrate', text)
+        self.assertNotIn(b'summernote-0.9.1', text)
+        self.assertEqual(updater.migrate(path, text), text)
+
+    def test_mini_chart_migration_preserves_values_and_dimensions(self):
+        path = ROOT / 'index3.html'
+        old = b'''<head></head><span class="bar" data-peity='{ "fill": ["#f96262", "#f2f2f2"]}' data-width="100%" data-height="60">5,3,2,-1,-3</span>
+<script src="assets/plugins/peity/jquery.peity.min.js"></script>
+<script src="assets/plugins/functions/jquery.peity.init.js"></script>'''
+        text = updater.migrate(path, old)
+        for value in (b'data-mini-chart="bar"', b'data-values="5,3,2,-1,-3"', b'data-width="100%"', b'data-height="60"', b'#f96262'):
+            self.assertIn(value, text)
+        self.assertNotIn(b'plugins/peity/', text)
+        self.assertEqual(text.count(b'chart-js-4.5.1/chart.umd.js'), 1)
+        self.assertLess(text.index(b'chart.umd.js'), text.index(b'js/mini-charts.js'))
+        self.assertEqual(updater.migrate(path, text), text)
+
+    def test_gallery_migration_preserves_combined_categories_and_links(self):
+        path = ROOT / 'pages/pages-gallery.html'
+        old = b'''<body><div id="js-filters-masonry" class="cbp-l-filters-alignRight">
+<div data-filter=".graphic, .identity" class="cbp-filter-item">Combined<div class="cbp-filter-counter"></div></div></div>
+<div id="js-grid-masonry" class="cbp"><div class="cbp-item graphic identity"><a class="cbp-caption cbp-lightbox" href="image.jpg">Image</a></div></div></body>'''
+        text = updater.migrate(path, old)
+        self.assertIn(b'<button type="button" data-filter=".graphic, .identity"', text)
+        self.assertIn(b'class="gallery-item graphic identity"', text)
+        self.assertIn(b'href="image.jpg"', text)
+        self.assertEqual(text.count(b'id="gallery-lightbox"'), 1)
+        self.assertNotIn(b'cbp', text)
+        self.assertEqual(updater.migrate(path, text), text)
 
     def test_previews_and_upload_options(self):
         path = ROOT / 'forms/form-uploads.html'

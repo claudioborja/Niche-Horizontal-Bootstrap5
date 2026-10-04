@@ -20,8 +20,8 @@
 <link rel="stylesheet" href="../assets/css/icon-compat.css">
 <link rel="stylesheet" href="../assets/plugins/hmenu/ace-responsive-menu.css">
 
-<!--cubeportfolio-->
-<link type="text/css" rel="stylesheet" href="../assets/plugins/cubeportfolio/css/cubeportfolio.min.css">
+<!-- Native gallery -->
+<link type="text/css" rel="stylesheet" href="../assets/css/gallery.css">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -204,7 +204,7 @@
             <li><a href="../forms/form-layouts.html">Form Layouts</a></li>
             <li><a href="../forms/form-uploads.html">Form File Upload</a></li>
             
-            <li><a href="../forms/form-summernote.html">Summernote</a></li>
+            <li><a href="../forms/form-summernote.html">Rich Text Editor</a></li>
           </ul>
         </li>
         <li><a href="#"><i class="fa fa-table"></i> <span>Tables</span></a>
@@ -230,7 +230,7 @@
                 
                 <li><a href="../charts/chart-knob.html">Knob Chart</a></li>
                 <li><a href="../charts/chart-chart-js.html">Chartjs</a></li>
-                <li><a href="../charts/chart-peity.html">Peity Chart</a></li>
+                <li><a href="../charts/chart-peity.html">Mini Charts</a></li>
               </ul>
             </li>
             <li><a href="#">Maps</a>
@@ -302,152 +302,142 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="chart-box">
-              <div id="js-filters-masonry" class="cbp-l-filters-alignRight">
-                <div data-filter="*" class="cbp-filter-item-active cbp-filter-item"> All
-                  <div class="cbp-filter-counter"></div>
-                </div>
-                <div data-filter=".identity" class="cbp-filter-item"> Identity
-                  <div class="cbp-filter-counter"></div>
-                </div>
-                <div data-filter=".web-design" class="cbp-filter-item"> Web Design
-                  <div class="cbp-filter-counter"></div>
-                </div>
-                <div data-filter=".graphic" class="cbp-filter-item"> Graphic
-                  <div class="cbp-filter-counter"></div>
-                </div>
-                <div data-filter=".graphic, .identity" class="cbp-filter-item"> Web Design & Identity
-                  <div class="cbp-filter-counter"></div>
-                </div>
+              <div id="gallery-filters" class="gallery-filters">
+                <button type="button" data-filter="*" class="gallery-filter" aria-pressed="true">All <span class="gallery-counter"></span></button>
+                <button type="button" data-filter=".identity" class="gallery-filter" aria-pressed="false">Identity <span class="gallery-counter"></span></button>
+                <button type="button" data-filter=".web-design" class="gallery-filter" aria-pressed="false">Web Design <span class="gallery-counter"></span></button>
+                <button type="button" data-filter=".graphic" class="gallery-filter" aria-pressed="false">Graphic <span class="gallery-counter"></span></button>
+                <button type="button" data-filter=".graphic, .identity" class="gallery-filter" aria-pressed="false">Web Design & Identity <span class="gallery-counter"></span></button>
               </div>
-              <div id="js-grid-masonry" class="cbp">
-                <div class="cbp-item identity"> <a href="../assets/img/media/portfolio-6.jpg" class="cbp-caption cbp-lightbox" data-title="Setting Simply Dummy<br>by UXLiner">
-                  <div class="cbp-caption-defaultWrap"> <img src="../assets/img/media/thumb/thumb6.jpg" alt=""> </div>
-                  <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                      <div class="cbp-l-caption-body">
-                        <div class="cbp-l-caption-title">Setting Simply Dummy</div>
-                        <div class="cbp-l-caption-desc">by UXLiner</div>
+              <div id="gallery-grid" class="gallery-grid">
+                <div class="gallery-item identity"> <a href="../assets/img/media/portfolio-6.jpg" class="gallery-link" data-title="Setting Simply Dummy<br>by UXLiner">
+                  <div class="gallery-thumbnail"> <img src="../assets/img/media/thumb/thumb6.jpg" alt=""> </div>
+                  <div class="gallery-caption">
+                    <div class="gallery-caption-content">
+                      <div class="gallery-caption-body">
+                        <div class="gallery-title">Setting Simply Dummy</div>
+                        <div class="gallery-description">by UXLiner</div>
                       </div>
                     </div>
                   </div>
                   </a> </div>
-                <div class="cbp-item web-design"> <a href="../assets/img/media/portfolio-2.jpg" class="cbp-caption cbp-lightbox" data-title="Setting Simply Dummy<br>by UXLiner">
-                  <div class="cbp-caption-defaultWrap"> <img src="../assets/img/media/thumb/thumb2.jpg" alt=""> </div>
-                  <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                      <div class="cbp-l-caption-body">
-                        <div class="cbp-l-caption-title">Setting Simply Dummy</div>
-                        <div class="cbp-l-caption-desc">by Uxliner</div>
+                <div class="gallery-item web-design"> <a href="../assets/img/media/portfolio-2.jpg" class="gallery-link" data-title="Setting Simply Dummy<br>by UXLiner">
+                  <div class="gallery-thumbnail"> <img src="../assets/img/media/thumb/thumb2.jpg" alt=""> </div>
+                  <div class="gallery-caption">
+                    <div class="gallery-caption-content">
+                      <div class="gallery-caption-body">
+                        <div class="gallery-title">Setting Simply Dummy</div>
+                        <div class="gallery-description">by Uxliner</div>
                       </div>
                     </div>
                   </div>
                   </a> </div>
-                <div class="cbp-item graphic identity"> <a href="../assets/img/media/portfolio-3.jpg" class="cbp-caption cbp-lightbox" data-title="Setting Simply Dummy<br>by UXLiner">
-                  <div class="cbp-caption-defaultWrap"> <img src="../assets/img/media/thumb/thumb3.jpg" alt=""> </div>
-                  <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                      <div class="cbp-l-caption-body">
-                        <div class="cbp-l-caption-title">Setting Simply Dummy</div>
-                        <div class="cbp-l-caption-desc">by UXLiner</div>
+                <div class="gallery-item graphic identity"> <a href="../assets/img/media/portfolio-3.jpg" class="gallery-link" data-title="Setting Simply Dummy<br>by UXLiner">
+                  <div class="gallery-thumbnail"> <img src="../assets/img/media/thumb/thumb3.jpg" alt=""> </div>
+                  <div class="gallery-caption">
+                    <div class="gallery-caption-content">
+                      <div class="gallery-caption-body">
+                        <div class="gallery-title">Setting Simply Dummy</div>
+                        <div class="gallery-description">by UXLiner</div>
                       </div>
                     </div>
                   </div>
                   </a> </div>
-                <div class="cbp-item graphic"> <a href="../assets/img/media/portfolio-4.jpg" class="cbp-caption cbp-lightbox" data-title="Setting Simply Dummy<br>by UXLiner">
-                  <div class="cbp-caption-defaultWrap"> <img src="../assets/img/media/thumb/thumb4.jpg" alt=""> </div>
-                  <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                      <div class="cbp-l-caption-body">
-                        <div class="cbp-l-caption-title">Setting Simply Dummy</div>
-                        <div class="cbp-l-caption-desc">by UXLiner</div>
+                <div class="gallery-item graphic"> <a href="../assets/img/media/portfolio-4.jpg" class="gallery-link" data-title="Setting Simply Dummy<br>by UXLiner">
+                  <div class="gallery-thumbnail"> <img src="../assets/img/media/thumb/thumb4.jpg" alt=""> </div>
+                  <div class="gallery-caption">
+                    <div class="gallery-caption-content">
+                      <div class="gallery-caption-body">
+                        <div class="gallery-title">Setting Simply Dummy</div>
+                        <div class="gallery-description">by UXLiner</div>
                       </div>
                     </div>
                   </div>
                   </a> </div>
-                <div class="cbp-item identity"> <a href="../assets/img/media/portfolio-5.jpg" class="cbp-caption cbp-lightbox" data-title="Setting Simply Dummy<br>by UXLiner">
-                  <div class="cbp-caption-defaultWrap"> <img src="../assets/img/media/thumb/thumb5.jpg" alt=""> </div>
-                  <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                      <div class="cbp-l-caption-body">
-                        <div class="cbp-l-caption-title">Setting Simply Dummy</div>
-                        <div class="cbp-l-caption-desc">by UXLiner</div>
+                <div class="gallery-item identity"> <a href="../assets/img/media/portfolio-5.jpg" class="gallery-link" data-title="Setting Simply Dummy<br>by UXLiner">
+                  <div class="gallery-thumbnail"> <img src="../assets/img/media/thumb/thumb5.jpg" alt=""> </div>
+                  <div class="gallery-caption">
+                    <div class="gallery-caption-content">
+                      <div class="gallery-caption-body">
+                        <div class="gallery-title">Setting Simply Dummy</div>
+                        <div class="gallery-description">by UXLiner</div>
                       </div>
                     </div>
                   </div>
                   </a> </div>
-                <div class="cbp-item graphic"> <a href="../assets/img/media/portfolio-1.jpg" class="cbp-caption cbp-lightbox" data-title="Setting Simply Dummy<br>by UXLiner">
-                  <div class="cbp-caption-defaultWrap"> <img src="../assets/img/media/thumb/thumb1.jpg" alt=""> </div>
-                  <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                      <div class="cbp-l-caption-body">
-                        <div class="cbp-l-caption-title">Setting Simply Dummy</div>
-                        <div class="cbp-l-caption-desc">by UXLiner</div>
+                <div class="gallery-item graphic"> <a href="../assets/img/media/portfolio-1.jpg" class="gallery-link" data-title="Setting Simply Dummy<br>by UXLiner">
+                  <div class="gallery-thumbnail"> <img src="../assets/img/media/thumb/thumb1.jpg" alt=""> </div>
+                  <div class="gallery-caption">
+                    <div class="gallery-caption-content">
+                      <div class="gallery-caption-body">
+                        <div class="gallery-title">Setting Simply Dummy</div>
+                        <div class="gallery-description">by UXLiner</div>
                       </div>
                     </div>
                   </div>
                   </a> </div>
-                <div class="cbp-item web-design"> <a href="../assets/img/media/portfolio-7.jpg" class="cbp-caption cbp-lightbox" data-title="Setting Simply Dummy<br>by UXLiner">
-                  <div class="cbp-caption-defaultWrap"> <img src="../assets/img/media/thumb/thumb7.jpg" alt=""> </div>
-                  <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                      <div class="cbp-l-caption-body">
-                        <div class="cbp-l-caption-title">Setting Simply Dummy</div>
-                        <div class="cbp-l-caption-desc">by UXLiner</div>
+                <div class="gallery-item web-design"> <a href="../assets/img/media/portfolio-7.jpg" class="gallery-link" data-title="Setting Simply Dummy<br>by UXLiner">
+                  <div class="gallery-thumbnail"> <img src="../assets/img/media/thumb/thumb7.jpg" alt=""> </div>
+                  <div class="gallery-caption">
+                    <div class="gallery-caption-content">
+                      <div class="gallery-caption-body">
+                        <div class="gallery-title">Setting Simply Dummy</div>
+                        <div class="gallery-description">by UXLiner</div>
                       </div>
                     </div>
                   </div>
                   </a> </div>
-                <div class="cbp-item identity"> <a href="../assets/img/media/portfolio-8.jpg" class="cbp-caption cbp-lightbox" data-title="Setting Simply Dummy<br>by UXLiner">
-                  <div class="cbp-caption-defaultWrap"> <img src="../assets/img/media/thumb/thumb8.jpg" alt=""> </div>
-                  <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                      <div class="cbp-l-caption-body">
-                        <div class="cbp-l-caption-title">Setting Simply Dummy</div>
-                        <div class="cbp-l-caption-desc">by UXLiner</div>
+                <div class="gallery-item identity"> <a href="../assets/img/media/portfolio-8.jpg" class="gallery-link" data-title="Setting Simply Dummy<br>by UXLiner">
+                  <div class="gallery-thumbnail"> <img src="../assets/img/media/thumb/thumb8.jpg" alt=""> </div>
+                  <div class="gallery-caption">
+                    <div class="gallery-caption-content">
+                      <div class="gallery-caption-body">
+                        <div class="gallery-title">Setting Simply Dummy</div>
+                        <div class="gallery-description">by UXLiner</div>
                       </div>
                     </div>
                   </div>
                   </a> </div>
-                <div class="cbp-item identity"> <a href="../assets/img/media/portfolio-9.jpg" class="cbp-caption cbp-lightbox" data-title="Setting Simply Dummy<br>by UXLiner">
-                  <div class="cbp-caption-defaultWrap"> <img src="../assets/img/media/thumb/thumb9.jpg" alt=""> </div>
-                  <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                      <div class="cbp-l-caption-body">
-                        <div class="cbp-l-caption-title">Setting Simply Dummy</div>
-                        <div class="cbp-l-caption-desc">by UXLiner</div>
+                <div class="gallery-item identity"> <a href="../assets/img/media/portfolio-9.jpg" class="gallery-link" data-title="Setting Simply Dummy<br>by UXLiner">
+                  <div class="gallery-thumbnail"> <img src="../assets/img/media/thumb/thumb9.jpg" alt=""> </div>
+                  <div class="gallery-caption">
+                    <div class="gallery-caption-content">
+                      <div class="gallery-caption-body">
+                        <div class="gallery-title">Setting Simply Dummy</div>
+                        <div class="gallery-description">by UXLiner</div>
                       </div>
                     </div>
                   </div>
                   </a> </div>
-                <div class="cbp-item web-design graphic"> <a href="../assets/img/media/portfolio-10.jpg" class="cbp-caption cbp-lightbox" data-title="Setting Simply Dummy<br>by UXLiner">
-                  <div class="cbp-caption-defaultWrap"> <img src="../assets/img/media/thumb/thumb10.jpg" alt=""> </div>
-                  <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                      <div class="cbp-l-caption-body">
-                        <div class="cbp-l-caption-title">Setting Simply Dummy</div>
-                        <div class="cbp-l-caption-desc">by UXLiner</div>
+                <div class="gallery-item web-design graphic"> <a href="../assets/img/media/portfolio-10.jpg" class="gallery-link" data-title="Setting Simply Dummy<br>by UXLiner">
+                  <div class="gallery-thumbnail"> <img src="../assets/img/media/thumb/thumb10.jpg" alt=""> </div>
+                  <div class="gallery-caption">
+                    <div class="gallery-caption-content">
+                      <div class="gallery-caption-body">
+                        <div class="gallery-title">Setting Simply Dummy</div>
+                        <div class="gallery-description">by UXLiner</div>
                       </div>
                     </div>
                   </div>
                   </a> </div>
-                <div class="cbp-item web-design graphic"> <a href="../assets/img/media/portfolio-11.jpg" class="cbp-caption cbp-lightbox" data-title="Setting Simply Dummy<br>by UXLiner">
-                  <div class="cbp-caption-defaultWrap"> <img src="../assets/img/media/thumb/thumb11.jpg" alt=""> </div>
-                  <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                      <div class="cbp-l-caption-body">
-                        <div class="cbp-l-caption-title">Setting Simply Dummy</div>
-                        <div class="cbp-l-caption-desc">by UXLiner</div>
+                <div class="gallery-item web-design graphic"> <a href="../assets/img/media/portfolio-11.jpg" class="gallery-link" data-title="Setting Simply Dummy<br>by UXLiner">
+                  <div class="gallery-thumbnail"> <img src="../assets/img/media/thumb/thumb11.jpg" alt=""> </div>
+                  <div class="gallery-caption">
+                    <div class="gallery-caption-content">
+                      <div class="gallery-caption-body">
+                        <div class="gallery-title">Setting Simply Dummy</div>
+                        <div class="gallery-description">by UXLiner</div>
                       </div>
                     </div>
                   </div>
                   </a> </div>
-                <div class="cbp-item web-design graphic"> <a href="../assets/img/media/portfolio-12.jpg" class="cbp-caption cbp-lightbox" data-title="Setting Simply Dummy<br>by UXLiner">
-                  <div class="cbp-caption-defaultWrap"> <img src="../assets/img/media/thumb/thumb12.jpg" alt=""> </div>
-                  <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                      <div class="cbp-l-caption-body">
-                        <div class="cbp-l-caption-title">Setting Simply Dummy</div>
-                        <div class="cbp-l-caption-desc">by UXLiner</div>
+                <div class="gallery-item web-design graphic"> <a href="../assets/img/media/portfolio-12.jpg" class="gallery-link" data-title="Setting Simply Dummy<br>by UXLiner">
+                  <div class="gallery-thumbnail"> <img src="../assets/img/media/thumb/thumb12.jpg" alt=""> </div>
+                  <div class="gallery-caption">
+                    <div class="gallery-caption-content">
+                      <div class="gallery-caption-body">
+                        <div class="gallery-title">Setting Simply Dummy</div>
+                        <div class="gallery-description">by UXLiner</div>
                       </div>
                     </div>
                   </div>
@@ -508,8 +498,6 @@
 
 <!-- jQuery 4 -->
 <script src="../assets/plugins/jquery-4.0.0/jquery.min.js"></script>
-<script src="../assets/plugins/jquery-migrate-4.0.2/jquery-migrate.min.js"></script>
-
 <!-- Bootstrap 5.3.8 -->
 <!-- Bootstrap 5.3.8 with Popper.js -->
 <script src="../assets/plugins/popper-2.11.8/popper.min.js"></script>
@@ -522,11 +510,20 @@
 <script src="../assets/js/niche/navigation.js"></script>
 <script src="../assets/js/niche/widgets.js"></script>
 
-<!--cubeportfolio--> 
-<!-- load cubeportfolio --> 
-<script src="../assets/plugins/cubeportfolio/jquery.cubeportfolio.min.js"></script> 
-<!-- init cubeportfolio --> 
-<script src="../assets/plugins/cubeportfolio/main.js"></script>
+<!-- Native gallery -->
+<script src="../assets/js/gallery.js"></script>
 <script src="../assets/plugins/hmenu/ace-responsive-menu.js" type="text/javascript"></script> 
+<dialog id="gallery-lightbox" class="gallery-lightbox" aria-label="Gallery image" aria-describedby="gallery-caption">
+  <div class="gallery-lightbox-header">
+    <span id="gallery-position" role="status" aria-live="polite"></span>
+    <button type="button" class="btn btn-light border" data-gallery-close autofocus aria-label="Close image">Close</button>
+  </div>
+  <img alt="">
+  <div class="gallery-lightbox-footer">
+    <button type="button" class="btn btn-light border" data-gallery-prev aria-label="Previous image">Previous</button>
+    <p id="gallery-caption"></p>
+    <button type="button" class="btn btn-light border" data-gallery-next aria-label="Next image">Next</button>
+  </div>
+</dialog>
 </body>
 </html>

@@ -42,7 +42,7 @@ envíos. Conecta los formularios a un backend para implementar la autenticación
 | Dashboards | 4 | [Dashboard principal](index.html) |
 | Aplicaciones | 8 | [Calendario](apps/apps-calendar.html) |
 | Gráficos | 5 | [Chart.js](charts/chart-chart-js.html) |
-| Formularios | 6 | [Editor Summernote](forms/form-summernote.html) |
+| Formularios | 6 | [Editor de texto](forms/form-summernote.html) |
 | Iconos | 6 | [Bootstrap Icons](icons/icon-fontawesome.html) |
 | Mapas | 2 | [Mapa vectorial](maps/map-vector.html) |
 | Páginas generales y autenticación | 14 | [Login](pages/pages-login.html) |
@@ -63,12 +63,11 @@ Versiones incluidas y referenciadas por las páginas después de la actualizaci�
 | Bootstrap | 5.3.8 | Layout, estilos y componentes de interfaz |
 | Popper | 2.11.8 | Posicionamiento de dropdowns, tooltips y popovers |
 | jQuery | 4.0.0 | Plugins existentes y comportamiento de la plantilla |
-| jQuery Migrate | 4.0.2 | Compatibilidad temporal de Summernote, Peity y CubePortfolio |
 | jQuery UI | 1.14.2 | Componentes utilizados por las páginas de ejemplo |
 | Chart.js | 4.5.1 | Gráficos en dashboards y página de demostración |
 | DataTables | 3.1.3 | Tablas con integración Bootstrap 5 |
 | FullCalendar | 7.1.0 | Calendarios y arrastre de eventos |
-| Summernote | 0.9.1 | Editor de texto con integración Bootstrap 5 |
+| Jodit | 4.17.1 | Editor de texto independiente de jQuery, con tablas, imágenes y HTML |
 | jQuery Validation | 1.22.1 | Validación del formulario por pasos |
 | SheetJS | 0.20.3 | Exportación de tablas a XLSX, XLS, CSV y TXT |
 | FilePond | 4.32.12 | Selección de archivos y adjuntos con vistas previas |
@@ -91,10 +90,23 @@ pasan a mostrar Bootstrap Icons con búsqueda. Los logotipos que no incluye la
 nueva fuente se conservan como SVG de Font Awesome (SIL OFL 1.1). Las banderas
 y los iconos meteorológicos conservan sus bibliotecas especializadas.
 
-jQuery se actualizó a 4.0.0. Summernote, Peity y CubePortfolio todavía utilizan
-APIs retiradas: sus cinco páginas cargan jQuery Migrate 4.0.2 inmediatamente
-después de jQuery. El resto utiliza jQuery 4 directamente. Este puente se podrá
-retirar cuando esos plugins sean compatibles sin él.
+jQuery 4.0.0 funciona sin jQuery Migrate. Jodit 4.17.1 sustituye Summernote;
+Chart.js sustituye Peity en los minigráficos; una galería con CSS Grid y un
+`<dialog>` nativo sustituye CubePortfolio. Se retiraron los cuatro plugins
+antiguos y sus inicializadores. Las rutas `form-summernote.html` y
+`chart-peity.html` se conservan para mantener los enlaces existentes.
+
+Jodit permite formato de texto, listas, enlaces, tablas, imágenes, vídeo,
+vista HTML, deshacer/rehacer y pantalla completa. Su editor de código usa un
+textarea local, sin descargar herramientas adicionales. Las imágenes se insertan
+como datos Base64; para guardar documentos o enviar correo necesitas tu backend.
+Edit/Save conserva el contenido de demostración hasta recargar la página.
+
+La galería conserva sus 12 imágenes, categorías y contadores. La vista ampliada
+recorre las imágenes del filtro seleccionado, con botones Previous/Next y flechas
+del teclado; se cierra con Close, Escape o pulsando fuera del diálogo.
+Los 18 minigráficos y los tres del tercer dashboard conservan sus valores, colores
+y proporciones; Chart.js los redimensiona al cambiar el tamaño disponible.
 
 FullCalendar 7.1.0 carga el bundle global, el plugin de Bootstrap 5 y sus dos
 hojas de estilo locales. El inicializador utiliza `FullCalendar.Interaction.Draggable`
@@ -162,7 +174,7 @@ inicializaciones y comprueba las referencias locales de JavaScript y CSS de las
 una escritura, intenta restaurar los archivos que ya había modificado.
 
 Para los paquetes npm utiliza jsDelivr, con UNPKG como alternativa. SheetJS se
-descarga desde su CDN. Summernote y Bootstrap Icons incluyen las fuentes necesarias para sus iconos.
+descarga desde su CDN. Bootstrap Icons incluye las fuentes necesarias para sus iconos; Jodit utiliza iconos SVG integrados.
 El actualizador no elimina carpetas automáticamente; jQuery UI se actualiza
 en su ubicación existente. Después de nuevas migraciones, comprueba las
 referencias antes de retirar recursos adicionales.
@@ -199,7 +211,7 @@ Si falla la ejecución:
 
 La prueba automatizada abre las 67 páginas en Chromium, comprueba errores de
 JavaScript y recursos locales, y prueba los calendarios, sliders, archivos,
-tablas, editor e iconos. Incluye vistas móviles de los componentes actualizados.
+tablas, editor, galería, minigráficos e iconos. Incluye vistas móviles de los componentes actualizados.
 Playwright es una herramienta opcional de pruebas; la plantilla continúa
 funcionando sin Node.js ni un proceso de compilación.
 
@@ -241,7 +253,9 @@ revisa la consola y la pestaña de red del navegador.
 | DataTables | Búsqueda, ordenación, paginación y selección del tamaño de página donde estén habilitadas |
 | Exportación | Descarga y apertura de XLSX, XLS, CSV y TXT; incluye filas filtradas de otras páginas |
 | Calendario | Crear eventos externos, arrastrarlos al calendario y usar «remove after drop» |
-| Summernote | Escribir, dar formato, insertar una imagen y cambiar a vista de código |
+| Jodit | Escribir, dar formato, insertar imágenes y tablas, cambiar a vista HTML y usar Edit/Save |
+| Galería | Filtrar categorías, abrir imágenes, navegar con botones/flechas y cerrar con Escape |
+| Minigráficos | Dibujar pies, anillos, barras y líneas, incluidas series negativas |
 | Formulario por pasos | Campos obligatorios, mensajes de error y avance entre pasos |
 | Bootstrap 5 | Cerrar alertas; cambiar pestañas; abrir dropdowns y el acordeón del FAQ; usar indicadores de carrusel y tooltips/popovers |
 | Controles nativos | Cambiar interruptores; comprobar los estados deshabilitados, de solo lectura y la limpieza del grupo de radios |
@@ -265,6 +279,9 @@ Los cambios en calendarios y formularios necesitan un backend para persistirse.
 - Usa [assets/js/mailbox.js](assets/js/mailbox.js) para la selección de mensajes y estrellas.
 - Ajusta [assets/css/switches.css](assets/css/switches.css) y [assets/js/switches.js](assets/js/switches.js) para los controles nativos.
 - Ajusta [assets/js/file-uploads.js](assets/js/file-uploads.js) para FilePond y [assets/js/editable-tables.js](assets/js/editable-tables.js) para Tabulator.
+- Ajusta [assets/js/gallery.js](assets/js/gallery.js) y [assets/css/gallery.css](assets/css/gallery.css) para la galería.
+- Ajusta [assets/js/mini-charts.js](assets/js/mini-charts.js) para los gráficos compactos.
+- Modifica [tools/legacy_widget_migrations.py](tools/legacy_widget_migrations.py) para la migración del editor, los minigráficos y la galería.
 - Modifica [tools/component_migrations.py](tools/component_migrations.py) para las migraciones de páginas y la compatibilidad de iconos.
 - Edita [assets/js/table-export.js](assets/js/table-export.js) para cambiar los botones y formatos de exportación.
 
@@ -292,7 +309,7 @@ Los scripts específicos se cargan después de sus bibliotecas:
 | `assets/js/dashboard-charts.js` | Tres gráficos del dashboard principal |
 | `assets/js/knob-examples.js` | Ejemplos de indicadores circulares |
 | `assets/js/data-tables.js` | Inicialización compartida de las tablas de ejemplo |
-| `assets/js/text-editor.js` | Summernote, redacción de correo y acciones de edición/guardado |
+| `assets/js/text-editor.js` | Jodit, redacción de correo y acciones de edición/guardado |
 | `assets/js/form-wizard.js` | Validación y navegación del formulario por pasos |
 
 Para añadir acciones a botones, utiliza atributos `data-*` y listeners en su
@@ -301,6 +318,14 @@ Las pruebas comprueban esa estructura, el orden de carga y las interacciones del
 menú móvil, widgets, gráficos y formulario por pasos.
 
 ## Historial de cambios
+
+### Retirada de plugins antiguos — octubre de 2026
+
+- Jodit 4.17.1 sustituye Summernote en el editor y la redacción de correo.
+- Chart.js sustituye Peity en 18 ejemplos y tres minigráficos del dashboard.
+- Galería nativa con CSS Grid, filtros, contadores y diálogo de imágenes.
+- Retirada de CubePortfolio, Peity, Summernote y jQuery Migrate.
+- Actualizador y pruebas adaptados para mantener la migración al repetirlo.
 
 ### Pruebas automáticas — octubre de 2026
 
@@ -313,7 +338,7 @@ menú móvil, widgets, gráficos y formulario por pasos.
 
 - División del núcleo minificado en registro de plugins, layout, navegación y widgets legibles.
 - Centralización de 61 inicializaciones repetidas del menú horizontal.
-- Extracción de scripts inline de gráficos, tablas, Summernote y formularios por pasos.
+- Extracción de scripts inline de gráficos, tablas, editores y formularios por pasos.
 - Acciones de edición/guardado mediante listeners y atributos `data-editor-action`.
 - Inicialización de dropdowns compartida y protección contra registros duplicados.
 - Pruebas de estructura y de comportamiento para los componentes reorganizados.

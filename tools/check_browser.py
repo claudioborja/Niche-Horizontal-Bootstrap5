@@ -38,6 +38,7 @@ async def check(browser, base_url):
             await page.goto(base_url + '/' + path.as_posix(), wait_until='load')
             await page.wait_for_timeout(600)
             assert await page.evaluate('jQuery.fn.jquery') == '4.0.0', str(path)
+            assert await page.evaluate("typeof jQuery.migrateVersion === 'undefined'"), str(path)
             await page.close()
 
     pages = sorted(path.relative_to(ROOT) for path in ROOT.rglob('*.html'))
@@ -203,13 +204,74 @@ FullCalendar.Calendar = class extends FullCalendar.Calendar {
     print('PASS: Tabulator edits, isolates demo data, filters, confirms deletion and applies the external sort selector.', flush=True)
 
     await visit('forms/form-summernote.html')
-    await page.locator('.note-editable').first.fill('Editor integration test')
-    assert 'Editor integration test' in await page.evaluate("jQuery('#summernote').summernote('code')")
+    await page.locator('.jodit-wysiwyg').first.fill('Editor integration test')
+    await page.locator('.jodit-wysiwyg').first.press('Control+a')
+    await page.locator('.jodit-toolbar-button_bold button').click()
+    await page.wait_for_function("/<(strong|b)>Editor integration test/.test(Jodit.instances['rich-text-editor'].value)")
+    await page.locator('.jodit-toolbar-button_source button').click()
+    await page.locator('.jodit-source__mirror').fill('<p><em>HTML editing</em></p><table><tbody><tr><td>Table cell</td></tr></tbody></table>')
+    await page.locator('.jodit-toolbar-button_source button').click()
+    assert await page.locator('.jodit-wysiwyg table td').inner_text() == 'Table cell'
+    assert await page.locator('.jodit-wysiwyg em').inner_text() == 'HTML editing'
+    await page.locator('.jodit-toolbar-button_image button').click()
+    await page.locator('.jodit-popup input[type=file]').set_input_files(ROOT / 'assets/img/img1.jpg')
+    await page.wait_for_function("Jodit.instances['rich-text-editor'].value.includes('data:image/jpeg;base64,')")
+    await page.locator('.jodit-toolbar-button_fullsize button').click()
+    await page.wait_for_function("document.querySelector('.jodit-container').classList.contains('jodit_fullsize')")
+    await page.locator('.jodit-toolbar-button_fullsize button').click()
     await page.click('#edit')
-    assert await page.locator('.note-editable').count() == 2
+    assert await page.locator('.jodit-wysiwyg').count() == 2
+    await page.click('#edit')  # Repeated Edit must not add another toolbar/instance.
+    assert await page.locator('.jodit-wysiwyg').count() == 2
+    await page.locator('.jodit-wysiwyg').last.fill('Saved edited content')
     await page.click('#save')
-    assert await page.locator('.note-editable').count() == 1
-    print('PASS: Summernote initializes after Bootstrap, accepts text and switches the editable demo between edit/save.', flush=True)
+    assert await page.locator('.jodit-wysiwyg').count() == 1
+    assert await page.locator('.click2edit').inner_text() == 'Saved edited content'
+    await page.click('#edit')
+    assert await page.locator('.jodit-wysiwyg').last.inner_text() == 'Saved edited content'
+    await page.click('#save')
+    await visit('apps/apps-compose-mail.html')
+    await page.locator('.jodit-wysiwyg').fill('Message body test')
+    await page.wait_for_function("document.getElementById('compose-textarea').value.includes('Message body test')")
+    print('PASS: Jodit formats text, edits HTML/tables, embeds local images, toggles fullscreen and preserves edit/save and message content.', flush=True)
+
+    await visit('charts/chart-peity.html')
+    assert await page.locator('[data-mini-chart] canvas').count() == 18
+    assert await page.evaluate("[...document.querySelectorAll('[data-mini-chart] canvas')].every(el => Chart.getChart(el))")
+    assert await page.evaluate("Chart.getChart(document.querySelector('[data-mini-chart=pie] canvas')).data.datasets[0].data.join(',')") == '1,4'
+    assert await page.evaluate("[...document.querySelectorAll('[data-mini-chart=bar] canvas')].some(el => Chart.getChart(el).data.datasets[0].data.includes(-7))")
+    await visit('index3.html')
+    assert await page.locator('[data-mini-chart] canvas').count() == 3
+    assert await page.evaluate("Chart.getChart(document.querySelector('[data-mini-chart] canvas')).data.datasets[0].backgroundColor[0]") == '#f96262'
+    print('PASS: 18 mini charts and three dashboard charts preserve ratios, negative series and custom colors.', flush=True)
+
+    await visit('pages/pages-gallery.html')
+    assert await page.locator('.gallery-item:visible').count() == 12
+    for selector in ('.identity', '.web-design', '.graphic', '.graphic, .identity', '*'):
+        button = page.locator('.gallery-filter[data-filter="' + selector + '"]')
+        expected = await page.evaluate("selector => [...document.querySelectorAll('.gallery-item')].filter(el => selector === '*' || el.matches(selector)).length", selector)
+        await button.click()
+        assert await page.locator('.gallery-item:visible').count() == expected
+        assert await button.get_attribute('aria-pressed') == 'true'
+        assert '(' + str(expected) + ')' in await button.inner_text()
+    await page.locator('.gallery-filter[data-filter=".identity"]').click()
+    await page.locator('.gallery-item:visible .gallery-link').first.click()
+    await page.wait_for_function("document.getElementById('gallery-lightbox').open")
+    first_image = await page.locator('#gallery-lightbox img').get_attribute('src')
+    assert await page.locator('#gallery-position').inner_text() == '1 of 5'
+    await page.locator('[data-gallery-next]').click()
+    assert await page.locator('#gallery-lightbox img').get_attribute('src') != first_image
+    await page.keyboard.press('ArrowLeft')
+    assert await page.locator('#gallery-lightbox img').get_attribute('src') == first_image
+    await page.locator('[data-gallery-prev]').click()
+    assert await page.locator('#gallery-position').inner_text() == '5 of 5'
+    await page.keyboard.press('Escape')
+    assert not await page.locator('#gallery-lightbox').is_visible()
+    assert await page.locator('.gallery-item:visible .gallery-link').first.evaluate('el => el === document.activeElement')
+    await page.locator('.gallery-item:visible .gallery-link').first.click()
+    await page.locator('[data-gallery-close]').click()
+    assert not await page.locator('#gallery-lightbox').is_visible()
+    print('PASS: native gallery filters/counts categories, navigates the filtered lightbox and restores focus on close.', flush=True)
 
     await visit('icons/icon-fontawesome.html')
     initial_count = await page.locator('#icon-catalog > div').count()
@@ -224,9 +286,14 @@ FullCalendar.Calendar = class extends FullCalendar.Calendar {
     for path, selector in [('apps/apps-calendar.html', '#calendar [role=grid]'),
                            ('forms/form-uploads.html', '.filepond--root'),
                            ('tables/table-jsgrid.html', '.tabulator'),
-                           ('ui/ui-range-slider.html', '.irs')]:
+                           ('ui/ui-range-slider.html', '.irs'),
+                           ('forms/form-summernote.html', '.jodit-wysiwyg'),
+                           ('pages/pages-gallery.html', '.gallery-item'),
+                           ('charts/chart-peity.html', '[data-mini-chart] canvas')]:
         await visit(path)
         assert await page.locator(selector).first.is_visible(), path
+        if path == 'pages/pages-gallery.html':
+            assert await page.locator('#gallery-grid').evaluate("el => getComputedStyle(el).gridTemplateColumns.split(' ').length") == 1
     assert not failures, '\n'.join(failures)
     print('PASS: upgraded widgets also render at a mobile viewport.', flush=True)
     await context.close()
