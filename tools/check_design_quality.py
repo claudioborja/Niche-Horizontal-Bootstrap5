@@ -1,0 +1,61 @@
+"""Exercise responsive layout and hit areas in the real template pages."""
+
+
+async def check_design(page, visit):
+    for width in (320, 390, 768, 1440):
+        await page.set_viewport_size({'width': width, 'height': 900})
+        await visit('index.html')
+        await page.evaluate('document.fonts.ready')
+        assert await page.evaluate("""() => {
+            const input = document.querySelector('.search-form input').getBoundingClientRect();
+            const account = document.querySelector('.user-menu > a').getBoundingClientRect();
+            return input.width >= 90 && input.left >= 0 && account.right <= innerWidth + 1;
+        }"""), f'Header does not fit at {width}px'
+        if width < 768:
+            await page.locator('.user-menu > a').click()
+            assert await page.locator('.user-menu > .dropdown-menu').evaluate("""el => {
+                const r = el.getBoundingClientRect();
+                return r.left >= 0 && r.right <= innerWidth + 1;
+            }"""), f'Account dropdown does not fit at {width}px'
+        await visit('ui/ui-horizontal-timeline.html')
+        assert await page.locator('.events-content').evaluate("""el => {
+            const r = el.getBoundingClientRect();
+            return r.left >= 0 && r.right <= innerWidth && r.width <= 800;
+        }"""), f'Timeline does not fit at {width}px'
+
+    # Resize an already loaded desktop page, rather than only loading at mobile sizes.
+    await visit('index.html')
+    await page.set_viewport_size({'width': 320, 'height': 844})
+    assert await page.evaluate("""() => [...document.querySelectorAll(
+        '.main-header .logo, .main-header .navbar, .search-form input, .user-menu > a'
+    )].every(el => { const r = el.getBoundingClientRect(); return r.left >= 0 && r.right <= innerWidth + 1; })"""), 'Header clips during a desktop-to-mobile resize'
+
+    await page.set_viewport_size({'width': 390, 'height': 844})
+    await visit('apps/apps-mailbox.html')
+    star = page.locator('.mailbox-star > a').first
+    label = page.locator('.mailbox-select').first
+    for target in (star, label):
+        assert await target.evaluate('el => { const r = el.getBoundingClientRect(); return r.width >= 44 && r.height >= 44; }')
+    initial = await star.get_attribute('aria-label')
+    await star.click()
+    assert await star.get_attribute('aria-label') != initial
+    # Click the label edge, outside the 18px checkbox, to exercise the hit area.
+    await label.click(position={'x': 3, 'y': 3})
+    assert await label.locator('input').is_checked()
+    await label.click(position={'x': 3, 'y': 3})
+    assert not await label.locator('input').is_checked()
+
+    await visit('apps/apps-calendar.html')
+    assert await page.evaluate("testCalendars.every(c => c.view.type === 'timeGridDay')")
+    await page.locator('#calendar button[role=tab]').filter(has_text='Month').click()
+    assert await page.evaluate("testCalendars[0].view.type === 'dayGridMonth'")
+    await page.set_viewport_size({'width': 1440, 'height': 1000})
+    await page.wait_for_function("testCalendars.every(c => c.view.type === 'dayGridMonth')")
+    await page.locator('#calendar button[role=tab]').filter(has_text='Week').click()
+    await page.set_viewport_size({'width': 390, 'height': 844})
+    await page.wait_for_function("testCalendars.every(c => c.view.type === 'timeGridDay')")
+    await page.set_viewport_size({'width': 320, 'height': 844})
+    assert await page.evaluate("testCalendars.every(c => c.view.type === 'timeGridDay')")
+    await page.set_viewport_size({'width': 1440, 'height': 1000})
+    await page.wait_for_function("testCalendars[0].view.type === 'timeGridWeek' && testCalendars[1].view.type === 'dayGridMonth'")
+    print('PASS: header/timeline fit 320–1440px, mailbox hit areas activate their controls, and calendars preserve desktop view choices.', flush=True)

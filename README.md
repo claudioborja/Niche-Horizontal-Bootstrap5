@@ -213,8 +213,8 @@ Si falla la ejecución:
 
 La prueba automatizada abre las 67 páginas en Chromium, comprueba errores de
 JavaScript y recursos locales, y prueba los calendarios, sliders, archivos,
-tablas, editor, galería, minigráficos e iconos. Incluye vistas móviles de los componentes actualizados y ocho reglas de
-accesibilidad con axe-core 4.13.0 (herramienta de pruebas local, licencia MPL-2.0).
+tablas, editor, galería, minigráficos e iconos. Incluye vistas móviles de los componentes actualizados y nueve reglas de
+accesibilidad con axe-core 4.13.0 (herramienta de pruebas local, licencia MPL-2.0), incluido contraste de texto.
 Playwright es una herramienta opcional de pruebas; la plantilla continúa
 funcionando sin Node.js ni un proceso de compilación.
 
@@ -307,10 +307,26 @@ Latin Extended y Devanagari. El navegador descarga los que necesita, con
 [assets/plugins/poppins-5.3.0/LICENSE](assets/plugins/poppins-5.3.0/LICENSE).
 El actualizador instala los archivos WOFF2 y genera la hoja local `poppins.css`.
 
-Las pruebas verifican alternativas de imágenes, nombres de botones y enlaces,
+Las pruebas verifican contraste de texto, alternativas de imágenes, nombres de botones y enlaces,
 etiquetas de campos, zoom y atributos ARIA, además del menú con teclado y las vistas
 móviles. Estas comprobaciones cubren esos aspectos concretos; no constituyen una
 auditoría completa de conformidad WCAG.
+
+### Lectura y controles en móvil
+
+`assets/css/accessibility.css` define tonos legibles para navegación, tarjetas,
+alertas y componentes de ejemplo. Conserva Poppins y la familia de colores de la
+plantilla. Las estrellas y etiquetas de selección del correo, los controles de
+paneles y los selectores de color tienen áreas pulsables de al menos 44 × 44 px.
+
+El buscador y el menú de cuenta comparten la cabecera móvil sin desbordarse.
+La línea de tiempo se adapta al contenedor hasta un máximo de 800 px.
+Los dos calendarios abren la vista diaria por debajo de 768 px; permiten cambiar
+de vista manualmente y recuerdan la vista de escritorio al cruzar ese umbral.
+
+Las pruebas de navegador comprueban contraste de texto en las 67 páginas,
+la cabecera y la línea de tiempo a 320, 390, 768 y 1440 px, la selección desde
+el borde de las etiquetas del correo y los cambios de vista de los calendarios.
 
 ## Personalización
 

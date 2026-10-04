@@ -13,6 +13,7 @@ import threading
 
 from playwright.async_api import async_playwright
 from check_native_components import check_native
+from check_design_quality import check_design
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -44,7 +45,7 @@ async def check(browser, base_url):
             assert await page.evaluate("document.fonts.check('400 16px Poppins')"), str(path)
             await page.add_script_tag(path=str(ROOT / 'tools/test-vendor/axe-core-4.13.0/axe.min.js'))
             violations = await page.evaluate("""axe.run(document, {runOnly: {type: 'rule', values:
-                ['image-alt', 'button-name', 'link-name', 'label', 'meta-viewport',
+                ['color-contrast', 'image-alt', 'button-name', 'link-name', 'label', 'meta-viewport',
                  'aria-valid-attr-value', 'aria-valid-attr', 'duplicate-id-aria']}})
                 .then(result => result.violations.map(v => ({rule: v.id, elements: v.nodes.map(n => n.target)})))""")
             assert not violations, f'{path}: {violations}'
@@ -54,7 +55,7 @@ async def check(browser, base_url):
     await asyncio.gather(*(check_page(path) for path in pages))
     assert not failures, '\n'.join(failures)
     print(f'PASS: {len(pages)} pages load with jQuery 4, no JavaScript errors or missing local resources.', flush=True)
-    print('PASS: local Poppins loads and axe checks image alternatives, control names, form labels, zoom and valid ARIA on every page.', flush=True)
+    print('PASS: local Poppins loads and axe checks text contrast, image alternatives, control names, form labels, zoom and valid ARIA on every page.', flush=True)
 
     # Record instances inside the test browser without exposing application globals.
     async def record_calendars(route):
@@ -335,12 +336,13 @@ FullCalendar.Calendar = class extends FullCalendar.Calendar {
         await visit(path)
         await page.add_script_tag(path=str(ROOT / 'tools/test-vendor/axe-core-4.13.0/axe.min.js'))
         violations = await page.evaluate("""axe.run(document, {runOnly: {type: 'rule', values:
-            ['image-alt', 'button-name', 'link-name', 'label', 'meta-viewport',
+            ['color-contrast', 'image-alt', 'button-name', 'link-name', 'label', 'meta-viewport',
              'aria-valid-attr-value', 'aria-valid-attr', 'duplicate-id-aria']}})
             .then(result => result.violations.map(v => v.id))""")
         assert not violations, f'Mobile {path}: {violations}'
     assert not failures, '\n'.join(failures)
     print('PASS: upgraded widgets also render at a mobile viewport.', flush=True)
+    await check_design(page, visit)
     await context.close()
 
 

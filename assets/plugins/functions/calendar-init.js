@@ -8,6 +8,21 @@ Updated for FullCalendar 7.x
 
     $(document).ready(function() {
 
+        // Daily view makes event titles readable on phones. Remember the desktop
+        // view across breakpoint changes without overriding manual view selection.
+        var mobileCalendar = window.matchMedia('(max-width: 767px)');
+        function adaptCalendar(calendar) {
+            var desktopView = 'dayGridMonth';
+            mobileCalendar.addEventListener('change', function (event) {
+                if (event.matches) {
+                    desktopView = calendar.view.type;
+                    calendar.changeView('timeGridDay');
+                } else {
+                    calendar.changeView(desktopView);
+                }
+            });
+        }
+
         /* initialize the external events
          -----------------------------------------------------------------*/
         var externalEvents = document.getElementById('external-events');
@@ -41,7 +56,7 @@ Updated for FullCalendar 7.x
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
-                initialView: 'dayGridMonth',
+                initialView: mobileCalendar.matches ? 'timeGridDay' : 'dayGridMonth',
                 editable: true,
                 droppable: true, // this allows things to be dropped onto the calendar
                 events: [
@@ -49,14 +64,14 @@ Updated for FullCalendar 7.x
                         title: 'All Day Event',
                         allDay: true,
                         start: new Date(y, m, 1),
-                        color: '#f56954' //red
+                        color: '#c23728' //red
                     },
                     {
                         title: 'Long Event',
                         allDay: true,
                         start: new Date(y, m, d - 5),
                         end: new Date(y, m, d - 2),
-                        color: '#f39c12' //yellow
+                        color: '#aa6400' //yellow
                     },
                     {
                         title: 'Meeting',
@@ -69,14 +84,14 @@ Updated for FullCalendar 7.x
                         start: new Date(y, m, d, 12, 0),
                         end: new Date(y, m, d, 14, 0),
                         allDay: false,
-                        color: '#00c0ef' //Info (aqua)
+                        color: '#087d82' //Info (aqua)
                     },
                     {
                         title: 'Birthday Party',
                         start: new Date(y, m, d + 1, 19, 0),
                         end: new Date(y, m, d + 1, 22, 30),
                         allDay: false,
-                        color: '#00a65a' //Success (green)
+                        color: '#087d43' //Success (green)
                     },
                     {
                         title: 'Click for Google',
@@ -84,7 +99,7 @@ Updated for FullCalendar 7.x
                         start: new Date(y, m, 28),
                         end: new Date(y, m, 29),
                         url: 'http://google.com/',
-                        color: '#3c8dbc' //Primary (light-blue)
+                        color: '#226f9b' //Primary (light-blue)
                     }
                 ],
                 eventReceive: function (info) {
@@ -96,10 +111,11 @@ Updated for FullCalendar 7.x
             });
 
             calendar.render();
+            adaptCalendar(calendar);
         }
 
         /* ADDING EVENTS */
-        var currColor = '#3c8dbc' //Red by default
+        var currColor = '#226f9b' //Light blue by default
         //Color chooser button
         var colorChooser = $('#color-chooser-btn')
         $('#color-chooser > li > a').click(function (e) {
@@ -152,7 +168,7 @@ Updated for FullCalendar 7.x
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
-                initialView: 'dayGridMonth',
+                initialView: mobileCalendar.matches ? 'timeGridDay' : 'dayGridMonth',
                 editable: true,
                 droppable: true, // this allows things to be dropped onto the calendar
                 events: [
@@ -160,14 +176,14 @@ Updated for FullCalendar 7.x
                         title: 'All Day Event',
                         allDay: true,
                         start: new Date(y1, m1, 1),
-                        color: '#f56954' //red
+                        color: '#c23728' //red
                     },
                     {
                         title: 'Long Event',
                         allDay: true,
                         start: new Date(y1, m1, d1 - 5),
                         end: new Date(y1, m1, d1 - 2),
-                        color: '#f39c12' //yellow
+                        color: '#aa6400' //yellow
                     },
                     {
                         title: 'Meeting',
@@ -180,14 +196,14 @@ Updated for FullCalendar 7.x
                         start: new Date(y1, m1, d1, 12, 0),
                         end: new Date(y1, m1, d1, 14, 0),
                         allDay: false,
-                        color: '#00c0ef' //Info (aqua)
+                        color: '#087d82' //Info (aqua)
                     },
                     {
                         title: 'Birthday Party',
                         start: new Date(y1, m1, d1 + 1, 19, 0),
                         end: new Date(y1, m1, d1 + 1, 22, 30),
                         allDay: false,
-                        color: '#00a65a' //Success (green)
+                        color: '#087d43' //Success (green)
                     },
                     {
                         title: 'Click for Google',
@@ -195,7 +211,7 @@ Updated for FullCalendar 7.x
                         start: new Date(y1, m1, 28),
                         end: new Date(y1, m1, 29),
                         url: 'http://google.com/',
-                        color: '#3c8dbc' //Primary (light-blue)
+                        color: '#226f9b' //Primary (light-blue)
                     }
                 ],
                 eventReceive: function (info) {
@@ -207,6 +223,7 @@ Updated for FullCalendar 7.x
             });
 
             calendar1.render();
+            adaptCalendar(calendar1);
         }
     });
 
