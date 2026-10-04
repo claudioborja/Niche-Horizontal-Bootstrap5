@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Verify staged migrations without downloading or changing installed assets."""
+from project_files import html_pages
 import contextlib
 import io
 from pathlib import Path
@@ -15,13 +16,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def font_fixture():
     # Test font declarations, deliberately mixing minified and unminified syntax.
-    return '\n'.join('.bi-' + name + (':before{content:"\\f101"}' if i % 2 else '::before { content: "\\f102"; }')
+    return '@font-face{font-family:bootstrap-icons;src:url("fonts/icons.woff2")}\n' + '\n'.join('.bi-' + name + (':before{content:"\\f101"}' if i % 2 else '::before { content: "\\f102"; }')
                      for i, name in enumerate(sorted(set(components.ICON_MAP.values()) | {'list'})))
 
 
 class Migrations(unittest.TestCase):
     def test_every_page_can_migrate_twice(self):
-        for path in list(ROOT.rglob('*.html')) + [ROOT / 'README.md']:
+        for path in list(html_pages(ROOT)) + [ROOT / 'README.md']:
             first = components.migrate(path, updater.migrate(path, path.read_bytes()))
             self.assertEqual(components.migrate(path, updater.migrate(path, first)), first, str(path))
 
@@ -33,7 +34,7 @@ class Migrations(unittest.TestCase):
         self.assertLess(text.index('fullcalendar-7.1.0/js/bootstrap5.js'), text.index('functions/calendar-init.js'))
 
     def test_jquery_bridge_is_removed_and_not_reinstalled(self):
-        for path in ROOT.rglob('*.html'):
+        for path in html_pages(ROOT):
             text = updater.migrate(path, path.read_bytes()).decode()
             self.assertNotIn('jquery-3.7.1/', text)
             self.assertNotIn('jquery-migrate', text, str(path))
@@ -161,13 +162,13 @@ class Migrations(unittest.TestCase):
     def test_successful_staging_checks_all_page_routes(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
-            for source in list(ROOT.rglob('*.html')) + [ROOT / 'README.md']:
+            for source in list(html_pages(ROOT)) + [ROOT / 'README.md']:
                 target = root / source.relative_to(ROOT)
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_bytes(source.read_bytes())
             # Existing non-updated resources are placeholders in this isolated fixture.
             # Newly migrated helper references are created separately below.
-            for page in root.rglob('*.html'):
+            for page in html_pages(root):
                 parser = updater.AssetReferences()
                 parser.feed(page.read_text())
                 for reference in parser.references:
@@ -185,7 +186,7 @@ class Migrations(unittest.TestCase):
             with patch.object(updater, 'ROOT', root), patch.object(updater, 'download', side_effect=fake_download):
                 with contextlib.redirect_stdout(io.StringIO()):
                     updater.main()
-            pages = list(root.rglob('*.html'))
+            pages = list(html_pages(root))
             self.assertEqual(len(pages), 67)
             for page in pages:
                 text = page.read_text()

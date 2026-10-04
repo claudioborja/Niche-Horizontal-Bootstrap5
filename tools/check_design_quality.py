@@ -1,7 +1,31 @@
 """Exercise responsive layout and hit areas in the real template pages."""
+from urllib.parse import urlsplit
 
 
 async def check_design(page, visit):
+    # Slow/unavailable scripts must not change the initial navigation footprint.
+    initial = await page.context.new_page()
+    try:
+        for path, width in (('index.html', 390), ('index.html', 1440),
+                            ('pages/pages-blank.html', 390), ('pages/pages-blank.html', 1440)):
+            await initial.set_viewport_size({'width': width, 'height': 900})
+            await initial.route('**/*.js', lambda route: route.abort())
+            url = urlsplit(page.url)
+            await initial.goto(f'{url.scheme}://{url.netloc}/{path}')
+            await initial.evaluate('document.fonts.ready')
+            before = await initial.locator('#main-content').evaluate('el => el.getBoundingClientRect().top')
+            footer_before = await initial.locator('.main-footer .row').first.evaluate('el => el.getBoundingClientRect().top')
+            await initial.unroute('**/*.js')
+            await initial.reload()
+            await initial.evaluate('document.fonts.ready')
+            after = await initial.locator('#main-content').evaluate('el => el.getBoundingClientRect().top')
+            assert abs(after - before) <= 3, f'Navigation shifts content by {after - before}px at {width}px'
+            if 'blank' in path:
+                footer_after = await initial.locator('.main-footer .row').first.evaluate('el => el.getBoundingClientRect().top')
+                assert abs(footer_after - footer_before) <= 3, f'Layout shifts footer by {footer_after - footer_before}px at {width}px'
+    finally:
+        await initial.close()
+    print('PASS: navigation and blank-page footer stay within 3px of their initial position when scripts load.', flush=True)
     for width in (320, 390, 768, 1440):
         await page.set_viewport_size({'width': width, 'height': 900})
         await visit('index.html')

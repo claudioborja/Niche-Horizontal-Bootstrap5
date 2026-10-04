@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Stage pinned vendor downloads and page migrations before applying them."""
+from project_files import html_pages
 from pathlib import Path
 from html.parser import HTMLParser
 import re
@@ -218,14 +219,14 @@ def main():
         icon_css = staged[ROOT / 'assets/plugins/bootstrap-icons-1.13.1/font/bootstrap-icons.min.css']
         staged.update(component_migrations.icon_assets(ROOT, icon_css.decode('utf-8')))
 
-        for path in list(ROOT.rglob('*.html')) + [ROOT / 'README.md']:
+        for path in list(html_pages(ROOT)) + [ROOT / 'README.md']:
             original = path.read_bytes()
             updated = migrate(path, original)
             updated = component_migrations.migrate(path, updated)
             if updated != original:
                 staged[path] = updated
 
-        pages = list(ROOT.rglob('*.html'))
+        pages = list(html_pages(ROOT))
         for path in pages:
             parser = AssetReferences()
             parser.feed(staged.get(path, path.read_bytes()).decode('utf-8'))

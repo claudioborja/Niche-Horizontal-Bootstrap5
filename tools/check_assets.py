@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Check HTML assets and recursively inspect locally loaded CSS resources."""
+from project_files import html_pages
 from html.parser import HTMLParser
 from pathlib import Path
 import re
@@ -43,7 +44,7 @@ def check(root):
             elif tag == 'link' and attributes.get('rel') in ('stylesheet', 'icon'):
                 reference(self.source, attributes.get('href', ''))
 
-    pages = list(root.rglob('*.html'))
+    pages = list(html_pages(root))
     for page in pages:
         Assets(page).feed(page.read_text(encoding='utf-8'))
     while pending:

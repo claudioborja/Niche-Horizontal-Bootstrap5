@@ -41,6 +41,12 @@ def prune(path, original):
     if path.suffix != '.html':
         return original
     text = original.decode('utf-8')
+    # Catalogs and FullCalendar's Bootstrap adapter create bi-* classes dynamically.
+    sources = Scripts(text).sources
+    inventory = ('js/icon-catalog.js' in sources or re.search(r'\bbi-[\w-]+', text)
+                 or any(source.startswith('plugins/fullcalendar-') for source in sources))
+    old, new = ('bootstrap-icons-font.css', 'bootstrap-icons.min.css') if inventory else ('bootstrap-icons.min.css', 'bootstrap-icons-font.css')
+    text = text.replace('/font/' + old, '/font/' + new)
     # These examples use native/Bootstrap controls and never initialize jQuery UI.
     if path.name in {'apps-calendar.html', 'apps-contact-details.html', 'apps-contact-grid.html',
                      'apps-contacts.html', 'apps-support-ticket.html', 'pages-invoice.html', 'pages-profile.html'}:

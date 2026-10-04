@@ -266,6 +266,43 @@ Revisa y versiona las imágenes actualizadas junto con el cambio que las explica
 Si actualizas Playwright/Chromium, también revisa las referencias en el nuevo
 entorno. Pillow es solo una dependencia de pruebas, no de la plantilla.
 
+### Medición de rendimiento
+
+La auditoría opcional usa [Lighthouse](https://github.com/GoogleChrome/lighthouse)
+13.5.0. Requiere Node.js 22.19 o posterior y Chrome/Chromium; estas herramientas
+no son necesarias para usar la plantilla. Instala las versiones fijadas y ejecuta:
+
+```bash
+npm ci --prefix tools/lighthouse
+python3 tools/check_performance.py
+```
+
+Si Chrome no está en una ubicación habitual, define `CHROME_PATH` con la ruta
+de su ejecutable. El script inicia y cierra un servidor local, mide dashboard,
+página vacía y DataTables en móvil y escritorio, y realiza tres ejecuciones
+consecutivas por caso. Guarda los informes JSON completos y `summary.json` con
+las medianas de puntuación, FCP, LCP, TBT, CLS y bytes transferidos en
+`tools/performance-results` (excluido de Git). Se pueden elegir otras páginas:
+
+```bash
+python3 tools/check_performance.py --pages index.html apps/apps-calendar.html --runs 3
+```
+
+La configuración móvil utiliza la simulación predeterminada de Lighthouse;
+escritorio utiliza `--preset=desktop`. Las mediciones locales sirven para comparar
+cambios con el mismo equipo, navegador y configuración. El servidor Python no
+aplica compresión ni caché HTTP; los tiempos de un alojamiento real pueden variar.
+No se eliminan estilos de Bootstrap solo porque una página no los use: también
+deben funcionar las otras páginas y los controles que se abren al interactuar.
+
+Consulta los resultados y condiciones de la comparación en
+[docs/performance.md](docs/performance.md).
+
+Las páginas con iconos heredados cargan `bootstrap-icons-font.css` y
+`icon-compat.css`; el calendario y los cuatro catálogos conservan `bootstrap-icons.min.css`.
+Si añades iconos con clases `bi bi-*`, utiliza la hoja completa en esa página,
+también cuando los crees desde JavaScript. Ambas hojas usan la misma fuente local.
+
 ### Pruebas automáticas en GitHub
 
 [GitHub Actions](https://github.com/claudioborja/Niche-Horizontal-Bootstrap5/actions/workflows/tests.yml)

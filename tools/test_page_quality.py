@@ -1,4 +1,5 @@
 """Guard local typography, accessible image markup and the initial loading path."""
+from project_files import html_pages
 from html.parser import HTMLParser
 from pathlib import Path
 import json
@@ -21,21 +22,21 @@ class PageQuality(unittest.TestCase):
     def test_shared_theme_loads_before_styles_and_defines_component_variables(self):
         theme = ROOT / 'assets/css/theme.css'
         defined = set(re.findall(r'(--niche-[\w-]+)\s*:', theme.read_text()))
-        for page in ROOT.rglob('*.html'):
+        for page in html_pages(ROOT):
             parser = Tags()
             parser.feed(page.read_text())
             styles = [(page.parent / attrs['href']).resolve() for tag, attrs in parser.tags
                       if tag == 'link' and attrs.get('rel') == 'stylesheet']
             self.assertEqual(styles.count(theme), 1, str(page))
             self.assertLess(styles.index(theme), styles.index(ROOT / 'assets/css/style.css'), str(page))
-        for path in [*ROOT.rglob('*.html'), *ROOT.glob('assets/css/*.css'),
+        for path in [*html_pages(ROOT), *ROOT.glob('assets/css/*.css'),
                      ROOT / 'assets/plugins/hmenu/ace-responsive-menu.css',
                      ROOT / 'assets/plugins/horizontaltimeline/timeline-style.css']:
             referenced = set(re.findall(r'var\((--niche-[\w-]+)', path.read_text()))
             self.assertFalse(referenced - defined, f'{path}: undefined theme variables {referenced - defined}')
 
     def test_every_page_has_a_skip_target_zoom_and_local_fonts(self):
-        for page in ROOT.rglob('*.html'):
+        for page in html_pages(ROOT):
             parser = Tags()
             parser.feed(page.read_text())
             tags = parser.tags
@@ -52,7 +53,7 @@ class PageQuality(unittest.TestCase):
 
     def test_images_reserve_space_and_logos_load_immediately(self):
         lazy = 0
-        for page in ROOT.rglob('*.html'):
+        for page in html_pages(ROOT):
             parser = Tags()
             parser.feed(page.read_text())
             for tag, attrs in parser.tags:

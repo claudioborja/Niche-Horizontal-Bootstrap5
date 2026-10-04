@@ -5,6 +5,7 @@ Optional tooling: pip install -r tools/requirements-test.txt
 and python -m playwright install chromium.
 External services are blocked so the checks work independently of API keys/CDNs.
 """
+from project_files import html_pages
 import asyncio
 import functools
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -57,7 +58,7 @@ async def check(browser, base_url):
             assert not violations, f'{path}: {violations}'
             await page.close()
 
-    pages = sorted(path.relative_to(ROOT) for path in ROOT.rglob('*.html'))
+    pages = sorted(path.relative_to(ROOT) for path in html_pages(ROOT))
     await asyncio.gather(*(check_page(path) for path in pages))
     assert not failures, '\n'.join(failures)
     print(f'PASS: {len(pages)} pages load with jQuery only where required, no JavaScript errors or missing local resources.', flush=True)

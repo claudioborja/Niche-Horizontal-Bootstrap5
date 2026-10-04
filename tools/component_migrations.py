@@ -45,6 +45,10 @@ BRANDS = ('bitbucket', 'flickr', 'foursquare', 'google-plus', 'tumblr', 'vk')
 
 def icon_assets(root, css):
     """Generate compatibility rules from the downloaded font's actual code points."""
+    font_face = re.search(r'@font-face\s*\{[^}]+\}', css)
+    license_notice = re.search(r'/\*!.*?\*/', css, re.S)
+    if not font_face:
+        raise ValueError('Missing Bootstrap Icons font declaration')
     points = dict(re.findall(r'\.bi-([\w-]+):{1,2}before\s*\{\s*content:\s*[\'"](\\[a-fA-F0-9]+)[\'"]', css))
     missing = set(ICON_MAP.values()) | {'list'}
     missing -= points.keys()
@@ -63,6 +67,8 @@ def icon_assets(root, css):
         rules.append('.fa-' + brand + '::before{content:"";width:1em;height:1em;background:currentColor;vertical-align:-.125em;mask:url("../img/brands/' + brand + '.svg") center/contain no-repeat;-webkit-mask:url("../img/brands/' + brand + '.svg") center/contain no-repeat}')
     # Fetch the icon inventory from the same pinned package, rather than a second source.
     return {
+        root / ('assets/plugins/' + ICONS + '/font/bootstrap-icons-font.css'):
+            ((license_notice.group() + '\n' if license_notice else '') + font_face.group() + '\n').encode(),
         root / 'assets/css/icon-compat.css': ('/* Legacy class aliases for Bootstrap Icons; brand SVGs retain their original shapes. */\n' + '\n'.join(rules) + '\n').encode(),
         root / 'assets/js/icon-data.js': ('window.NicheIconNames = ' + json.dumps(sorted(points)) + ';\n').encode(),
     }

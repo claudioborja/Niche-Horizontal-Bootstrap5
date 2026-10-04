@@ -342,3 +342,12 @@ ul[data-menu-style="vertical"] li a:hover {
         content: "\f282" !important;
     }
 }
+
+/* Reserve the navigation footprint before JavaScript initializes it. */
+.ace-responsive-menu:not([data-niche-menu-initialized]) li > ul {
+    display: none;
+}
+@media screen and (max-width: 768px) {
+    .ace-responsive-menu:not([data-niche-menu-initialized]) { display: none; }
+    .menu-toggle { display: block; }
+}

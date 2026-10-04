@@ -1,4 +1,5 @@
 """Keep application logic external and component loading explicit."""
+from project_files import html_pages
 from html.parser import HTMLParser
 from pathlib import Path
 import unittest
@@ -36,14 +37,14 @@ class Scripts(HTMLParser):
 
 class JavaScriptStructure(unittest.TestCase):
     def test_application_logic_stays_in_external_files(self):
-        for page in ROOT.rglob('*.html'):
+        for page in html_pages(ROOT):
             parser = Scripts()
             parser.feed(page.read_text())
             self.assertEqual(parser.inline, [], str(page))
             self.assertEqual(parser.handlers, [], str(page))
 
     def test_component_modules_load_once_after_the_registry(self):
-        for page in ROOT.rglob('*.html'):
+        for page in html_pages(ROOT):
             parser = Scripts()
             parser.feed(page.read_text())
             names = [source.split('assets/js/')[-1] for source in parser.sources]

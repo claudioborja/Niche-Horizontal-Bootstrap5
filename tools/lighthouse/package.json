@@ -1,0 +1,10 @@
+{
+  "name": "niche-lighthouse",
+  "private": true,
+  "devDependencies": {
+    "lighthouse": "13.5.0"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  }
+}
