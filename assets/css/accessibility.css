@@ -61,6 +61,16 @@ a:hover, a:focus { color: var(--niche-color-link-hover); }
 .chart-data-scroll { max-width: 100%; overflow-x: auto; }
 .chart-data caption { color: var(--niche-color-text); caption-side: top; }
 .chart-data th, .chart-data td { white-space: nowrap; }
+.demo-form-note { color: var(--niche-color-text); font-size: var(--niche-font-size-sm); }
+.demo-status {
+  position: fixed; z-index: 1100; right: var(--niche-space-4); bottom: var(--niche-space-4);
+  width: min(420px, calc(100% - 32px)); padding: var(--niche-space-4);
+  background: var(--niche-color-surface); color: var(--niche-color-text);
+  border: 1px solid var(--niche-color-border); border-radius: var(--niche-radius-card);
+  box-shadow: var(--niche-shadow-dashboard);
+}
+.demo-status-text { display: block; margin-bottom: var(--niche-space-2); }
+.demo-status[hidden] { display: none; }
 .bg-aqua { background-color: var(--niche-readable-aqua) !important; }
 .bg-green { background-color: var(--niche-readable-green) !important; }
 .bg-orange { background-color: var(--niche-readable-orange) !important; }

@@ -1,6 +1,8 @@
 /* Compact Chart.js charts, with the original inline demo data. */
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     'use strict';
+    if (!window.Chart) return;
+    await document.fonts.load('12px ' + Chart.defaults.font.family);
     document.querySelectorAll('[data-mini-chart]').forEach(function (host) {
         const type = host.dataset.miniChart;
         const raw = host.dataset.values;

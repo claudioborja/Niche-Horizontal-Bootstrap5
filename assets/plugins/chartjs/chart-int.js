@@ -1,5 +1,7 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     'use strict';
+    if (!window.Chart) return;
+    await document.fonts.load('12px ' + Chart.defaults.font.family);
 
     var labels = ['January', 'February', 'March', 'April', 'May', 'June'];
     var values = [12, 19, 8, 15, 10, 17];

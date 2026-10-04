@@ -1,6 +1,8 @@
 /* Chart.js examples shared by the dashboards and chart galleries. */
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     'use strict';
+    if (!window.Chart) return;
+    await document.fonts.load('12px ' + Chart.defaults.font.family);
 
     var colors = ['#5867dd', '#008cd3', '#26c6da', '#ff7d4d', '#ff4558', '#626e82', '#06d79c'];
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

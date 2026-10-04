@@ -1,0 +1,27 @@
+{
+  "environment": {
+    "browser": "153.0.8010.12",
+    "playwright": "1.63.0",
+    "platform": "linux"
+  },
+  "files": [
+    "dashboard-1440.png",
+    "charts-1440.png",
+    "calendar-1440.png",
+    "validation-1440.png",
+    "wizard-errors-1440.png",
+    "data-table-1440.png",
+    "gallery-1440.png",
+    "login-1440.png",
+    "demo-notice-1440.png",
+    "dashboard-390.png",
+    "charts-390.png",
+    "calendar-390.png",
+    "validation-390.png",
+    "wizard-errors-390.png",
+    "data-table-390.png",
+    "gallery-390.png",
+    "login-390.png",
+    "demo-notice-390.png"
+  ]
+}

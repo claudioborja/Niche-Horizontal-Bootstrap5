@@ -19,7 +19,7 @@ NATIVE_SCRIPTS = {
     'bootstrap-components.js', 'chart-accessibility.js', 'chart-examples.js',
     'chart-theme.js', 'dashboard-charts.js', 'editable-tables.js', 'file-uploads.js',
     'gallery.js', 'grid-data.js', 'icon-catalog.js', 'icon-data.js', 'mini-charts.js',
-    'niche.js', 'switches.js', 'text-editor.js',
+    'niche.js', 'switches.js', 'text-editor.js', 'demo-actions.js',
 }
 
 

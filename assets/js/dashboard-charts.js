@@ -1,7 +1,8 @@
 /* Main dashboard chart configurations. */
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     'use strict';
     if (!window.Chart) return;
+    await document.fonts.load('12px ' + Chart.defaults.font.family);
 
     const lineChartElement = document.getElementById('line-chart');
     if (lineChartElement) {

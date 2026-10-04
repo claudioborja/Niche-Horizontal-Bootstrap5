@@ -229,6 +229,36 @@ externos para no depender de una clave de Google Maps y comprueba que Poppins
 carga desde el repositorio. La conexión real con Google Maps se debe comprobar
 con una clave válida.
 
+### Comparación visual
+
+`tools/check_visual.py` compara 18 capturas de escritorio (1440 px) y móvil
+(390 px): dashboards, tabla accesible de gráficos, calendario, validación,
+wizard con errores, DataTables, galería, acceso y aviso de demo.
+
+```bash
+.venv/bin/python -m unittest discover -s tools -p 'test_*.py'
+.venv/bin/python tools/check_visual.py
+```
+
+Las referencias están en `tools/visual-baselines`. La prueba usa Chromium y
+Playwright fijados, Linux, fuentes locales, fecha fija, zona UTC y movimiento
+reducido. Espera a las fuentes e imágenes antes de capturar. Si cambian las
+dimensiones o más del 0,1 % de los píxeles (diferencia de canal mayor de 12),
+falla y deja la captura actual, la referencia, las diferencias resaltadas y
+`report.json` en `tools/visual-results`.
+
+Después de un cambio visual intencional, revisa las imágenes y actualiza las
+referencias explícitamente; la ejecución normal y CI nunca las reemplazan:
+
+```bash
+.venv/bin/python tools/check_visual.py --update
+.venv/bin/python tools/check_visual.py
+```
+
+Revisa y versiona las imágenes actualizadas junto con el cambio que las explica.
+Si actualizas Playwright/Chromium, también revisa las referencias en el nuevo
+entorno. Pillow es solo una dependencia de pruebas, no de la plantilla.
+
 ### Pruebas automáticas en GitHub
 
 [GitHub Actions](https://github.com/claudioborja/Niche-Horizontal-Bootstrap5/actions/workflows/tests.yml)
@@ -239,7 +269,9 @@ El workflow de [.github/workflows/tests.yml](.github/workflows/tests.yml) utiliz
 Ubuntu 24.04 y Python 3.14 para comprobar los recursos locales, las migraciones,
 la estructura del JavaScript y las 67 páginas en Chromium. Instala el navegador
 y sus dependencias automáticamente, y prueba las interacciones en escritorio y
-móvil. No necesita claves de Google Maps ni un backend.
+móvil, y compara las 18 capturas de referencia. Si falla, guarda las capturas
+y diferencias como artefacto durante siete días. No necesita claves de Google
+Maps ni un backend.
 
 Las versiones de las herramientas están fijadas en
 [tools/requirements-test.txt](tools/requirements-test.txt). Las acciones se fijan
@@ -412,6 +444,24 @@ cambiar el control. Sigue las recomendaciones de
 
 Conserva las rutas relativas al mover páginas entre carpetas. Los datos de ejemplo
 pueden sustituirse por respuestas de tu API en los inicializadores correspondientes.
+
+## Acciones de demostración
+
+`assets/js/demo-actions.js` se carga al final de las 67 páginas. Los enlaces
+«Home» apuntan al dashboard. Los enlaces sin destino y los botones de muestra
+se identifican como demo y muestran un aviso accesible sin saltar al comienzo
+de la página. Los controles reales de menús, pestañas, galerías, calendarios,
+editores, tablas y exportación mantienen sus acciones.
+
+Los formularios de acceso, registro y recuperación muestran una aclaración
+visible y no envían datos ni crean cuentas. La búsqueda de cabecera tampoco
+consulta un servicio. «Send» y «Draft» en el correo indican que no se envía ni
+se guarda el mensaje. Son ejemplos para integrar después con tu aplicación.
+
+Al implementar una función real, sustituye su enlace o manejador y evita marcar
+el control con `data-demo-action`. Elimina `demo-actions.js` en tu aplicación,
+o adapta su manejador global de formularios para que permita tus envíos reales.
+El actualizador conserva estas aclaraciones mediante `tools/demo_migrations.py`.
 
 ## Carga de recursos por página
 
@@ -626,7 +676,8 @@ valores y nombre de la serie por los tuyos:
 
 ```javascript
 // assets/js/weekly-sales.js
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
+    await document.fonts.load('12px ' + Chart.defaults.font.family);
     const sales = new Chart(document.getElementById('weekly-sales'), {
         type: 'bar',
         data: {
