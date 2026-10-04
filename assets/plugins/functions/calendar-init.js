@@ -5,33 +5,25 @@ Updated for FullCalendar 6.x
 */
 (function($) {
     "use strict";
-	
+
     $(document).ready(function() {
 
         /* initialize the external events
          -----------------------------------------------------------------*/
-        function init_events(ele) {
-            ele.each(function () {
-
-                // create an Event Object
-                var eventObject = {
-                    title: $.trim($(this).text()) // use the element's text as the event title
+        var externalEvents = document.getElementById('external-events');
+        if (externalEvents) {
+            new FullCalendar.Draggable(externalEvents, {
+                itemSelector: '.external-event',
+                eventData: function (element) {
+                    var style = window.getComputedStyle(element);
+                    return {
+                        title: element.textContent.trim(),
+                        backgroundColor: style.backgroundColor,
+                        borderColor: style.borderColor
+                    };
                 }
-
-                // store the Event Object in the DOM element so we can get to it later
-                $(this).data('eventObject', eventObject)
-
-                // make the event draggable using jQuery UI
-                $(this).draggable({
-                    zIndex        : 1070,
-                    revert        : true, // will cause the event to go back to its
-                    revertDuration: 0  //  original position after the drag
-                })
-
-            })
+            });
         }
-
-        init_events($('#external-events div.external-event'))
 
         /* initialize the calendar
          -----------------------------------------------------------------*/
@@ -40,7 +32,7 @@ Updated for FullCalendar 6.x
         var d    = date.getDate(),
             m    = date.getMonth(),
             y    = date.getFullYear()
-            
+
         // Check if calendar element exists before initializing
         if ($('#calendar').length > 0) {
             var calendarEl = document.getElementById('calendar');
@@ -99,30 +91,14 @@ Updated for FullCalendar 6.x
                         borderColor: '#3c8dbc' //Primary (light-blue)
                     }
                 ],
-                drop: function(info) { // this function is called when something is dropped
-                    // retrieve the dropped element's stored Event Object
-                    var originalEventObject = $(info.draggedEl).data('eventObject');
-
-                    // we need to copy it, so that multiple events don't have a reference to the same object
-                    var copiedEventObject = $.extend({}, originalEventObject);
-
-                    // assign it the date that was reported
-                    copiedEventObject.start = info.date;
-                    copiedEventObject.allDay = info.allDay;
-                    copiedEventObject.backgroundColor = $(info.draggedEl).css('background-color');
-                    copiedEventObject.borderColor = $(info.draggedEl).css('border-color');
-
-                    // render the event on the calendar
-                    calendar.addEvent(copiedEventObject);
-
-                    // is the "remove after drop" checkbox checked?
+                eventReceive: function (info) {
+                    // FullCalendar creates the event; only remove the source if requested.
                     if ($('#drop-remove').is(':checked')) {
-                        // if so, remove the element from the "Draggable Events" list
                         $(info.draggedEl).remove();
                     }
                 }
             });
-            
+
             calendar.render();
         }
 
@@ -140,7 +116,7 @@ Updated for FullCalendar 6.x
         $('#add-new-event').click(function (e) {
             e.preventDefault()
             //Get value and make sure it is not null
-            var val = $('#new-event').val()
+            var val = $('#new-event').val().trim()
             if (val.length == 0) {
                 return
             }
@@ -152,18 +128,17 @@ Updated for FullCalendar 6.x
                 'border-color': currColor,
                 'color': '#fff'
             }).addClass('external-event')
-            event.html(val)
+            event.text(val)
             $('#external-events').prepend(event)
 
-            //Add draggable funtionality
-            init_events(event)
+            // Delegated FullCalendar dragging also handles this new event.
 
             //Remove event from text input
             $('#new-event').val('')
         })
 
         /*Basic View Calendar */
-        
+
         /* initialize the calendar
            -----------------------------------------------------------------*/
         //Date for the calendar events (dummy data)
@@ -171,7 +146,7 @@ Updated for FullCalendar 6.x
         var d1    = date1.getDate(),
             m1    = date1.getMonth(),
             y1    = date1.getFullYear()
-            
+
         // Check if calendar1 element exists before initializing
         if ($('#calendar1').length > 0) {
             var calendarEl1 = document.getElementById('calendar1');
@@ -230,32 +205,16 @@ Updated for FullCalendar 6.x
                         borderColor: '#3c8dbc' //Primary (light-blue)
                     }
                 ],
-                drop: function(info) { // this function is called when something is dropped
-                    // retrieve the dropped element's stored Event Object
-                    var originalEventObject = $(info.draggedEl).data('eventObject');
-
-                    // we need to copy it, so that multiple events don't have a reference to the same object
-                    var copiedEventObject = $.extend({}, originalEventObject);
-
-                    // assign it the date that was reported
-                    copiedEventObject.start = info.date;
-                    copiedEventObject.allDay = info.allDay;
-                    copiedEventObject.backgroundColor = $(info.draggedEl).css('background-color');
-                    copiedEventObject.borderColor = $(info.draggedEl).css('border-color');
-
-                    // render the event on the calendar
-                    calendar1.addEvent(copiedEventObject);
-
-                    // is the "remove after drop" checkbox checked?
+                eventReceive: function (info) {
+                    // FullCalendar creates the event; only remove the source if requested.
                     if ($('#drop-remove').is(':checked')) {
-                        // if so, remove the element from the "Draggable Events" list
                         $(info.draggedEl).remove();
                     }
                 }
             });
-            
+
             calendar1.render();
         }
     });
-  
+
 })(jQuery);

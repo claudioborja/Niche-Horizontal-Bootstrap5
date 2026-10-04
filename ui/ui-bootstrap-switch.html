@@ -8,8 +8,8 @@
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1" />
 
-<!-- Bootstrap 5.3.2 -->
-<link href="../assets/plugins/bootstrap-5.3.2/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap 5.3.8 -->
+<link href="../assets/plugins/bootstrap-5.3.8/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Google Font -->
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="../assets/plugins/hmenu/ace-responsive-menu.css">
 
 <!-- bootstrap-switch -->
-<link rel="stylesheet" href="../assets/plugins/bootstrap-switch/bootstrap-switch.css">
+<link rel="stylesheet" href="../assets/plugins/bootstrap-switch/bootstrap-switch.min.css">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -410,22 +410,21 @@
 <!-- jQuery 3 --> 
 <script src="../assets/plugins/jquery-3.7.1/jquery.min.js"></script> 
 
-<!-- Bootstrap 5.3.2 --> 
-<!-- Bootstrap 5.3.2 with Popper.js -->
+<!-- Bootstrap 5.3.8 -->
+<!-- Bootstrap 5.3.8 with Popper.js -->
 <script src="../assets/plugins/popper-2.11.8/popper.min.js"></script>
-<script src="../assets/plugins/bootstrap-5.3.2/js/bootstrap.min.js"></script> 
+<script src="../assets/plugins/bootstrap-5.3.8/js/bootstrap.min.js"></script>
 
 <!-- template --> 
 <script src="../assets/js/niche.js"></script> 
 
 <!-- bootstrap-switch --> 
-<script src="../assets/plugins/bootstrap-switch/bootstrap-switch.js"></script> 
-<script src="../assets/plugins/bootstrap-switch/highlight.js"></script> 
-<script src="../assets/plugins/bootstrap-switch/main.js"></script>
+<script src="../assets/plugins/bootstrap-switch/bootstrap-switch.min.js"></script>
 <script src="../assets/plugins/hmenu/ace-responsive-menu.js" type="text/javascript"></script> 
 <!--Plugin Initialization--> 
 <script type="text/javascript">
          $(document).ready(function () {
+             $(".content input[type='checkbox'], .content input[type='radio']").bootstrapSwitch();
              $("#respMenu").aceResponsiveMenu({
                  resizeWidth: '768', // Set the same in Media query       
                  animationSpeed: 'fast', //slow, medium, fast

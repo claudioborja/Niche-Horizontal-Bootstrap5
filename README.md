@@ -12,7 +12,7 @@
 - **Recuperar Password (pages-recover-password.html)**: Formulario simplificado con icono y diseño moderno
 
 ### ⚡ **Mejoras Técnicas**
-- **Bootstrap 5.3.2**: Migración completa desde versiones anteriores
+- **Bootstrap 5.3.8**: Migración completa desde versiones anteriores
 - **Grid System Moderno**: Reemplazo de clases obsoletas `col-xs-*` por sistema actual
 - **Flexbox Layout**: Uso de flexbox para centrado perfecto y layouts responsivos
 - **CSS Moderno**: Implementación de gradientes, glassmorphism y efectos hover
@@ -34,7 +34,7 @@
 ## ⚠️ Aviso Importante
 Esta plantilla ha sido **actualizada y modernizada** desde una versión propietaria original. Las mejoras incluyen:
 
-- ✅ **Migración completa a Bootstrap 5.3.2** desde versiones anteriores
+- ✅ **Migración completa a Bootstrap 5.3.8** desde versiones anteriores
 - ✅ **Corrección de problemas de alineación** en formularios de autenticación
 - ✅ **Modernización del diseño** con efectos glassmorphism y gradientes
 - ✅ **Mejoras en responsive design** para dispositivos móviles
@@ -51,11 +51,11 @@ Este proyecto es una **versión actualizada y mejorada** de una plantilla admini
 - No me hago responsable por problemas derivados de su uso
 
 ## 🚀 Descripción
-**Niche Horizontal** es un template de administración moderno y completo construido con **Bootstrap 5.3.2**. Este template proporciona una interfaz administrativa profesional con componentes UI avanzados, gráficos interactivos, formularios dinámicos y layouts responsivos para el desarrollo de aplicaciones web empresariales.
+**Niche Horizontal** es un template de administración moderno y completo construido con **Bootstrap 5.3.8**. Este template proporciona una interfaz administrativa profesional con componentes UI avanzados, gráficos interactivos, formularios dinámicos y layouts responsivos para el desarrollo de aplicaciones web empresariales.
 
 ## ✨ Características Principales
 - **📱 Responsive Design** - Diseño móvil-first adaptable a todos los dispositivos
-- **🎨 Bootstrap 5.3.2** - Framework CSS más reciente con componentes modernos
+- **🎨 Bootstrap 5.3.8** - Framework CSS más reciente con componentes modernos
 - **📊 67 Páginas HTML** - Interfaz administrativa completa y funcional
 - **🔧 30+ Plugins** - Herramientas integradas para desarrollo avanzado
 - **⚡ Optimizado** - Código limpio y estructura organizada
@@ -107,9 +107,9 @@ niche_horizontal/
 │   └── widget-data.html     # Widgets de datos
 ├── 📁 assets/               # Recursos estáticos
 │   ├── 📁 plugins/          # Librerías y plugins
-│   │   ├── bootstrap-5.3.2/ # Bootstrap framework
-│   │   ├── datatables-2.1.5/ # DataTables avanzadas
-│   │   ├── chart-js-4.4.0/   # Chart.js gráficos
+│   │   ├── bootstrap-5.3.8/ # Bootstrap framework
+│   │   ├── datatables-3.1.3/      # DataTables 3.1.3
+│   │   ├── chart-js-4.5.1/   # Chart.js gráficos
 │   │   └── ...
 │   ├── 📁 css/              # Hojas de estilo
 │   │   ├── style.css        # Estilos principales
@@ -143,7 +143,7 @@ niche_horizontal/
 - **Form Layouts** - Layouts avanzados
 - **Form Validation** - Validaciones client-side
 - **Form Wizard** - Formularios multi-paso
-- **Summernote** - Editor WYSIWYG
+- **Summernote 0.9.1** - Editor WYSIWYG
 - **File Uploads** - Carga de archivos
 
 ### 🎨 **Icons (6 páginas)**
@@ -190,28 +190,54 @@ niche_horizontal/
 
 ## 🔧 Tecnologías y Plugins
 ### **�️ Framework Principal**
-- **Bootstrap 5.3.2** - Framework CSS responsivo
+- **Bootstrap 5.3.8** - Framework CSS responsivo
 - **jQuery 3.7.1** - Librería JavaScript
 
 ### **📊 Gráficos y Visualización**
-- **Chart.js 4.4.0** - Gráficos modernos
+- **Chart.js 4.5.1** - Gráficos modernos
 - **Morris.js** - Gráficos elegantes
 - **Chartist.js** - Gráficos SVG
 - **Knob** - Medidores circulares
 - **Peity** - Mini gráficos
 
 ### **📝 Formularios y Editores**
-- **Summernote** - Editor WYSIWYG
+- **Summernote 0.9.1** - Editor WYSIWYG
 - **Bootstrap Validator** - Validación de formularios
 - **File Upload** - Carga de archivos
 
 ### **📊 Tablas y Datos**
-- **DataTables 2.1.5** - Tablas avanzadas
+- **DataTables 3.1.3** - Tablas avanzadas
 - **jsGrid** - Grid editable
 
 ### **🗓️ Aplicaciones**
-- **FullCalendar** - Calendario completo
+- **FullCalendar 6.1.21** - Calendario completo
+- **Moment 2.30.1** - Copia utilizada por el calendario
 - **Google Maps API** - Integración de mapas
+
+### Actualización de dependencias locales
+
+Con Python 3 y acceso a Internet, ejecutar desde la raíz del repositorio:
+
+```bash
+python3 tools/update_dependencies.py
+```
+
+El script instala estas versiones y adapta sus rutas e inicializaciones:
+
+- Bootstrap 5.3.8, Chart.js 4.5.1 y jQuery UI 1.14.2.
+- DataTables 3.1.3 con CSS e integración Bootstrap 5 de la misma versión.
+- FullCalendar 6.1.21 con estilos incorporados en su bundle JavaScript.
+- Summernote 0.9.1 para Bootstrap 5, incluyendo las fuentes de sus iconos.
+- jQuery Validation 1.22.1 como archivo local.
+- SheetJS 0.20.3, sustituyendo TableExport y FileSaver en la página de tablas.
+
+Reutiliza las versiones ya instaladas, descarga los archivos pendientes y
+comprueba las referencias locales de todas las páginas antes de aplicar cambios.
+Si una descarga falla, no modifica el repositorio. Conserva las carpetas
+anteriores para facilitar la reversión. Mantiene jQuery 3.7.1 por compatibilidad.
+Después de ejecutarlo, comprobar en el navegador los gráficos, el calendario
+(incluido arrastrar eventos), el editor, las validaciones y las tablas.
+La exportación incluye todas las filas filtradas, incluso las de otras páginas.
 
 ### **🎨 Iconografía**
 - **FontAwesome** - Iconos vectoriales
@@ -270,7 +296,7 @@ Este proyecto está **activamente mantenido** con mejoras continuas. Si encuentr
 
 **Versión Actualizada:** 2.0 (Bootstrap 5 Migration)  
 **Fecha de Actualización:** 13 de Agosto, 2025  
-**Bootstrap:** 5.3.2  
+**Bootstrap:** 5.3.8<br>
 **Total de Páginas:** 67 archivos HTML  
 **Mantenido por:** [@claudioborja](https://github.com/claudioborja)
 
