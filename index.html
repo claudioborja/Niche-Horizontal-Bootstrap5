@@ -11,6 +11,9 @@
 <!-- Bootstrap 5.3.8 -->
 <link href="assets/plugins/bootstrap-5.3.8/css/bootstrap.min.css" rel="stylesheet">
 
+<!-- Load the body and navigation fonts before their CSS discovers them. -->
+<link rel="preload" href="assets/plugins/poppins-5.3.0/files/poppins-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/plugins/poppins-5.3.0/files/poppins-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
 <!-- Local Poppins font -->
 <link href="assets/plugins/poppins-5.3.0/poppins.css" rel="stylesheet">
 
@@ -400,6 +403,13 @@ canvas {
             <div style="height: 300px; position: relative;">
               <canvas id="line-chart"></canvas>
             </div>
+            <div class="chart-data" data-chart-for="line-chart" aria-busy="true">
+              <p class="chart-data-description" id="line-chart-description">Line chart with 7 categories and 2 series: Sales, Earning. The table includes all values, including any hidden in the chart.</p>
+              <details>
+                <summary>View chart data: Analytics Overview</summary>
+                <div class="chart-data-scroll" tabindex="0" role="region" aria-label="Analytics Overview data table"><p>Loading chart data…</p></div>
+              </details>
+            </div>
           </div>
         </div>
         <div class="col-lg-5 col-xlg-3">
@@ -411,6 +421,13 @@ canvas {
             </div>
             <div class="m-t-2" style="height: 280px; position: relative;">
             	<canvas id="pie-chart"></canvas>
+            </div>
+            <div class="chart-data" data-chart-for="pie-chart" aria-busy="true">
+              <p class="chart-data-description" id="pie-chart-description">Pie chart with 3 categories and 1 series: Visitors. The table includes all values, including any hidden in the chart.</p>
+              <details>
+                <summary>View chart data: Our Visitors</summary>
+                <div class="chart-data-scroll" tabindex="0" role="region" aria-label="Our Visitors data table"><p>Loading chart data…</p></div>
+              </details>
             </div>
           </div>
         </div>
@@ -449,6 +466,13 @@ canvas {
            <div style="height: 350px; position: relative;">
              <canvas id="area-chart"></canvas>
            </div>
+            <div class="chart-data" data-chart-for="area-chart" aria-busy="true">
+              <p class="chart-data-description" id="area-chart-description">Line chart with 12 categories and 1 series: Revenue. The table includes all values, including any hidden in the chart.</p>
+              <details>
+                <summary>View chart data: Line Chart with Area</summary>
+                <div class="chart-data-scroll" tabindex="0" role="region" aria-label="Line Chart with Area data table"><p>Loading chart data…</p></div>
+              </details>
+            </div>
           </div>
         </div>
       </div>

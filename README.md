@@ -466,6 +466,17 @@ con encabezados de fila y columna bajo «View chart data». Se abren con Enter o
 Espacio y permiten desplazamiento horizontal con teclado en móvil. Las tablas
 usan los mismos datos del gráfico y se actualizan con `chart.update()`, incluida
 la indicación de series ocultas; siguen mostrando todos los valores.
+
+El dashboard principal incluye los tres paneles `.chart-data` en el HTML inicial,
+con `data-chart-for` igual al ID del canvas. El plugin reutiliza sus descripciones,
+controles y regiones de tabla para reservar el espacio antes de cargar los gráficos,
+conservar el foco y sustituir «Loading chart data…» por los valores actuales.
+Si cambias las series del dashboard, ajusta también su resumen inicial en el HTML;
+el plugin lo actualiza desde los datos al inicializarse. Las páginas sin paneles
+iniciales siguen usando la generación automática.
+El dashboard precarga las variantes latinas de Poppins 300 y 400. Si sustituyes
+la tipografía del tema, ajusta o retira esas dos precargas en su `<head>`.
+
 Los minigráficos incluyen sus valores y proporciones en el nombre accesible.
 Los indicadores Knob muestran el valor y su rango como texto actualizado al
 cambiar el control. Sigue las recomendaciones de

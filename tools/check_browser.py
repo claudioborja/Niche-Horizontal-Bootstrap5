@@ -18,6 +18,7 @@ from check_design_quality import check_design
 from check_chart_accessibility import check_chart_accessibility
 from page_dependencies import needs_jquery
 from check_demo_actions import check_demo_actions
+from check_dashboard_stability import check_dashboard_stability
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -376,6 +377,7 @@ FullCalendar.Calendar = class extends FullCalendar.Calendar {
     assert not failures, '\n'.join(failures)
     print('PASS: upgraded widgets also render at a mobile viewport.', flush=True)
     await check_design(page, visit)
+    await check_dashboard_stability(browser, base_url)
     await check_chart_accessibility(page, visit)
     await check_demo_actions(page, visit)
     await context.close()

@@ -37,21 +37,27 @@
         if (!state) {
             const heading = canvas.closest('.info-box')?.querySelector('h4, h5');
             const title = heading?.textContent.trim() || canvas.getAttribute('aria-label') || type + ' chart';
-            let id = 'niche-chart-data-' + chart.id;
-            while (document.getElementById(id)) id += '-data';
-            const panel = element('div', undefined, 'chart-data');
-            const description = element('p', undefined, 'chart-data-description');
+            // Reuse an initial HTML panel so delayed charts do not move the cards below.
+            const adjacent = canvas.parentElement.nextElementSibling;
+            const panel = adjacent?.classList.contains('chart-data') && adjacent.dataset.chartFor === canvas.id
+                ? adjacent : element('div', undefined, 'chart-data');
+            const description = panel.querySelector('.chart-data-description') || element('p', undefined, 'chart-data-description');
+            let id = description.id || 'niche-chart-data-' + chart.id;
+            while (document.getElementById(id) && document.getElementById(id) !== description) id += '-data';
             description.id = id;
-            const details = element('details');
-            const summary = element('summary', 'View chart data: ' + title);
-            const scroll = element('div', undefined, 'chart-data-scroll');
+            const details = panel.querySelector('details') || element('details');
+            const summary = details.querySelector('summary') || element('summary');
+            summary.textContent = 'View chart data: ' + title;
+            const scroll = details.querySelector('.chart-data-scroll') || element('div', undefined, 'chart-data-scroll');
             scroll.tabIndex = 0;
             scroll.setAttribute('role', 'region');
             scroll.setAttribute('aria-label', title + ' data table');
-            details.append(summary, scroll);
-            panel.append(description, details);
+            if (summary.parentElement !== details) details.append(summary);
+            if (scroll.parentElement !== details) details.append(scroll);
+            if (description.parentElement !== panel) panel.prepend(description);
+            if (details.parentElement !== panel) panel.append(details);
             // Keep the table outside the canvas sizing wrapper to avoid resize loops.
-            canvas.parentElement.after(panel);
+            if (!panel.isConnected) canvas.parentElement.after(panel);
             state = { canvas, panel, description, scroll, title, signature: '' };
             states.set(chart, state);
             canvas.setAttribute('aria-label', title + '. ' + type + ' chart.');
@@ -87,6 +93,7 @@
         });
         table.append(head, body);
         state.scroll.replaceChildren(table);
+        state.panel.removeAttribute('aria-busy');
     }
 
     Chart.register({

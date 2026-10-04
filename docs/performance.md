@@ -1,5 +1,9 @@
 # Rendimiento medido — 4 de octubre de 2026
 
+La última revisión del dashboard obtiene 96 puntos en escritorio y CLS 0,0056.
+Consulta la [comparación posterior](#revisión-posterior-estabilidad-del-dashboard)
+para sus muestras y validación; la primera comparación se conserva a continuación.
+
 Comparación del commit `ef2d4a4` con los cambios de esta revisión. Cada cifra es
 la mediana de tres ejecuciones consecutivas por página y perfil; se realizaron
 18 auditorías antes y 18 después, sin ejecutar pruebas de navegador en paralelo.
@@ -59,10 +63,11 @@ grande; TBT, el tiempo total durante el que las tareas largas bloquean el hilo p
   el aviso de licencia y restaura la hoja completa cuando la página necesita `bi-*`.
 - Las comprobaciones de páginas excluyen dependencias de herramientas y reportes generados.
 
-## Límites y trabajo pendiente
+## Límites y trabajo pendiente de la primera revisión
 
 Cinco de los seis casos mejoran su puntuación mediana. El dashboard de escritorio
 baja de 94 a 91: su CLS después varía entre 0,029 y 0,140 en las tres muestras.
+La revisión posterior del dashboard, al final de este documento, corrige esa inestabilidad.
 Las trazas siguen mostrando cambios al cargar fuentes e inicializar gráficos.
 El FCP del dashboard móvil y el TBT de DataTables móvil también aumentan en esta
 ronda; no todos los indicadores mejoraron. Conviene repetir las mediciones después
@@ -82,3 +87,40 @@ compresión y caché HTTP es otro paso, dependiente del alojamiento elegido.
   de inicializarlos en móvil y escritorio (tolerancia de 3 px).
 - 40 capturas visuales aprobadas, con 0 % de píxeles cambiados y sin modificar referencias.
 - Instalación reproducible de las herramientas con `npm ci` verificada.
+
+## Revisión posterior: estabilidad del dashboard
+
+Se comparó una copia obtenida con `git archive 874c5a3` con el dashboard corregido.
+Se repitieron tres auditorías móviles y tres de escritorio por versión, con el mismo
+Lighthouse, Chromium, servidor y configuración descritos arriba. Las muestras están en
+[dashboard-performance-samples.json](dashboard-performance-samples.json).
+
+| Perfil | Puntuación antes → después | CLS antes → después | FCP segundos antes → después | LCP segundos antes → después | TBT ms antes → después |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Móvil | 70 → 70 | 0.0019 → 0.0003 | 4.50 → 4.35 | 4.96 → 5.25 | 44.0 → 55.5 |
+| Escritorio | 95 → 96 | 0.0288 → 0.0056 | 0.93 → 0.89 | 1.33 → 1.31 | 0.0 → 0.0 |
+
+El código anterior, que había obtenido 91 en escritorio, dio 95 al repetirlo; esto
+ilustra la variación entre rondas. La revisión llega a 96 y reduce el CLS: las tres
+muestras finales coinciden en 0,0056 en escritorio y 0,0003 en móvil. En móvil el
+LCP y TBT aumentaron en esta ronda y la puntuación se mantuvo; el cambio resuelve
+la estabilidad inicial, sin mejorar todos los tiempos de carga.
+
+La causa comprobada fue la inserción de descripciones y tablas accesibles después
+de crear los gráficos. Esos paneles ahora están presentes desde el HTML inicial y
+el plugin los reutiliza, conserva el foco y rellena sus tablas desde los datos reales.
+Las fuentes locales de Poppins 300 y 400 se precargan para adelantar su descarga.
+Se aplican las recomendaciones de Google para [contenido insertado y CLS](https://web.dev/articles/optimize-cls)
+y [carga de fuentes](https://web.dev/learn/performance/optimize-web-fonts).
+
+El HTML inicial añade 2 881 bytes transferidos por carga. No se añaden bibliotecas,
+y las dos fuentes precargadas son las mismas que ya utilizaba el dashboard.
+
+Validación de esta revisión:
+
+- 32 pruebas unitarias y comprobación de recursos de las 67 páginas aprobadas.
+- Pruebas completas de navegador, gráficos, tablas accesibles y actualizaciones aprobadas.
+- Nueva prueba con fuentes retrasadas 600 ms e inicialización de gráficos bloqueada:
+  los paneles mantienen su posición relativa, se reutilizan y conservan el foco del teclado.
+- El CLS de esa prueba queda por debajo de 0,05 en escritorio y móvil.
+- Las 40 capturas visuales coinciden con las referencias: 0 % de píxeles cambiados.
