@@ -1,5 +1,7 @@
 # Niche Horizontal — Bootstrap 5
 
+[![Pruebas de la plantilla](https://github.com/claudioborja/Niche-Horizontal-Bootstrap5/actions/workflows/tests.yml/badge.svg)](https://github.com/claudioborja/Niche-Horizontal-Bootstrap5/actions/workflows/tests.yml)
+
 Plantilla de administración con navegación horizontal, construida con HTML, CSS
 y JavaScript. Incluye **67 páginas de ejemplo**, cuatro dashboards y componentes
 para tablas, gráficos, calendarios, formularios y editores de texto.
@@ -203,7 +205,7 @@ funcionando sin Node.js ni un proceso de compilación.
 
 ```bash
 python3 -m venv .venv
-.venv/bin/pip install playwright==1.63.0
+.venv/bin/pip install -r tools/requirements-test.txt
 .venv/bin/python -m playwright install chromium
 .venv/bin/python tools/check_browser.py
 ```
@@ -211,6 +213,23 @@ python3 -m venv .venv
 El comprobador inicia y cierra su propio servidor local. Bloquea los servicios
 externos para no depender de Google Fonts ni de una clave de Google Maps;
 la conexión real con Google Maps se debe comprobar con una clave válida.
+
+### Pruebas automáticas en GitHub
+
+[GitHub Actions](https://github.com/claudioborja/Niche-Horizontal-Bootstrap5/actions/workflows/tests.yml)
+ejecuta las comprobaciones en cada push y pull request. También permite iniciarlas
+desde el botón **Run workflow** de la pestaña Actions.
+
+El workflow de [.github/workflows/tests.yml](.github/workflows/tests.yml) utiliza
+Ubuntu 24.04 y Python 3.14 para comprobar los recursos locales, las migraciones,
+la estructura del JavaScript y las 67 páginas en Chromium. Instala el navegador
+y sus dependencias automáticamente, y prueba las interacciones en escritorio y
+móvil. No necesita claves de Google Maps ni un backend.
+
+Las versiones de las herramientas están fijadas en
+[tools/requirements-test.txt](tools/requirements-test.txt). Las acciones se fijan
+por commit; las ejecuciones usan permisos de lectura y tienen un límite de
+15 minutos. Un nuevo cambio en la misma rama cancela la ejecución anterior.
 
 Después de actualizar o personalizar la plantilla, inicia el servidor local y
 revisa la consola y la pestaña de red del navegador.
@@ -282,6 +301,13 @@ Las pruebas comprueban esa estructura, el orden de carga y las interacciones del
 menú móvil, widgets, gráficos y formulario por pasos.
 
 ## Historial de cambios
+
+### Pruebas automáticas — octubre de 2026
+
+- Workflow de GitHub Actions para push, pull request y ejecución manual.
+- Comprobación de recursos, migraciones, estructura del JavaScript y navegador.
+- Versiones de herramientas fijadas y caché de descargas Python.
+- Insignia del estado de las pruebas y documentación para ejecutarlas localmente.
 
 ### Organización del JavaScript — octubre de 2026
 

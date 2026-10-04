@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Check local pages and vendor integrations with Playwright's Chromium.
 
-Optional tooling: pip install playwright && python -m playwright install chromium.
+Optional tooling: pip install -r tools/requirements-test.txt
+and python -m playwright install chromium.
 External services are blocked so the checks work independently of API keys/CDNs.
 """
 import asyncio
