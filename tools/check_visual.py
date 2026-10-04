@@ -28,7 +28,80 @@ CASES = (
     ('gallery', 'pages/pages-gallery.html', ''),
     ('login', 'pages/pages-login.html', ''),
     ('demo-notice', 'index.html', 'demo-notice'),
+    ('navigation-open', 'index.html', 'navigation-open'),
+    ('account-open', 'index.html', 'account-open'),
+    ('gallery-filtered', 'pages/pages-gallery.html', 'gallery-filtered'),
+    ('gallery-dialog', 'pages/pages-gallery.html', 'gallery-dialog'),
+    ('tabs-profile', 'ui/ui-tab.html', 'tabs-profile'),
+    ('tabs-vertical', 'ui/ui-tab.html', 'tabs-vertical'),
+    ('table-filtered', 'tables/table-data-table.html', 'table-filtered'),
+    ('table-empty', 'tables/table-data-table.html', 'table-empty'),
+    ('mailbox-collapsed', 'apps/apps-mailbox.html', 'mailbox-collapsed'),
+    ('popover-open', 'ui/ui-tooltip-popover.html', 'popover-open'),
+    ('faq-expanded', 'pages/pages-faq.html', 'faq-expanded'),
 )
+OVERLAYS = {'navigation-open', 'account-open', 'gallery-dialog', 'popover-open'}
+
+
+async def interactive_state(page, state, width):
+    """Use real controls and verify their state before accepting a screenshot."""
+    if state == 'navigation-open':
+        if width < 768:
+            await page.locator('#menu-btn').click()
+            assert await page.locator('#menu-btn').get_attribute('aria-expanded') == 'true'
+        branch = page.locator('#respMenu > li > a').first
+        await branch.focus()
+        await branch.press('ArrowDown')
+        assert await branch.get_attribute('aria-expanded') == 'true'
+        await page.locator('#' + await branch.get_attribute('aria-controls')).wait_for(state='visible')
+    elif state == 'account-open':
+        await page.locator('.user-menu > a').click()
+        await page.locator('.user-menu > .dropdown-menu').wait_for(state='visible')
+        assert await page.locator('.user-menu > a').get_attribute('aria-expanded') == 'true'
+    elif state in {'gallery-filtered', 'gallery-dialog'}:
+        await page.locator('.gallery-filter[data-filter=".identity"]').click()
+        assert await page.locator('.gallery-item:visible').count() == 5
+        if state == 'gallery-dialog':
+            await page.locator('.gallery-item:visible .gallery-link').first.click()
+            await page.locator('#gallery-lightbox').wait_for(state='visible')
+            assert await page.locator('#gallery-lightbox').evaluate('el => el.open')
+            await page.locator('#gallery-lightbox img').evaluate('image => image.decode()')
+            assert await page.locator('#gallery-position').inner_text() == '1 of 5'
+    elif state in {'tabs-profile', 'tabs-vertical'}:
+        suffix = '' if state == 'tabs-profile' else '9'
+        tab = page.locator('#profile' + suffix + '-tab')
+        await tab.click()
+        await page.locator('#profile' + suffix).wait_for(state='visible')
+        assert await tab.get_attribute('aria-selected') == 'true'
+    elif state in {'table-filtered', 'table-empty'}:
+        query = 'Trident' if state == 'table-filtered' else 'No matching visual fixture'
+        await page.locator('#example1_wrapper .dt-search input').fill(query)
+        if state == 'table-filtered':
+            await page.wait_for_function("0 < new DataTable('#example1').rows({search: 'applied'}).count() && new DataTable('#example1').rows({search: 'applied'}).count() < new DataTable('#example1').rows().count()")
+            assert await page.locator('#example1 tbody tr').first.inner_text() != ''
+        else:
+            await page.wait_for_function("new DataTable('#example1').rows({search: 'applied'}).count() === 0")
+            assert 'No matching records found' in await page.locator('#example1 tbody').inner_text()
+    elif state == 'mailbox-collapsed':
+        box = page.locator('.box').first
+        control = box.locator('[data-widget=collapse]')
+        await control.click()
+        await page.wait_for_function("document.querySelector('.box').classList.contains('collapsed-box')")
+        assert await control.get_attribute('aria-expanded') == 'false'
+    elif state == 'popover-open':
+        await page.locator('[data-popover-template="myPopover1"]').click()
+        await page.locator('.popover.show').wait_for(state='visible')
+        assert await page.locator('.popover.show [data-popover-close]').is_visible()
+    elif state == 'faq-expanded':
+        await page.locator('[data-bs-target="#collapseTwo"]').click()
+        await page.locator('#collapseTwo.show').wait_for(state='visible')
+        assert await page.locator('[data-bs-target="#collapseTwo"]').get_attribute('aria-expanded') == 'true'
+        assert not await page.locator('#collapseOne').is_visible()
+    else:
+        raise ValueError('Unknown interactive visual state: ' + state)
+    if state and state not in OVERLAYS:
+        await page.evaluate('window.scrollTo(0, 0)')
+    await page.evaluate('new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))')
 
 
 def compare(expected, actual, threshold=12):
@@ -82,9 +155,11 @@ async def capture(browser, base_url, output):
                 });
                 return new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
             }""")
+            if state not in {'', 'wizard-errors', 'chart-data', 'demo-notice'}:
+                await interactive_state(page, state, width)
             assert not errors, f'{path}: {errors}'
             filename = f'{name}-{width}.png'
-            await page.screenshot(path=str(output / filename), full_page=True, animations='disabled', caret='hide')
+            await page.screenshot(path=str(output / filename), full_page=state not in OVERLAYS, animations='disabled', caret='hide')
             results.append(filename)
             await page.close()
     await context.close()

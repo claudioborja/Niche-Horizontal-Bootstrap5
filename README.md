@@ -231,9 +231,16 @@ con una clave válida.
 
 ### Comparación visual
 
-`tools/check_visual.py` compara 18 capturas de escritorio (1440 px) y móvil
-(390 px): dashboards, tabla accesible de gráficos, calendario, validación,
-wizard con errores, DataTables, galería, acceso y aviso de demo.
+`tools/check_visual.py` compara 40 capturas de escritorio (1440 px) y móvil
+(390 px). Incluye dashboards, tabla accesible de gráficos, calendario,
+validación, wizard con errores, DataTables, galería, acceso y aviso de demo.
+También cubre navegación y cuenta abiertas, galería filtrada y su diálogo,
+pestañas horizontales y verticales activas, tablas filtradas y sin resultados,
+panel de correo colapsado, popover abierto y FAQ expandida.
+
+Cada estado se activa con los controles reales y se verifica antes de capturar.
+Los diálogos y menús superpuestos se capturan dentro de la ventana, para revisar
+su posición; los demás casos guardan la página completa.
 
 ```bash
 .venv/bin/python -m unittest discover -s tools -p 'test_*.py'
@@ -269,7 +276,7 @@ El workflow de [.github/workflows/tests.yml](.github/workflows/tests.yml) utiliz
 Ubuntu 24.04 y Python 3.14 para comprobar los recursos locales, las migraciones,
 la estructura del JavaScript y las 67 páginas en Chromium. Instala el navegador
 y sus dependencias automáticamente, y prueba las interacciones en escritorio y
-móvil, y compara las 18 capturas de referencia. Si falla, guarda las capturas
+móvil, y compara las 40 capturas de referencia. Si falla, guarda las capturas
 y diferencias como artefacto durante siete días. No necesita claves de Google
 Maps ni un backend.
 

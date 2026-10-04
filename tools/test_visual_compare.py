@@ -1,5 +1,6 @@
 """Verify that screenshot comparisons detect pixel and dimension changes."""
 import importlib.util
+import asyncio
 from pathlib import Path
 import tempfile
 import unittest
@@ -37,3 +38,8 @@ class VisualComparison(unittest.TestCase):
         from check_visual import compare
         Image.new('RGB', (11, 10), 'white').save(self.right)
         self.assertEqual(compare(self.left, self.right), (1, None))
+
+    def test_unknown_interactive_state_is_rejected(self):
+        from check_visual import interactive_state
+        with self.assertRaisesRegex(ValueError, 'Unknown interactive visual state'):
+            asyncio.run(interactive_state(None, 'misspelled-state', 1440))
