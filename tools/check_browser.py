@@ -12,6 +12,7 @@ from pathlib import Path
 import threading
 
 from playwright.async_api import async_playwright
+from check_native_components import check_native
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -133,6 +134,16 @@ FullCalendar.Calendar = class extends FullCalendar.Calendar {
         const done = checkbox.closest('li').hasClass('done');
         checkbox.prop('checked', false).trigger('change');
         const unchecked = !checkbox.closest('li').hasClass('done');
+        const customTodo = document.createElement('ul');
+        customTodo.innerHTML = '<li><input type="checkbox"></li>';
+        fixture.append(customTodo);
+        let callbacks = 0;
+        $(customTodo).data('onCheck', function () { if (this.jquery === $.fn.jquery) callbacks++; }).todoList();
+        $('input', customTodo).prop('checked', true).trigger('change');
+        const compatibleCallbacks = callbacks === 1;
+        const legacyTodo = $.fn.todoList.noConflict();
+        const noConflict = $.fn.todoList === undefined;
+        $.fn.todoList = legacyTodo;
         $('.direct-chat button', fixture).trigger('click');
         const chat = $('.direct-chat', fixture).hasClass('direct-chat-contacts-open');
         $('[data-toggle="push-menu"]', fixture).trigger('click');
@@ -143,7 +154,7 @@ FullCalendar.Calendar = class extends FullCalendar.Calendar {
         $('[data-toggle="control-sidebar"]', fixture).trigger('click');
         const closed = !$('.control-sidebar', fixture).hasClass('control-sidebar-open');
         fixture.remove();
-        return opened && treeClosed && done && unchecked && chat && collapsed && settings && closed;
+        return opened && treeClosed && done && unchecked && compatibleCallbacks && noConflict && chat && collapsed && settings && closed;
     }''')
     print('PASS: retained tree, todo, chat and sidebar plugin APIs work with delegated events.', flush=True)
 
@@ -340,6 +351,7 @@ async def main():
         async with async_playwright() as playwright:
             browser = await playwright.chromium.launch()
             try:
+                await check_native(browser, f'http://127.0.0.1:{server.server_port}')
                 await check(browser, f'http://127.0.0.1:{server.server_port}')
             finally:
                 await browser.close()

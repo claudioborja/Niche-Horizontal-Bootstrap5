@@ -10,6 +10,11 @@ def migrate(path, original):
     prefix = 'assets/' if path.name in {'index.html', 'index2.html', 'index3.html', 'index4.html'} else '../assets/'
     text = re.sub(r'<script\b[^>]*src="[^"\n]*jquery-migrate[^"\n]*"[^>]*></script>\s*\n?', '', text)
     text = text.replace('>Summernote</a>', '>Rich Text Editor</a>').replace('>Peity Chart</a>', '>Mini Charts</a>')
+    text = re.sub(r'<script\b[^>]*src="[^"\n]*assets/plugins/(?:hmenu/ace-responsive-menu\.js|jquery-slimscroll/[^"\n]+)"[^>]*></script>[^\S\r\n]*\r?\n?', '', text)
+    widgets = '<script src="' + prefix + 'js/niche/widgets.js"></script>'
+    if widgets in text and 'js/niche/jquery-bridge.js' not in text:
+        text = text.replace(widgets, widgets + '\n<script src="' + prefix + 'js/niche/jquery-bridge.js"></script>')
+
     if path.name in {'form-summernote.html', 'apps-compose-mail.html'}:
         text = re.sub(r'assets/plugins/summernote(?:-[\d.]+)?/summernote-bs5.min.css', 'assets/plugins/jodit-4.17.1/jodit.min.css', text)
         text = re.sub(r'assets/plugins/summernote(?:-[\d.]+)?/summernote-bs5.min.js', 'assets/plugins/jodit-4.17.1/jodit.min.js', text)

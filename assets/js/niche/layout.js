@@ -1,53 +1,42 @@
-/* Layout sizing and optional sidebar scrolling. Original template license: MIT. */
-(function ($, Niche) {
+/* Native layout sizing and browser sidebar scrolling. Original template license: MIT. */
+(function (Niche) {
     'use strict';
-
+    const height = selector => document.querySelector(selector)?.getBoundingClientRect().height || 0;
     class Layout {
         constructor(element, options) {
             this.options = options;
             this.activate();
-            $(window).on('resize.nicheLayout', () => this.refresh());
-            $('.sidebar-menu').on('expanded.tree collapsed.tree', () => this.refresh());
-            $('.main-header .logo, .sidebar').on('transitionend.nicheLayout', () => this.refresh());
+            window.addEventListener('resize', () => this.refresh());
+            document.addEventListener('expanded.tree', () => this.refresh());
+            document.addEventListener('collapsed.tree', () => this.refresh());
+            document.querySelectorAll('.main-header .logo, .sidebar').forEach(node => node.addEventListener('transitionend', () => this.refresh()));
         }
-
         activate() {
             this.refresh();
-            $('body').removeClass('hold-transition');
-            if (this.options.resetHeight) $('body, html, .wrapper').css({ height: 'auto', 'min-height': '100%' });
+            document.body.classList.remove('hold-transition');
+            if (this.options.resetHeight) document.querySelectorAll('body, html, .wrapper').forEach(node => {
+                node.style.height = 'auto'; node.style.minHeight = '100%';
+            });
         }
-
-        refresh() {
-            this.fix();
-            this.fixSidebar();
-        }
-
+        refresh() { this.fix(); this.fixSidebar(); }
         fix() {
-            $('.layout-boxed > .wrapper').css('overflow', 'hidden');
-            const footerHeight = $('.main-footer').outerHeight() || 0;
-            const headerHeight = $('.main-header').outerHeight() || 0;
-            const viewportHeight = $(window).height();
-            const sidebarHeight = $('.sidebar').height() || 0;
-            let minimumHeight = $('body').hasClass('fixed')
-                ? viewportHeight - footerHeight
-                : Math.max(viewportHeight - headerHeight - footerHeight, sidebarHeight);
-            minimumHeight = Math.max(minimumHeight, $('.control-sidebar').height() || 0, 0);
-            $('.content-wrapper').css('min-height', minimumHeight);
+            document.querySelectorAll('.layout-boxed > .wrapper').forEach(node => { node.style.overflow = 'hidden'; });
+            const minimum = document.body.classList.contains('fixed')
+                ? window.innerHeight - height('.main-footer')
+                : Math.max(window.innerHeight - height('.main-header') - height('.main-footer'), height('.sidebar'));
+            document.querySelectorAll('.content-wrapper').forEach(node => {
+                node.style.minHeight = Math.max(minimum, height('.control-sidebar'), 0) + 'px';
+            });
         }
-
         fixSidebar() {
-            if (typeof $.fn.slimScroll !== 'function') return;
-            const sidebar = $('.sidebar');
-            if (!$('body').hasClass('fixed')) sidebar.slimScroll({ destroy: true }).height('auto');
-            else if (this.options.slimscroll) {
-                sidebar.slimScroll({ destroy: true }).height('auto').slimScroll({
-                    height: $(window).height() - ($('.main-header').height() || 0) + 'px',
-                    color: 'rgba(0,0,0,0.2)', size: '3px'
-                });
-            }
+            document.querySelectorAll('.sidebar').forEach(sidebar => {
+                const fixed = document.body.classList.contains('fixed') && this.options.slimscroll;
+                sidebar.style.height = fixed ? Math.max(0, window.innerHeight - height('.main-header')) + 'px' : 'auto';
+                sidebar.style.overflowY = fixed ? 'auto' : '';
+                sidebar.style.scrollbarWidth = fixed ? 'thin' : '';
+            });
         }
     }
-
-    Niche.definePlugin('layout', Layout, 'lte.layout', { slimscroll: true, resetHeight: true });
-    Niche.onLoad(() => $('body').layout());
-})(jQuery, window.Niche);
+    Niche.defineComponent('layout', Layout, 'lte.layout', { slimscroll: true, resetHeight: true });
+    Niche.onLoad(() => Niche.component(document.body, 'layout'));
+})(window.Niche);

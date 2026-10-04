@@ -62,7 +62,7 @@ Versiones incluidas y referenciadas por las páginas después de la actualizaci�
 | --- | --- | --- |
 | Bootstrap | 5.3.8 | Layout, estilos y componentes de interfaz |
 | Popper | 2.11.8 | Posicionamiento de dropdowns, tooltips y popovers |
-| jQuery | 4.0.0 | Plugins existentes y comportamiento de la plantilla |
+| jQuery | 4.0.0 | Plugins e inicializadores pendientes de migración |
 | jQuery UI | 1.14.2 | Componentes utilizados por las páginas de ejemplo |
 | Chart.js | 4.5.1 | Gráficos en dashboards y página de demostración |
 | DataTables | 3.1.3 | Tablas con integración Bootstrap 5 |
@@ -334,17 +334,44 @@ pueden sustituirse por respuestas de tu API en los inicializadores correspondien
 
 ## JavaScript de la plantilla
 
-La lógica de aplicación está en archivos externos. Las páginas con la plantilla
-cargan estos scripts en orden, después de jQuery:
+La lógica de aplicación está en archivos externos. El núcleo funciona con
+JavaScript nativo y carga estos cuatro scripts en orden:
 
-1. `assets/js/niche.js`: registro compartido de plugins y callbacks de carga.
-2. `assets/js/niche/layout.js`: cálculo de alturas y scroll opcional de la barra lateral.
-3. `assets/js/niche/navigation.js`: menú horizontal, navegación lateral y árboles.
-4. `assets/js/niche/widgets.js`: cajas colapsables, listas de tareas y paneles de chat.
+1. `assets/js/niche.js`: registro de componentes, instancias y callbacks de carga.
+2. `assets/js/niche/layout.js`: alturas y scroll nativo de la barra lateral.
+3. `assets/js/niche/navigation.js`: menú horizontal, barras laterales y árboles.
+4. `assets/js/niche/widgets.js`: cajas colapsables, tareas y paneles de chat.
 
-Los componentes conservan sus APIs jQuery, opciones `data-*` y eventos de la
-plantilla. El menú se inicializa desde el módulo de navegación cuando el DOM y
-su plugin están disponibles; no necesita un bloque repetido en cada página.
+El núcleo no requiere jQuery, Ace Responsive Menu ni SlimScroll. Conserva el HTML
+y los atributos `data-*`, utiliza eventos DOM y animaciones del navegador que
+respetan la preferencia de movimiento reducido. El menú se inicializa al estar
+listo el DOM, con ratón, teclado y cambios entre escritorio y móvil. Las páginas
+siguen siendo HTML independientes, sin compilación ni framework.
+
+Para usar un componente desde JavaScript nativo:
+
+```javascript
+const box = document.querySelector('.box');
+Niche.component(box, 'boxWidget', 'collapse');
+Niche.component(box, 'boxWidget', 'expand');
+const instance = Niche.getComponent(box, 'boxWidget');
+box.addEventListener('collapsed.boxwidget', () => console.log('Panel collapsed'));
+```
+
+`Niche.component(element, name, options)` inicializa una sola instancia por
+elemento y componente. También acepta un selector y un nombre de método como
+tercer argumento. `Niche.defineComponent` permite registrar componentes nuevos.
+Los callbacks nativos de tareas reciben el checkbox DOM como `this`.
+
+Las páginas existentes cargan después `assets/js/niche/jquery-bridge.js`, un
+adaptador opcional para las llamadas jQuery `layout`, `pushMenu`, `tree`,
+`controlSidebar`, `boxWidget`, `todoList` y `directChat`. Conserva las instancias
+`data('lte.*')`, eventos y `noConflict`, y conecta las llamadas con el mismo
+componente nativo. Se puede omitir al usar únicamente la API `Niche`.
+
+jQuery se mantiene para los plugins e inicializadores de terceros que todavía
+lo utilizan, por ejemplo jQuery UI, Ion.RangeSlider, Knob y el formulario por
+pasos. Migrar el núcleo no elimina esa dependencia del conjunto de la plantilla.
 
 Los scripts específicos se cargan después de sus bibliotecas:
 
@@ -359,9 +386,20 @@ Los scripts específicos se cargan después de sus bibliotecas:
 Para añadir acciones a botones, utiliza atributos `data-*` y listeners en su
 archivo de componente. Evita scripts inline y atributos `onclick` en los HTML.
 Las pruebas comprueban esa estructura, el orden de carga y las interacciones del
-menú móvil, widgets, gráficos y formulario por pasos.
+menú móvil, widgets, gráficos y formulario por pasos. Incluyen un contexto de
+navegador que carga únicamente el núcleo, sin jQuery ni scripts de plugins, y
+otro que verifica las páginas completas y el adaptador de compatibilidad.
 
 ## Historial de cambios
+
+### Núcleo JavaScript nativo — octubre de 2026
+
+- Registro, layout, menú, barras laterales, árboles y widgets sin dependencia de jQuery.
+- Scroll y animaciones nativos con preferencia de movimiento reducido.
+- Adaptador opcional para las llamadas jQuery anteriores, usando las mismas instancias.
+- Retirada del JavaScript de Ace Responsive Menu y de SlimScroll.
+- Pruebas del núcleo sin cargar jQuery, además de compatibilidad y revisión de las 67 páginas.
+
 
 ### Accesibilidad, imágenes y fuentes locales — octubre de 2026
 

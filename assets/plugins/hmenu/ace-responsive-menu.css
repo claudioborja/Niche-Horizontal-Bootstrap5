@@ -68,16 +68,16 @@ ul {
     margin-left: 15px;
     display: inline;
     font-size: 15px;
-    font-family: FontAwesome;
+    font-family: bootstrap-icons;
     height: auto;
-    content: "\f107";
+    content: "\f282";
     font-weight: 300;
     text-shadow: none;
     width: 10px;
     display: inline-block;
 }
 .ace-responsive-menu li ul.sub-menu li > a > .arrow:before {
-    content: "\f105" !important;
+    content: "\f285" !important;
 }
 .ace-responsive-menu > li > ul.sub-menu {
     display: none;
@@ -125,9 +125,9 @@ ul {
     margin-right: 0px;
     display: inline;
     font-size: 16px;
-    font-family: FontAwesome;
+    font-family: bootstrap-icons;
     height: auto;
-    content: "\f104";
+    content: "\f284";
     font-weight: 300;
     text-shadow: none;
 }
@@ -199,10 +199,10 @@ ul[data-menu-style="accordion"] li ul.sub-menu > li {
 }
 ul[data-menu-style="accordion"] > li > a > .arrow:before {
     float: right;
-    content: "\f105";
+    content: "\f285";
 }
 ul[data-menu-style="accordion"] li.menu-active > a > .arrow:before {
-    content: "\f107" !important;
+    content: "\f282" !important;
 }
 ul[data-menu-style="accordion"] > li > ul.sub-menu {
     position: static;
@@ -224,7 +224,7 @@ ul[data-menu-style="accordion"] li a:hover {
     background: #272727 !important;
 }
 ul[data-menu-style="accordion"] ul.sub-menu li.menu-active > a > .arrow:before {
-    content: "\f107" !important;
+    content: "\f282" !important;
 }
 
 /* Vertical Menu Styles
@@ -244,7 +244,7 @@ ul[data-menu-style="vertical"] li ul.sub-menu > li {
 }
 ul[data-menu-style="vertical"] > li > a > .arrow:before {
     float: right;
-    content: "\f105";
+    content: "\f285";
 }
 ul[data-menu-style="vertical"] > li.menu-active {
 position:relative;
@@ -278,7 +278,7 @@ ul[data-menu-style="vertical"] li a:hover {
 
 /* Responsive Menu Styles
 ----------------------------------------*/
-/*Note: change the max-width asper your requirment and change the same in aceResponsiveMenu({resizeWidth: "768" }) function*/
+/* Change this breakpoint together with the horizontalMenu resizeWidth option. */
 
 @media screen and (max-width: 768px) {
     .demo {
@@ -313,10 +313,10 @@ ul[data-menu-style="vertical"] li a:hover {
 
     .ace-responsive-menu > li > a > .arrow:before {
         float: right;
-        content: "\f105";
+        content: "\f285";
     }
     li.menu-active > a > .arrow:before {
-        content: "\f107" !important;
+        content: "\f282" !important;
     }
     .ace-responsive-menu li ul.sub-menu > li {
         width: 100%;
@@ -339,6 +339,6 @@ ul[data-menu-style="vertical"] li a:hover {
         position: static;
     }
     .ace-responsive-menu li ul.sub-menu li.menu-active > a > .arrow:before {
-        content: "\f107" !important;
+        content: "\f282" !important;
     }
 }

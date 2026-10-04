@@ -48,6 +48,18 @@ class Migrations(unittest.TestCase):
             self.assertNotIn(b'fonts.googleapis', result)
             self.assertEqual(updater.migrate(path, result), result)
 
+    def test_native_core_removes_vendor_menu_and_keeps_one_optional_bridge(self):
+        old = b'''<script src="assets/js/niche/widgets.js"></script>
+<script src="assets/plugins/hmenu/ace-responsive-menu.js"></script>
+<script src="assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>'''
+        path = ROOT / 'index.html'
+        result = updater.migrate(path, old)
+        self.assertNotIn(b'ace-responsive-menu.js', result)
+        self.assertNotIn(b'jquery-slimscroll', result)
+        self.assertEqual(result.count(b'niche/jquery-bridge.js'), 1)
+        self.assertLess(result.index(b'niche/widgets.js'), result.index(b'niche/jquery-bridge.js'))
+        self.assertEqual(updater.migrate(path, result), result)
+
     def test_range_sliders_use_labelled_inputs(self):
         text = updater.migrate(ROOT / 'ui/ui-range-slider.html', (ROOT / 'ui/ui-range-slider.html').read_bytes()).decode()
         self.assertNotIn('skinModern.css', text)

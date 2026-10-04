@@ -54,6 +54,9 @@ class JavaScriptStructure(unittest.TestCase):
                 name = 'niche/' + module + '.js'
                 self.assertEqual(names.count(name), 1, str(page))
                 self.assertEqual(names[core + offset], name, str(page))
+            self.assertEqual(names.count('niche/jquery-bridge.js'), 1, str(page))
+            self.assertEqual(names[core + 4], 'niche/jquery-bridge.js', str(page))
+            self.assertFalse(any('ace-responsive-menu.js' in source or 'jquery-slimscroll' in source for source in parser.sources), str(page))
 
 
 if __name__ == '__main__':

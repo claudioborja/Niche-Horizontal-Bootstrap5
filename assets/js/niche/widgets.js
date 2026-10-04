@@ -1,92 +1,84 @@
-/* Collapsible boxes, todo lists and chat panes. Original template license: MIT. */
-(function ($, Niche) {
+/* Native collapsible boxes, todo lists and chat panes. Original template license: MIT. */
+(function (Niche) {
     'use strict';
-
     class BoxWidget {
         constructor(element, options) {
-            this.element = element;
-            this.options = options;
-            this.updateAccessibility(!element.hasClass('collapsed-box'));
-            element.on('click.nicheBox', options.collapseTrigger, event => {
+            this.element = element; this.options = options;
+            this.expanded = !element.classList.contains('collapsed-box');
+            this.updateAccessibility(this.expanded);
+            element.addEventListener('click', event => {
+                const button = event.target.closest(options.collapseTrigger + ', ' + options.removeTrigger);
+                if (!button || button.closest('.box') !== element) return;
                 event.preventDefault();
-                this.toggle();
-            }).on('click.nicheBox', options.removeTrigger, event => {
-                event.preventDefault();
-                this.remove();
+                if (button.matches(options.collapseTrigger)) this.toggle();
+                else this.remove();
             });
         }
-
-        toggle() {
-            if (this.element.hasClass('collapsed-box')) this.expand();
-            else this.collapse();
-        }
-
+        toggle() { if (this.expanded) this.collapse(); else this.expand(); }
         updateAccessibility(expanded) {
-            this.element.find(this.options.collapseTrigger).attr({
-                'aria-expanded': String(expanded),
-                'aria-label': expanded ? 'Collapse panel' : 'Expand panel'
+            this.element.querySelectorAll(this.options.collapseTrigger).forEach(button => {
+                button.setAttribute('aria-expanded', String(expanded));
+                button.setAttribute('aria-label', expanded ? 'Collapse panel' : 'Expand panel');
             });
         }
-
-        expand() {
-            this.updateAccessibility(true);
-            this.element.removeClass('collapsed-box');
-            this.element.find('.box-tools .' + this.options.expandIcon)
-                .removeClass(this.options.expandIcon).addClass(this.options.collapseIcon);
-            this.element.find('.box-body, .box-footer').stop(true, true).slideDown(this.options.animationSpeed,
-                () => this.element.trigger('expanded.boxwidget'));
-        }
-
-        collapse() {
-            this.updateAccessibility(false);
-            this.element.find('.box-tools .' + this.options.collapseIcon)
-                .removeClass(this.options.collapseIcon).addClass(this.options.expandIcon);
-            this.element.find('.box-body, .box-footer').stop(true, true).slideUp(this.options.animationSpeed, () => {
-                this.element.addClass('collapsed-box').trigger('collapsed.boxwidget');
+        setExpanded(expanded) {
+            this.expanded = expanded;
+            this.updateAccessibility(expanded);
+            if (expanded) this.element.classList.remove('collapsed-box');
+            const oldIcon = expanded ? this.options.expandIcon : this.options.collapseIcon;
+            const newIcon = expanded ? this.options.collapseIcon : this.options.expandIcon;
+            this.element.querySelectorAll('.box-tools .' + oldIcon).forEach(icon => {
+                icon.classList.remove(oldIcon); icon.classList.add(newIcon);
             });
+            const panels = Array.from(this.element.children).filter(node => node.matches('.box-body, .box-footer'));
+            let pending = panels.length;
+            const finish = () => {
+                if (this.expanded !== expanded) return;
+                this.element.classList.toggle('collapsed-box', !expanded);
+                Niche.emit(this.element, expanded ? 'expanded.boxwidget' : 'collapsed.boxwidget');
+            };
+            if (!pending) finish();
+            panels.forEach(panel => Niche.slide(panel, expanded, this.options.animationSpeed, () => {
+                if (!--pending) finish();
+            }));
         }
-
+        expand() { this.setExpanded(true); }
+        collapse() { this.setExpanded(false); }
         remove() {
-            this.element.stop(true, true).slideUp(this.options.animationSpeed, () => {
-                this.element.trigger('removed.boxwidget').remove();
+            Niche.slide(this.element, false, this.options.animationSpeed, () => {
+                Niche.emit(this.element, 'removed.boxwidget'); this.element.remove();
             });
         }
     }
-
     class TodoList {
         constructor(element, options) {
             this.options = options;
-            element.on('change.nicheTodo ifChanged.nicheTodo', 'input:checkbox', event => this.toggle($(event.target)));
+            element.addEventListener('change', event => { if (event.target.matches('input[type=checkbox]')) this.toggle(event.target); });
+            element.addEventListener('ifChanged', event => { if (event.target.matches('input[type=checkbox]')) this.toggle(event.target); });
         }
-
         toggle(checkbox) {
-            checkbox.closest('li').toggleClass('done', checkbox.prop('checked'));
-            if (checkbox.prop('checked')) this.check(checkbox);
-            else this.unCheck(checkbox);
+            checkbox.closest('li')?.classList.toggle('done', checkbox.checked);
+            if (checkbox.checked) this.check(checkbox); else this.unCheck(checkbox);
         }
-
         check(checkbox) { this.options.onCheck.call(checkbox); }
         unCheck(checkbox) { this.options.onUnCheck.call(checkbox); }
     }
-
     class DirectChat {
         constructor(element) { this.element = element; }
-        toggle() { this.element.closest('.direct-chat').toggleClass('direct-chat-contacts-open'); }
+        toggle() { this.element.closest('.direct-chat')?.classList.toggle('direct-chat-contacts-open'); }
     }
-
-    Niche.definePlugin('boxWidget', BoxWidget, 'lte.boxwidget', {
+    Niche.defineComponent('boxWidget', BoxWidget, 'lte.boxwidget', {
         animationSpeed: 500, collapseTrigger: '[data-widget="collapse"]', removeTrigger: '[data-widget="remove"]',
         collapseIcon: 'fa-minus', expandIcon: 'fa-plus', removeIcon: 'fa-times'
     });
-    Niche.definePlugin('todoList', TodoList, 'lte.todolist', { onCheck: function () {}, onUnCheck: function () {} });
-    Niche.definePlugin('directChat', DirectChat, 'lte.directchat', {});
-
+    Niche.defineComponent('todoList', TodoList, 'lte.todolist', { onCheck() {}, onUnCheck() {} });
+    Niche.defineComponent('directChat', DirectChat, 'lte.directchat', {});
     Niche.onLoad(() => {
-        $('.box').boxWidget();
-        $('[data-widget="todo-list"]').todoList();
+        document.querySelectorAll('.box').forEach(element => Niche.component(element, 'boxWidget'));
+        document.querySelectorAll('[data-widget="todo-list"]').forEach(element => Niche.component(element, 'todoList'));
     });
-    $(document).on('click.nicheChat', '[data-widget="chat-pane-toggle"]', function (event) {
-        event.preventDefault();
-        $(this).directChat('toggle');
+    document.addEventListener('click', event => {
+        const button = event.target.closest('[data-widget="chat-pane-toggle"]');
+        if (button) { event.preventDefault(); Niche.component(button, 'directChat', 'toggle'); }
     });
-})(jQuery, window.Niche);
+})(window.Niche);
