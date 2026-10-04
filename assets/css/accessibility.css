@@ -48,6 +48,7 @@ a:hover, a:focus { color: var(--niche-color-link-hover); }
 .text-success, .text-green { color: var(--niche-readable-green) !important; }
 .text-yellow, .text-warning { color: var(--niche-readable-yellow) !important; }
 .text-orange { color: var(--niche-readable-orange) !important; }
+.text-danger, .invalid-feedback { color: var(--niche-readable-red) !important; }
 .bg-aqua { background-color: var(--niche-readable-aqua) !important; }
 .bg-green { background-color: var(--niche-readable-green) !important; }
 .bg-orange { background-color: var(--niche-readable-orange) !important; }

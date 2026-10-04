@@ -247,6 +247,12 @@ Las versiones de las herramientas están fijadas en
 por commit; las ejecuciones usan permisos de lectura y tienen un límite de
 15 minutos. Un nuevo cambio en la misma rama cancela la ejecución anterior.
 
+Los ejemplos de validación muestran mensajes visibles asociados al campo con
+`aria-describedby`. El wizard valida cada paso, marca los campos inválidos y
+lleva el foco al primer error al intentar avanzar. Sus datos son de demostración:
+no se envían ni se guardan. La tabla exporta las filas filtradas en XLSX, XLS,
+CSV y TXT.
+
 Después de actualizar o personalizar la plantilla, inicia el servidor local y
 revisa la consola y la pestaña de red del navegador.
 
@@ -260,7 +266,7 @@ revisa la consola y la pestaña de red del navegador.
 | Jodit | Escribir, dar formato, insertar imágenes y tablas, cambiar a vista HTML y usar Edit/Save |
 | Galería | Filtrar categorías, abrir imágenes, navegar con botones/flechas y cerrar con Escape |
 | Minigráficos | Dibujar pies, anillos, barras y líneas, incluidas series negativas |
-| Formulario por pasos | Campos obligatorios, mensajes de error y avance entre pasos |
+| Formulario por pasos | Campos obligatorios, correo válido, mensajes asociados al campo, foco en el primer error y avance entre pasos |
 | Bootstrap 5 | Cerrar alertas; cambiar pestañas; abrir dropdowns y el acordeón del FAQ; usar indicadores de carrusel y tooltips/popovers |
 | Controles nativos | Cambiar interruptores; comprobar los estados deshabilitados, de solo lectura y la limpieza del grupo de radios |
 | FilePond | Arrastrar archivos, previsualizar imágenes, comprobar el límite de 2 MB, los inputs deshabilitados y los adjuntos múltiples |
@@ -374,6 +380,10 @@ sus propias opciones. Los gráficos conservan las paletas de sus inicializadores
 Tras cambiar colores o tamaños, ejecuta las pruebas para revisar contraste y
 adaptación móvil. `check_design_quality.py` comprueba que las variables modifican
 los componentes reales en el navegador.
+
+Los gráficos comparten la tipografía y el color de texto del tema mediante
+`assets/js/chart-theme.js`. Cárgalo después de Chart.js y antes del inicializador
+de la página. Las leyendas se generan desde los datos del gráfico.
 
 - Edita [assets/css/style.css](assets/css/style.css) para ajustar los estilos de la plantilla.
 - Usa [assets/js/niche.js](assets/js/niche.js) para el comportamiento general.

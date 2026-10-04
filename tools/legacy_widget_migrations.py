@@ -11,6 +11,7 @@ def migrate(path, original):
     if 'css/theme.css' not in text:
         text = re.sub(r'(?=<link\b[^>]*href="[^"\n]*assets/css/style\.css")',
                       '<link rel="stylesheet" href="' + prefix + 'css/theme.css">\n', text, count=1)
+    chart_loader = '<script src="' + prefix + 'plugins/chart-js-4.5.1/chart.umd.js"></script>'
     text = re.sub(r'<script\b[^>]*src="[^"\n]*jquery-migrate[^"\n]*"[^>]*></script>\s*\n?', '', text)
     text = text.replace('>Summernote</a>', '>Rich Text Editor</a>').replace('>Peity Chart</a>', '>Mini Charts</a>')
     text = re.sub(r'<script\b[^>]*src="[^"\n]*assets/plugins/(?:hmenu/ace-responsive-menu\.js|jquery-slimscroll/[^"\n]+)"[^>]*></script>[^\S\r\n]*\r?\n?', '', text)
@@ -81,4 +82,6 @@ def migrate(path, original):
 </body>''')
     text = re.sub(r'(<!-- (?:Native gallery|Jodit rich text editor|Chart.js mini charts) -->)[ \t]+(?=\n)', r'\1', text)
     text = re.sub(r'(<!-- Native gallery -->\n){2,}', '<!-- Native gallery -->\n', text)
+    if chart_loader in text and 'js/chart-theme.js' not in text:
+        text = text.replace(chart_loader, chart_loader + '\n<script src="' + prefix + 'js/chart-theme.js"></script>')
     return text.encode('utf-8')

@@ -88,6 +88,19 @@ FullCalendar.Calendar = class extends FullCalendar.Calendar {
     assert await branch.evaluate('el => el === document.activeElement')
     assert await branch.get_attribute('aria-expanded') == 'false'
     assert await page.evaluate("['line-chart', 'pie-chart', 'area-chart'].every(id => Chart.getChart(id))")
+    assert await page.evaluate("Chart.defaults.font.family === getComputedStyle(document.body).fontFamily")
+    assert await page.locator('.info-box .list-inline').count() == 0
+    await page.locator('#line-chart').scroll_into_view_if_needed()
+    chart_legend = await page.evaluate('''() => {
+        const chart = Chart.getChart('line-chart');
+        const box = chart.legend.legendHitBoxes[0];
+        const bounds = chart.canvas.getBoundingClientRect();
+        return {x: bounds.x + box.left + box.width / 2, y: bounds.y + box.top + box.height / 2};
+    }''')
+    await page.mouse.click(chart_legend['x'], chart_legend['y'])
+    await page.wait_for_function("!Chart.getChart('line-chart').isDatasetVisible(0)")
+    await page.mouse.click(chart_legend['x'], chart_legend['y'])
+    await page.wait_for_function("Chart.getChart('line-chart').isDatasetVisible(0)")
     assert await page.evaluate("typeof jQuery.fn.layout.Constructor === 'function' && !!jQuery('body').data('lte.layout')")
     assert await page.evaluate("document.getElementById('respMenu').dataset.nicheMenuInitialized === 'true'")
     await page.set_viewport_size({'width': 390, 'height': 844})
@@ -162,13 +175,26 @@ FullCalendar.Calendar = class extends FullCalendar.Calendar {
     await visit('forms/form-wizard.html')
     await page.locator('#demo1 [data-direction=next]').click()
     await page.locator('#frmRes').wait_for(state='visible')
+    assert await page.locator('#frmRes .invalid-feedback:visible').count() == 4
+    assert await page.locator('#frmRes [name=firstname]').evaluate('el => el === document.activeElement')
+    assert await page.locator('#frmRes [name=firstname]').evaluate('''el =>
+        el.getAttribute('aria-describedby').split(' ').some(id => document.getElementById(id).textContent.includes('first name'))''')
+    await page.add_script_tag(path=str(ROOT / 'tools/test-vendor/axe-core-4.13.0/axe.min.js'))
+    assert await page.evaluate("axe.run(document.querySelector('#frmRes'), {runOnly: ['color-contrast', 'aria-valid-attr-value', 'label']}).then(result => result.violations.length)") == 0
+    await page.locator('#frmRes [name=email]').fill('invalid-email')
+    await page.locator('#demo1 [data-direction=next]').click()
+    assert await page.locator('#frmRes .invalid-feedback:visible').filter(has_text='Enter a valid email address').count() == 1
     for field, value in {'firstname': 'Example', 'lastname': 'User', 'email': 'tester@example.com', 'phoneno': '5551234'}.items():
         await page.locator('#frmRes [name=' + field + ']').fill(value)
     await page.locator('#frmRes [name=phoneno]').press('Tab')
     await page.locator('#demo1 [data-direction=next]').click()
     await page.locator('#frmInfo').wait_for(state='visible')
+    await page.locator('#demo1 [data-direction=next]').click()
+    assert await page.locator('#frmInfo .is-invalid').count() > 0
     await page.locator('#demo1 [data-direction=prev]').click()
     await page.locator('#frmRes').wait_for(state='visible')
+    assert await page.locator('#frmInfo .is-invalid').count() == 0
+    assert await page.locator('#frmRes .invalid-feedback:visible').count() == 0
     print('PASS: extracted wizard blocks invalid steps, advances with required fields and returns to previous steps.', flush=True)
 
     await visit('apps/apps-calendar.html')

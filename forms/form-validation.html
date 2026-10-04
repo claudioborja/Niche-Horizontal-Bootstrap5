@@ -300,37 +300,43 @@
     <div class="content">
       <div class="info-box">
             <h4>Validation States</h4>
+            <p>These static examples show how to display feedback beside a field. Try the form wizard for interactive validation.</p>
             <div class="mb-3">
               <label class="form-label" for="inputSuccess1">Input with success</label>
               <input class="form-control is-valid" id="inputSuccess1" aria-describedby="helpBlock2" type="text">
-              <span id="helpBlock2" class="form-text text-success">A block of help text that breaks onto a new line and may extend beyond one line.</span> </div>
+              <span id="helpBlock2" class="form-text text-success">This value meets the requirements.</span> </div>
             <div class="mb-3">
               <label class="form-label" for="inputWarning1">Input with warning</label>
-              <input class="form-control border-warning" id="inputWarning1" type="text">
+              <input class="form-control border-warning" id="inputWarning1" type="text" aria-describedby="inputWarning1Status">
+              <span id="inputWarning1Status" class="form-text text-warning">Check this value before continuing.</span>
             </div>
             <div class="mb-3">
               <label class="form-label" for="inputError1">Input with error</label>
-              <input class="form-control is-invalid" id="inputError1" type="text" aria-invalid="true">
+              <input class="form-control is-invalid" id="inputError1" type="text" aria-invalid="true" aria-describedby="inputError1Status">
+              <span id="inputError1Status" class="form-text text-danger">Enter a value for this required field.</span>
             </div>
             <div class="">
               <div class="form-check">
                 <label for="checkboxSuccess" class="form-check-label">
-                  <input id="checkboxSuccess" value="option1" type="checkbox" class="is-valid form-check-input">
+                  <input id="checkboxSuccess" checked value="option1" type="checkbox" class="is-valid form-check-input" aria-describedby="checkboxSuccessStatus">
                   Checkbox with success </label>
+                <span id="checkboxSuccessStatus" class="form-text text-success d-block">This option is selected correctly.</span>
               </div>
             </div>
             <div class="">
               <div class="form-check">
                 <label for="checkboxWarning" class="form-check-label">
-                  <input id="checkboxWarning" value="option1" type="checkbox" class="border-warning form-check-input">
+                  <input id="checkboxWarning" value="option1" type="checkbox" class="border-warning form-check-input" aria-describedby="checkboxWarningStatus">
                   Checkbox with warning </label>
+                <span id="checkboxWarningStatus" class="form-text text-warning d-block">Review this option before continuing.</span>
               </div>
             </div>
             <div class="">
               <div class="form-check">
                 <label for="checkboxError" class="form-check-label">
-                  <input id="checkboxError" value="option1" type="checkbox" aria-invalid="true" class="is-invalid form-check-input">
+                  <input id="checkboxError" value="option1" type="checkbox" aria-invalid="true" class="is-invalid form-check-input" aria-describedby="checkboxErrorStatus">
                   Checkbox with error </label>
+                <span id="checkboxErrorStatus" class="form-text text-danger d-block">Select this required option.</span>
               </div>
             </div>
       </div>
@@ -340,21 +346,21 @@
             <div class="mb-3">
               <label class="form-label" for="inputSuccess2">Input with success</label>
               <input class="form-control is-valid" id="inputSuccess2" aria-describedby="inputSuccess2Status" type="text">
-               <span id="inputSuccess2Status" class="visually-hidden">(success)</span> </div>
+               <span id="inputSuccess2Status" class="form-text text-success">This value meets the requirements.</span> </div>
             <div class="mb-3">
               <label class="form-label" for="inputWarning2">Input with warning</label>
               <input class="form-control border-warning" id="inputWarning2" aria-describedby="inputWarning2Status" type="text">
-               <span id="inputWarning2Status" class="visually-hidden">(warning)</span> </div>
+               <span id="inputWarning2Status" class="form-text text-warning">Check this value before continuing.</span> </div>
             <div class="mb-3">
               <label class="form-label" for="inputError2">Input with error</label>
               <input class="form-control is-invalid" id="inputError2" aria-describedby="inputError2Status" type="text" aria-invalid="true">
-               <span id="inputError2Status" class="visually-hidden">(error)</span> </div>
+               <span id="inputError2Status" class="form-text text-danger">Enter a value for this required field.</span> </div>
             <div class="mb-3">
               <label class="form-label" for="inputGroupSuccess1">Input group with success</label>
               <div class="input-group"> <span class="input-group-text">@</span>
                 <input class="form-control is-valid" id="inputGroupSuccess1" aria-describedby="inputGroupSuccess1Status" type="text">
               </div>
-               <span id="inputGroupSuccess1Status" class="visually-hidden">(success)</span> </div>
+               <span id="inputGroupSuccess1Status" class="form-text text-success">This value meets the requirements.</span> </div>
           </div>
           
           
@@ -365,7 +371,7 @@
                 <label class="form-label col-sm-3" for="inputSuccess3">Input with success</label>
                 <div class="col-sm-9">
                   <input class="form-control is-valid" id="inputSuccess3" aria-describedby="inputSuccess3Status" type="text">
-                   <span id="inputSuccess3Status" class="visually-hidden">(success)</span> </div>
+                   <span id="inputSuccess3Status" class="form-text text-success">This value meets the requirements.</span> </div>
               </div>
               <div class="mb-3">
                 <label class="form-label col-sm-3" for="inputGroupSuccess2">Input group with success</label>
@@ -373,7 +379,7 @@
                   <div class="input-group"> <span class="input-group-text">@</span>
                     <input class="form-control is-valid" id="inputGroupSuccess2" aria-describedby="inputGroupSuccess2Status" type="text">
                   </div>
-                   <span id="inputGroupSuccess2Status" class="visually-hidden">(success)</span> </div>
+                   <span id="inputGroupSuccess2Status" class="form-text text-success">This value meets the requirements.</span> </div>
               </div>
             </form>
           </div>
