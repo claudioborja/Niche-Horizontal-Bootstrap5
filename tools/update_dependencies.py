@@ -13,6 +13,14 @@ import legacy_widget_migrations
 ROOT = Path(__file__).resolve().parents[1]
 # Each asset has its own content marker; small CSS/integration files are valid.
 UPDATES = (
+    ('poppins', 'poppins-5.3.0', tuple(
+        (str(weight) + '.css', 'https://cdn.jsdelivr.net/npm/@fontsource/poppins@5.3.0/' + str(weight) + '.css', b"font-family: 'Poppins'")
+        for weight in (300, 400, 500, 600, 700)
+    ) + tuple(
+        ('files/poppins-' + subset + '-' + str(weight) + '-normal.woff2',
+         'https://cdn.jsdelivr.net/npm/@fontsource/poppins@5.3.0/files/poppins-' + subset + '-' + str(weight) + '-normal.woff2', b'wOF2')
+        for weight in (300, 400, 500, 600, 700) for subset in ('devanagari', 'latin-ext', 'latin')
+    ) + (('LICENSE', 'https://cdn.jsdelivr.net/npm/@fontsource/poppins@5.3.0/LICENSE', b'SIL OPEN FONT LICENSE'),)),
     ('jodit', 'jodit-4.17.1', (
         ('jodit.min.js', 'https://cdn.jsdelivr.net/npm/jodit@4.17.1/es2021/jodit.min.js', b'Version: v4.17.1'),
         ('jodit.min.css', 'https://cdn.jsdelivr.net/npm/jodit@4.17.1/es2021/jodit.min.css', b'.jodit-'),
@@ -121,6 +129,8 @@ class AssetReferences(HTMLParser):
 def migrate(path, original):
     updated = original
     if path.suffix == '.html':
+        prefix = b'assets/' if path.parent == ROOT else b'../assets/'
+        updated = re.sub(rb'https://fonts\.googleapis\.com/[^"\s]+', prefix + b'plugins/poppins-5.3.0/poppins.css', updated)
         # FullCalendar v6 injects its own styles; these old files contain a CDN error.
         updated = re.sub(rb'<link\b[^>]*href="[^"\n]*fullcalendar-6\.1\.(?:8|21)/css/fullcalendar\.min\.css"[^>]*>[^\S\r\n]*\r?\n', b'', updated)
         updated = updated.replace(b'assets/plugins/fullcalendar-6.1.8/', b'assets/plugins/fullcalendar-6.1.21/')
@@ -197,6 +207,14 @@ def main():
             for filename, url, marker in files:
                 stage(target + '/' + filename, url, marker)
 
+        font_dir = ROOT / 'assets/plugins/poppins-5.3.0'
+        font_css = []
+        for weight in (300, 400, 500, 600, 700):
+            css = staged[font_dir / (str(weight) + '.css')].decode('utf-8')
+            css = re.sub(r", url\([^)]*\.woff\) format\('woff'\)", '', css)
+            font_css.append(css)
+        staged[font_dir / 'poppins.css'] = ('/* Poppins via Fontsource 5.3.0; see LICENSE. */\n' + '\n\n'.join(font_css)).encode('utf-8')
+
         icon_css = staged[ROOT / 'assets/plugins/bootstrap-icons-1.13.1/font/bootstrap-icons.min.css']
         staged.update(component_migrations.icon_assets(ROOT, icon_css.decode('utf-8')))
 
@@ -237,7 +255,7 @@ def main():
             raise
         print('Updated Bootstrap 5.3.8, Chart.js 4.5.1, jQuery UI 1.14.2, DataTables 3.1.3, '
               'jQuery 4.0.0, Ion.RangeSlider 2.5.0, FullCalendar 7.1.0, Jodit 4.17.1, jQuery Validation 1.22.1, SheetJS 0.20.3, '
-              'FilePond 4.32.12, Tabulator 6.6.1 and Bootstrap Icons 1.13.1.')
+              'FilePond 4.32.12, Tabulator 6.6.1, Bootstrap Icons 1.13.1 and local Poppins (Fontsource 5.3.0).')
         print('Checked local JavaScript and CSS references in', len(pages), 'HTML pages.')
 
 

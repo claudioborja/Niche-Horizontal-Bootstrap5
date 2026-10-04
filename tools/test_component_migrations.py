@@ -39,6 +39,15 @@ class Migrations(unittest.TestCase):
             self.assertNotIn('jquery-migrate', text, str(path))
         self.assertFalse(any('jquery-migrate' in target for _, target, _ in updater.UPDATES))
 
+    def test_google_fonts_migrates_to_local_typography_at_both_depths(self):
+        old = b'<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">'
+        for relative, prefix in [('index.html', b'assets/'), ('pages/pages-login.html', b'../assets/')]:
+            path = ROOT / relative
+            result = updater.migrate(path, old)
+            self.assertIn(prefix + b'plugins/poppins-5.3.0/poppins.css', result)
+            self.assertNotIn(b'fonts.googleapis', result)
+            self.assertEqual(updater.migrate(path, result), result)
+
     def test_range_sliders_use_labelled_inputs(self):
         text = updater.migrate(ROOT / 'ui/ui-range-slider.html', (ROOT / 'ui/ui-range-slider.html').read_bytes()).decode()
         self.assertNotIn('skinModern.css', text)

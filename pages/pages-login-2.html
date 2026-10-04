@@ -6,13 +6,13 @@
 <title>Niche Admin - Powerful Bootstrap 5 Dashboard and Admin Template</title>
 <link rel="icon" type="image/svg+xml" href="../assets/plugins/bootstrap-icons-1.11.0/grid-3x3-gap-fill.svg">
 <!-- Tell the browser to be responsive to screen width -->
-<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <!-- Bootstrap 5.3.8 -->
 <link href="../assets/plugins/bootstrap-5.3.8/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+<!-- Local Poppins font -->
+<link href="../assets/plugins/poppins-5.3.0/poppins.css" rel="stylesheet">
 
 <!-- Theme style -->
 <link rel="stylesheet" href="../assets/css/style.css">
@@ -233,11 +233,13 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<link rel="stylesheet" href="../assets/css/accessibility.css">
 </head>
 <body class="hold-transition login-page sty1">
+<a class="niche-skip-link" href="#main-content">Skip to content</a>
 
 <!-- Hero Content -->
-<div class="hero-content">
+<div class="hero-content" id="main-content" tabindex="-1" role="main">
   <h1>Welcome to Niche Admin</h1>
   <p>Modern and powerful Bootstrap 5 dashboard template designed for professionals who value both aesthetics and functionality.</p>
 </div>
@@ -246,7 +248,7 @@
   <div class="login-box-body sty1">
     <!-- Logo -->
     <div class="login-logo">
-      <a href="../index.html"><img src="../assets/img/logo-blue.png" alt="Niche Admin"></a>
+      <a href="../index.html" aria-label="Niche Admin home"><img src="../assets/img/logo-blue.webp" alt="Niche Admin" width="98" height="30" decoding="async" loading="eager"></a>
     </div>
     
     <!-- Welcome Message -->
@@ -255,13 +257,13 @@
     <!-- Login Form -->
     <form action="../index.html" method="post">
       <div class="mb-3">
-        <label class="form-label-enhanced">Email Address</label>
-        <input type="email" class="form-control sty1" placeholder="Enter your email" required>
+        <label class="form-label-enhanced" for="field-1">Email Address</label>
+        <input type="email" class="form-control sty1" placeholder="Enter your email" required id="field-1">
       </div>
       
       <div class="mb-3">
-        <label class="form-label-enhanced">Password</label>
-        <input type="password" class="form-control sty1" placeholder="Enter your password" required>
+        <label class="form-label-enhanced" for="field-2">Password</label>
+        <input type="password" class="form-control sty1" placeholder="Enter your password" required id="field-2">
       </div>
       
       <div class="row mb-3">
@@ -275,14 +277,14 @@
         </div>
         <div class="col-6 text-end">
           <a href="../pages/pages-recover-password.html" class="text-decoration-none">
-            <i class="fa fa-lock me-1"></i>Forgot pwd?
+            <i class="fa fa-lock me-1" aria-hidden="true"></i>Forgot pwd?
           </a>
         </div>
       </div>
       
       <div class="d-grid mb-3">
         <button type="submit" class="btn btn-primary">
-          <i class="fa fa-sign-in me-2"></i>Sign In
+          <i class="fa fa-sign-in me-2" aria-hidden="true"></i>Sign In
         </button>
       </div>
     </form>
@@ -296,12 +298,12 @@
     <div class="mb-4">
       <div class="mb-2">
         <a href="#" class="btn-social-custom btn-facebook">
-          <i class="fa fa-facebook me-2"></i>Continue with Facebook
+          <i class="fa fa-facebook me-2" aria-hidden="true"></i>Continue with Facebook
         </a>
       </div>
       <div class="mb-2">
         <a href="#" class="btn-social-custom btn-google">
-          <i class="fa fa-google me-2"></i>Continue with Google
+          <i class="fa fa-google me-2" aria-hidden="true"></i>Continue with Google
         </a>
       </div>
     </div>

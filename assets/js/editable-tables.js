@@ -39,13 +39,21 @@ document.addEventListener('DOMContentLoaded', function () {
         }, cellClick: function (event, cell) {
             if (event.target.closest('button') && window.confirm('Do you really want to delete the client?')) cell.getRow().delete();
         } });
-        return new Tabulator(selector, {
+        const table = new Tabulator(selector, {
             data: NicheGridData.clients.map(function (client, index) { return Object.assign({ id: index + 1 }, client); }),
             height: 500, layout: 'fitColumns', responsiveLayout: 'collapse',
             pagination: true, paginationMode: 'local', paginationSize: 15,
             paginationSizeSelector: [15, 30, 50], placeholder: 'No matching records',
             columns: fields
         });
+        table.on('tableBuilt', function () {
+            table.getColumns().forEach(function (column) {
+                column.getElement().querySelectorAll('.tabulator-header-filter input').forEach(function (input) {
+                    input.setAttribute('aria-label', 'Filter by ' + column.getDefinition().title);
+                });
+            });
+        });
+        return table;
     }
     create('#basicscenario', true);
     create('#staticdata', false);

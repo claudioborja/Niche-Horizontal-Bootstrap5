@@ -1,0 +1,18 @@
+/* Shared keyboard access and stable image proportions. */
+.niche-skip-link {
+  position: fixed; top: .5rem; left: .5rem; z-index: 20000;
+  padding: .75rem 1rem; color: #fff; background: #17324d;
+  border-radius: .25rem; transform: translateY(-200%);
+}
+.niche-skip-link:focus { transform: translateY(0); color: #fff; }
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+  outline: 3px solid #005fcc; outline-offset: 3px;
+  box-shadow: 0 0 0 5px #fff;
+}
+#main-content:focus { outline: none; box-shadow: none; }
+img[width][height] { max-width: 100%; height: auto; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  .heartbit, .point { animation: none !important; }
+}

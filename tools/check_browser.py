@@ -39,12 +39,21 @@ async def check(browser, base_url):
             await page.wait_for_timeout(600)
             assert await page.evaluate('jQuery.fn.jquery') == '4.0.0', str(path)
             assert await page.evaluate("typeof jQuery.migrateVersion === 'undefined'"), str(path)
+            await page.evaluate('document.fonts.ready')
+            assert await page.evaluate("document.fonts.check('400 16px Poppins')"), str(path)
+            await page.add_script_tag(path=str(ROOT / 'tools/test-vendor/axe-core-4.13.0/axe.min.js'))
+            violations = await page.evaluate("""axe.run(document, {runOnly: {type: 'rule', values:
+                ['image-alt', 'button-name', 'link-name', 'label', 'meta-viewport',
+                 'aria-valid-attr-value', 'aria-valid-attr', 'duplicate-id-aria']}})
+                .then(result => result.violations.map(v => ({rule: v.id, elements: v.nodes.map(n => n.target)})))""")
+            assert not violations, f'{path}: {violations}'
             await page.close()
 
     pages = sorted(path.relative_to(ROOT) for path in ROOT.rglob('*.html'))
     await asyncio.gather(*(check_page(path) for path in pages))
     assert not failures, '\n'.join(failures)
     print(f'PASS: {len(pages)} pages load with jQuery 4, no JavaScript errors or missing local resources.', flush=True)
+    print('PASS: local Poppins loads and axe checks image alternatives, control names, form labels, zoom and valid ARIA on every page.', flush=True)
 
     # Record instances inside the test browser without exposing application globals.
     async def record_calendars(route):
@@ -64,6 +73,18 @@ FullCalendar.Calendar = class extends FullCalendar.Calendar {
         await page.wait_for_timeout(600)
 
     await visit('index.html')
+    await page.keyboard.press('Tab')
+    assert await page.locator('.niche-skip-link').evaluate('el => el === document.activeElement')
+    await page.keyboard.press('Enter')
+    assert await page.evaluate("document.activeElement.id === 'main-content'")
+    branch = page.locator('#respMenu > li > a').first
+    await branch.focus()
+    assert await branch.get_attribute('aria-expanded') == 'true'
+    await branch.press('ArrowDown')
+    assert await page.evaluate("document.activeElement.closest('ul.sub-menu') !== null")
+    await page.keyboard.press('Escape')
+    assert await branch.evaluate('el => el === document.activeElement')
+    assert await branch.get_attribute('aria-expanded') == 'false'
     assert await page.evaluate("['line-chart', 'pie-chart', 'area-chart'].every(id => Chart.getChart(id))")
     assert await page.evaluate("typeof jQuery.fn.layout.Constructor === 'function' && !!jQuery('body').data('lte.layout')")
     assert await page.evaluate("document.getElementById('respMenu').dataset.nicheMenuInitialized === 'true'")
@@ -71,8 +92,10 @@ FullCalendar.Calendar = class extends FullCalendar.Calendar {
     await page.wait_for_timeout(300)
     await page.click('#menu-btn')
     await page.wait_for_function("!document.getElementById('respMenu').classList.contains('hide-menu')")
+    assert await page.locator('#menu-btn').get_attribute('aria-expanded') == 'true'
     await page.click('#menu-btn')
     await page.wait_for_function("document.getElementById('respMenu').classList.contains('hide-menu')")
+    assert await page.locator('#menu-btn').get_attribute('aria-expanded') == 'false'
     await page.set_viewport_size({'width': 1440, 'height': 1000})
     print('PASS: shared navigation initializes once, mobile menu toggles and three dashboard charts render.', flush=True)
 
@@ -81,9 +104,11 @@ FullCalendar.Calendar = class extends FullCalendar.Calendar {
     await page.evaluate("jQuery('.box').boxWidget()")  # Reusing the plugin must not bind click handlers again.
     await box.locator('[data-widget=collapse]').click()
     await page.wait_for_function("document.querySelector('.box').classList.contains('collapsed-box')")
+    assert await box.locator('[data-widget=collapse]').get_attribute('aria-expanded') == 'false'
     await box.locator('[data-widget=collapse]').click()
     await page.wait_for_function("!document.querySelector('.box').classList.contains('collapsed-box')")
     await box.locator('.box-body').wait_for(state='visible')
+    assert await box.locator('[data-widget=collapse]').get_attribute('aria-expanded') == 'true'
     await visit('tables/table-data-table.html')
     assert await page.evaluate('DataTable.isDataTable(document.getElementById("example1"))')
     print('PASS: shared DataTables initializes and box widgets collapse/expand without duplicate handlers.', flush=True)
@@ -257,6 +282,7 @@ FullCalendar.Calendar = class extends FullCalendar.Calendar {
     await page.locator('.gallery-filter[data-filter=".identity"]').click()
     await page.locator('.gallery-item:visible .gallery-link').first.click()
     await page.wait_for_function("document.getElementById('gallery-lightbox').open")
+    await page.wait_for_function("document.querySelector('#gallery-lightbox img').complete && document.querySelector('#gallery-lightbox img').naturalWidth > 0")
     first_image = await page.locator('#gallery-lightbox img').get_attribute('src')
     assert await page.locator('#gallery-position').inner_text() == '1 of 5'
     await page.locator('[data-gallery-next]').click()
@@ -294,6 +320,14 @@ FullCalendar.Calendar = class extends FullCalendar.Calendar {
         assert await page.locator(selector).first.is_visible(), path
         if path == 'pages/pages-gallery.html':
             assert await page.locator('#gallery-grid').evaluate("el => getComputedStyle(el).gridTemplateColumns.split(' ').length") == 1
+    for path in ('ui/ui-tab.html', 'forms/form-wizard.html', 'index.html'):
+        await visit(path)
+        await page.add_script_tag(path=str(ROOT / 'tools/test-vendor/axe-core-4.13.0/axe.min.js'))
+        violations = await page.evaluate("""axe.run(document, {runOnly: {type: 'rule', values:
+            ['image-alt', 'button-name', 'link-name', 'label', 'meta-viewport',
+             'aria-valid-attr-value', 'aria-valid-attr', 'duplicate-id-aria']}})
+            .then(result => result.violations.map(v => v.id))""")
+        assert not violations, f'Mobile {path}: {violations}'
     assert not failures, '\n'.join(failures)
     print('PASS: upgraded widgets also render at a mobile viewport.', flush=True)
     await context.close()

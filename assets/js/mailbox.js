@@ -50,6 +50,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 icon.classList.toggle('glyphicon-star');
                 icon.classList.toggle('glyphicon-star-empty');
             }
+            const starred = icon.classList.contains('fa-star') || icon.classList.contains('glyphicon-star');
+            star.setAttribute('aria-label', starred ? 'Unstar message' : 'Star message');
         }
     });
     document.addEventListener('change', function (event) {

@@ -74,6 +74,7 @@ Versiones incluidas y referenciadas por las páginas después de la actualizaci�
 | Tabulator | 6.6.1 | Tablas editables, filtros y paginación local |
 | Bootstrap Icons | 1.13.1 | Iconos generales y catálogos con búsqueda |
 | Ion.RangeSlider | 2.5.0 | Siete ejemplos de selección de rangos |
+| Poppins (Fontsource) | 5.3.0 | Tipografía local en WOFF2, pesos 300–700 |
 
 Los ejemplos que utilizaban Morris.js, Raphaël y Chartist ahora usan Chart.js.
 Los interruptores, checkboxes y radios utilizan controles nativos con estilos de
@@ -119,8 +120,9 @@ Los SVG de marcas conservan su atribución y licencia en
 [assets/img/brands/LICENSE.txt](assets/img/brands/LICENSE.txt). El historial de
 Git permite recuperar los archivos retirados.
 
-Las dependencias principales se sirven desde `assets/plugins/`. Algunas páginas
-cargan recursos externos, como Google Fonts y Google Maps, que requieren conexión.
+Las dependencias principales y Poppins se sirven desde `assets/plugins/`.
+La tipografía no necesita conexión con Google Fonts. Google Maps utiliza un
+servicio externo que requiere conexión.
 Para usar Google Maps en tu aplicación, configura tu propia clave en
 [maps/map-google.html](maps/map-google.html).
 
@@ -211,7 +213,8 @@ Si falla la ejecución:
 
 La prueba automatizada abre las 67 páginas en Chromium, comprueba errores de
 JavaScript y recursos locales, y prueba los calendarios, sliders, archivos,
-tablas, editor, galería, minigráficos e iconos. Incluye vistas móviles de los componentes actualizados.
+tablas, editor, galería, minigráficos e iconos. Incluye vistas móviles de los componentes actualizados y ocho reglas de
+accesibilidad con axe-core 4.13.0 (herramienta de pruebas local, licencia MPL-2.0).
 Playwright es una herramienta opcional de pruebas; la plantilla continúa
 funcionando sin Node.js ni un proceso de compilación.
 
@@ -223,8 +226,9 @@ python3 -m venv .venv
 ```
 
 El comprobador inicia y cierra su propio servidor local. Bloquea los servicios
-externos para no depender de Google Fonts ni de una clave de Google Maps;
-la conexión real con Google Maps se debe comprobar con una clave válida.
+externos para no depender de una clave de Google Maps y comprueba que Poppins
+carga desde el repositorio. La conexión real con Google Maps se debe comprobar
+con una clave válida.
 
 ### Pruebas automáticas en GitHub
 
@@ -267,6 +271,46 @@ revisa la consola y la pestaña de red del navegador.
 La exportación utiliza el texto de las celdas y conserva el orden y el filtro
 aplicados en DataTables. No reproduce imágenes ni estilos visuales de la tabla.
 Los cambios en calendarios y formularios necesitan un backend para persistirse.
+
+## Accesibilidad, imágenes y tipografía
+
+Las 67 páginas permiten ampliar la vista y ofrecen un enlace **Skip to content**.
+El menú admite Tab, Enter/Space, ArrowDown y Escape; sus botones anuncian el estado
+abierto/cerrado. Los botones con iconos tienen nombres accesibles, los formularios
+asocian etiquetas y controles, y los IDs de formularios y pestañas son únicos.
+Las imágenes decorativas usan `alt=""`; los iconos decorativos se ocultan al lector.
+El foco del teclado tiene un indicador visible.
+
+Las imágenes locales incluyen dimensiones para reservar espacio antes de cargar.
+Los logos y las primeras imágenes de contenido cargan inmediatamente; 222 imágenes
+posteriores usan `loading="lazy"`. Las 36 copias WebP conservan exactamente los
+píxeles originales y reducen el total de esos archivos de 162.187 a 43.956 bytes
+(**72,9 %**). Los archivos originales siguen disponibles para enlaces existentes y
+componentes que todavía los utilizan. La galería abre las imágenes disponibles;
+el comprobador de recursos también valida sus enlaces.
+
+Para regenerar las copias sin pérdida (herramienta opcional):
+
+```bash
+.venv/bin/pip install -r tools/requirements-images.txt
+.venv/bin/python tools/optimize_images.py
+```
+
+El script comprueba que los píxeles no cambien y solo genera WebP si ahorra al menos
+un 10 %. Guarda tamaños y dimensiones en [tools/image_optimization.json](tools/image_optimization.json).
+Al añadir imágenes nuevas, referencia la copia generada en el HTML y especifica
+su texto alternativo, dimensiones y política de carga según su posición.
+
+Poppins incluye cinco pesos (300, 400, 500, 600 y 700) y los subconjuntos Latin,
+Latin Extended y Devanagari. El navegador descarga los que necesita, con
+`font-display: swap`. Su licencia SIL OFL 1.1 está en
+[assets/plugins/poppins-5.3.0/LICENSE](assets/plugins/poppins-5.3.0/LICENSE).
+El actualizador instala los archivos WOFF2 y genera la hoja local `poppins.css`.
+
+Las pruebas verifican alternativas de imágenes, nombres de botones y enlaces,
+etiquetas de campos, zoom y atributos ARIA, además del menú con teclado y las vistas
+móviles. Estas comprobaciones cubren esos aspectos concretos; no constituyen una
+auditoría completa de conformidad WCAG.
 
 ## Personalización
 
@@ -318,6 +362,15 @@ Las pruebas comprueban esa estructura, el orden de carga y las interacciones del
 menú móvil, widgets, gráficos y formulario por pasos.
 
 ## Historial de cambios
+
+### Accesibilidad, imágenes y fuentes locales — octubre de 2026
+
+- Zoom habilitado, enlace para saltar al contenido y foco visible en las 67 páginas.
+- Menú con teclado y estados ARIA; etiquetas, controles con iconos e IDs corregidos.
+- Dimensiones en las imágenes, carga diferida en 222 y 36 copias WebP sin pérdida.
+- Poppins WOFF2 local con cinco pesos y licencia conservada.
+- Comprobaciones de accesibilidad con axe-core y validación de enlaces de galería.
+
 
 ### Retirada de plugins antiguos — octubre de 2026
 

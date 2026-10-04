@@ -6,6 +6,7 @@
         constructor(element, options) {
             this.element = element;
             this.options = options;
+            this.updateAccessibility(!element.hasClass('collapsed-box'));
             element.on('click.nicheBox', options.collapseTrigger, event => {
                 event.preventDefault();
                 this.toggle();
@@ -20,7 +21,15 @@
             else this.collapse();
         }
 
+        updateAccessibility(expanded) {
+            this.element.find(this.options.collapseTrigger).attr({
+                'aria-expanded': String(expanded),
+                'aria-label': expanded ? 'Collapse panel' : 'Expand panel'
+            });
+        }
+
         expand() {
+            this.updateAccessibility(true);
             this.element.removeClass('collapsed-box');
             this.element.find('.box-tools .' + this.options.expandIcon)
                 .removeClass(this.options.expandIcon).addClass(this.options.collapseIcon);
@@ -29,6 +38,7 @@
         }
 
         collapse() {
+            this.updateAccessibility(false);
             this.element.find('.box-tools .' + this.options.collapseIcon)
                 .removeClass(this.options.collapseIcon).addClass(this.options.expandIcon);
             this.element.find('.box-body, .box-footer').stop(true, true).slideUp(this.options.animationSpeed, () => {

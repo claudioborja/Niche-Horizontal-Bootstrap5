@@ -38,6 +38,8 @@ def check(root):
             attributes = dict(attributes)
             if tag in ('script', 'img', 'source'):
                 reference(self.source, attributes.get('src', ''))
+            elif tag == 'a' and 'gallery-link' in attributes.get('class', '').split():
+                reference(self.source, attributes.get('href', ''))
             elif tag == 'link' and attributes.get('rel') in ('stylesheet', 'icon'):
                 reference(self.source, attributes.get('href', ''))
 

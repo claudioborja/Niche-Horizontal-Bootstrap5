@@ -6,13 +6,13 @@
 <title>Niche Admin - Powerful Bootstrap 5 Dashboard and Admin Template</title>
 <link rel="icon" type="image/svg+xml" href="../assets/plugins/bootstrap-icons-1.11.0/grid-3x3-gap-fill.svg">
 <!-- Tell the browser to be responsive to screen width -->
-<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <!-- Bootstrap 5.3.8 -->
 <link href="../assets/plugins/bootstrap-5.3.8/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+<!-- Local Poppins font -->
+<link href="../assets/plugins/poppins-5.3.0/poppins.css" rel="stylesheet">
 
 <!-- Theme style -->
 <link rel="stylesheet" href="../assets/css/style.css">
@@ -30,31 +30,33 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<link rel="stylesheet" href="../assets/css/accessibility.css">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+<a class="niche-skip-link" href="#main-content">Skip to content</a>
 <div class="wrapper boxed-wrapper">
   <header class="main-header"> 
     <!-- Logo --> 
-    <a href="../index.html" class="logo blue-bg"> 
+    <a href="../index.html" class="logo blue-bg" aria-label="Niche Admin home">
     <!-- mini logo for sidebar mini 50x50 pixels --> 
-    <span class="logo-mini"><img src="../assets/img/logo-n.png" alt=""></span> 
+    <span class="logo-mini"><img src="../assets/img/logo-n.webp" alt="" width="28" height="30" decoding="async" loading="eager"></span>
     <!-- logo for regular state and mobile devices --> 
-    <span class="logo-lg"><img src="../assets/img/logo.png" alt=""></span> </a> 
+    <span class="logo-lg"><img src="../assets/img/logo.webp" alt="" width="97" height="30" decoding="async" loading="eager"></span> </a>
     <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar blue-bg">
+    <nav class="navbar blue-bg" aria-label="Account navigation">
       <div class="float-start search-box">
         <form action="#" method="get" class="search-form">
           <div class="input-group">
-            <input name="search" class="form-control" placeholder="Search..." type="text">
+            <input name="search" class="form-control" placeholder="Search..." type="text" aria-label="Search...">
 
-            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i> </button>
+            <button type="submit" name="search" id="search-btn" class="btn btn-flat" aria-label="Search"><i class="fa fa-search" aria-hidden="true"></i> </button>
             </div>
         </form>
         <!-- search form --> </div>
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
-          <li class="dropdown messages-menu"> <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static"> <i class="fa fa-envelope-o"></i>
+          <li class="dropdown messages-menu"> <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" aria-label="Messages"> <i class="fa fa-envelope-o" aria-hidden="true"></i>
             <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
             </a>
             <ul class="dropdown-menu">
@@ -62,25 +64,25 @@
               <li>
                 <ul class="menu">
                   <li><a href="#">
-                    <div class="float-start"><img src="../assets/img/img1.jpg" class="rounded-circle" alt="User Image"> <span class="profile-status online float-end"></span></div>
+                    <div class="float-start"><img src="../assets/img/img1.webp" class="rounded-circle" alt="User Image" width="160" height="160" decoding="async" loading="eager"> <span class="profile-status online float-end"></span></div>
                     <h4>Alex C. Patton</h4>
                     <p>I've finished it! See you so...</p>
                     <p><span class="time">9:30 AM</span></p>
                     </a></li>
                   <li><a href="#">
-                    <div class="float-start"><img src="../assets/img/img3.jpg" class="rounded-circle" alt="User Image"> <span class="profile-status offline float-end"></span></div>
+                    <div class="float-start"><img src="../assets/img/img3.webp" class="rounded-circle" alt="User Image" width="160" height="160" decoding="async" loading="eager"> <span class="profile-status offline float-end"></span></div>
                     <h4>Nikolaj S. Henriksen</h4>
                     <p>I've finished it! See you so...</p>
                     <p><span class="time">10:15 AM</span></p>
                     </a></li>
                   <li><a href="#">
-                    <div class="float-start"><img src="../assets/img/img2.jpg" class="rounded-circle" alt="User Image"> <span class="profile-status away float-end"></span></div>
+                    <div class="float-start"><img src="../assets/img/img2.webp" class="rounded-circle" alt="User Image" width="160" height="160" decoding="async" loading="eager"> <span class="profile-status away float-end"></span></div>
                     <h4>Kasper S. Jessen</h4>
                     <p>I've finished it! See you so...</p>
                     <p><span class="time">8:45 AM</span></p>
                     </a></li>
                   <li><a href="#">
-                    <div class="float-start"><img src="../assets/img/img4.jpg" class="rounded-circle" alt="User Image"> <span class="profile-status busy float-end"></span></div>
+                    <div class="float-start"><img src="../assets/img/img4.webp" class="rounded-circle" alt="User Image" width="160" height="160" decoding="async" loading="eager"> <span class="profile-status busy float-end"></span></div>
                     <h4>Florence S. Kasper</h4>
                     <p>I've finished it! See you so...</p>
                     <p><span class="time">12:15 AM</span></p>
@@ -91,7 +93,7 @@
             </ul>
           </li>
           <!-- Notifications: style can be found in dropdown.less -->
-          <li class="dropdown messages-menu"> <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static"> <i class="fa fa-bell-o"></i>
+          <li class="dropdown messages-menu"> <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" aria-label="Notifications"> <i class="fa fa-bell-o" aria-hidden="true"></i>
             <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
             </a>
             <ul class="dropdown-menu">
@@ -99,25 +101,25 @@
               <li>
                 <ul class="menu">
                   <li><a href="#">
-                    <div class="float-start icon-circle red"><i class="icon-lightbulb"></i></div>
+                    <div class="float-start icon-circle red"><i class="icon-lightbulb" aria-hidden="true"></i></div>
                     <h4>Alex C. Patton</h4>
                     <p>I've finished it! See you so...</p>
                     <p><span class="time">9:30 AM</span></p>
                     </a></li>
                   <li><a href="#">
-                    <div class="float-start icon-circle blue"><i class="fa fa-coffee"></i></div>
+                    <div class="float-start icon-circle blue"><i class="fa fa-coffee" aria-hidden="true"></i></div>
                     <h4>Nikolaj S. Henriksen</h4>
                     <p>I've finished it! See you so...</p>
                     <p><span class="time">1:30 AM</span></p>
                     </a></li>
                   <li><a href="#">
-                    <div class="float-start icon-circle green"><i class="fa fa-paperclip"></i></div>
+                    <div class="float-start icon-circle green"><i class="fa fa-paperclip" aria-hidden="true"></i></div>
                     <h4>Kasper S. Jessen</h4>
                     <p>I've finished it! See you so...</p>
                     <p><span class="time">9:30 AM</span></p>
                     </a></li>
                   <li><a href="#">
-                    <div class="float-start icon-circle yellow"><i class="fa fa-plane"></i></div>
+                    <div class="float-start icon-circle yellow"><i class="fa fa-plane" aria-hidden="true"></i></div>
                     <h4>Florence S. Kasper</h4>
                     <p>I've finished it! See you so...</p>
                     <p><span class="time">11:10 AM</span></p>
@@ -128,20 +130,20 @@
             </ul>
           </li>
           <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu p-ph-res"> <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static"> <img src="../assets/img/img1.jpg" class="user-image" alt="User Image"> <span class="d-none d-sm-inline">Alexander Pierce</span> </a>
+          <li class="dropdown user user-menu p-ph-res"> <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" aria-label="Account menu for Alexander Pierce"> <img src="../assets/img/img1.webp" class="user-image" alt="User Image" width="160" height="160" decoding="async" loading="eager"> <span class="d-none d-sm-inline">Alexander Pierce</span> </a>
             <ul class="dropdown-menu">
               <li class="user-header">
-                <div class="float-start user-img"><img src="../assets/img/img1.jpg" class="img-fluid" alt="User"></div>
+                <div class="float-start user-img"><img src="../assets/img/img1.webp" class="img-fluid" alt="User" width="160" height="160" decoding="async" loading="eager"></div>
                 <p class="text-start">Florence Douglas <small>florence@gmail.com</small> </p>
                 <div class="view-link text-start"><a href="#">View Profile</a> </div>
               </li>
-              <li><a href="#" class="dropdown-item"><i class="icon-profile-male"></i> My Profile</a></li>
-              <li><a href="#" class="dropdown-item"><i class="icon-wallet"></i> My Balance</a></li>
-              <li><a href="#" class="dropdown-item"><i class="icon-envelope"></i> Inbox</a></li>
+              <li><a href="#" class="dropdown-item"><i class="icon-profile-male" aria-hidden="true"></i> My Profile</a></li>
+              <li><a href="#" class="dropdown-item"><i class="icon-wallet" aria-hidden="true"></i> My Balance</a></li>
+              <li><a href="#" class="dropdown-item"><i class="icon-envelope" aria-hidden="true"></i> Inbox</a></li>
               <li role="separator" class="dropdown-divider"></li>
-              <li><a href="#" class="dropdown-item"><i class="icon-gears"></i> Account Setting</a></li>
+              <li><a href="#" class="dropdown-item"><i class="icon-gears" aria-hidden="true"></i> Account Setting</a></li>
               <li role="separator" class="dropdown-divider"></li>
-              <li><a href="#" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a></li>
+              <li><a href="#" class="dropdown-item"><i class="fa fa-power-off" aria-hidden="true"></i> Logout</a></li>
             </ul>
           </li>
         </ul>
@@ -150,16 +152,16 @@
   </header>
   <!-- Main Nav -->
   <div class="main-nav">
-    <nav> 
+    <nav aria-label="Main navigation">
       <!-- Menu Toggle btn-->
       <div class="menu-toggle">
         <h3>Menu</h3>
-        <button type="button" id="menu-btn"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+        <button type="button" id="menu-btn" aria-label="Toggle navigation" aria-controls="respMenu" aria-expanded="false"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
       </div>
       <!-- Responsive Menu Structure--> 
       <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
       <ul id="respMenu" class="ace-responsive-menu" data-menu-style="horizontal">
-        <li><a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+        <li><a href="#"><i class="fa fa-dashboard" aria-hidden="true"></i> <span>Dashboard</span></a>
           <ul>
             <li><a href="../index.html">Dashboard 1</a></li>
             <li><a href="../index2.html">Dashboard 2</a></li>
@@ -167,7 +169,7 @@
             <li><a href="../index4.html">Dashboard 4</a></li>
           </ul>
         </li>
-        <li><a href="#"><i class="fa fa-bullseye"></i> <span>Apps</span></a>
+        <li><a href="#"><i class="fa fa-bullseye" aria-hidden="true"></i> <span>Apps</span></a>
           <ul>
             <li><a href="../apps/apps-calendar.html">Calendar</a></li>
             <li><a href="../apps/apps-support-ticket.html">Support Ticket</a></li>
@@ -176,7 +178,7 @@
             <li><a href="../apps/apps-contact-details.html">Contact Detail</a></li>
           </ul>
         </li>
-        <li><a href="#"><i class="fa fa-briefcase"></i> <span>UI Elements</span></a>
+        <li><a href="#"><i class="fa fa-briefcase" aria-hidden="true"></i> <span>UI Elements</span></a>
           <ul>
             <li><a href="../ui/ui-cards.html" class="active">Cards</a></li>
             <li><a href="../ui/ui-user-card.html">User Cards</a></li>
@@ -196,7 +198,7 @@
             <li><a href="../ui/ui-carousel.html">Carousel</a></li>
           </ul>
         </li>
-        <li><a href="#"><i class="fa fa-edit"></i> <span>Forms</span></a>
+        <li><a href="#"><i class="fa fa-edit" aria-hidden="true"></i> <span>Forms</span></a>
           <ul>
             <li><a href="../forms/form-elements.html">Form Elements</a></li>
             <li><a href="../forms/form-validation.html">Form Validation</a></li>
@@ -207,7 +209,7 @@
             <li><a href="../forms/form-summernote.html">Rich Text Editor</a></li>
           </ul>
         </li>
-        <li><a href="#"><i class="fa fa-table"></i> <span>Tables</span></a>
+        <li><a href="#"><i class="fa fa-table" aria-hidden="true"></i> <span>Tables</span></a>
           <ul>
             <li><a href="../tables/table-basic.html">Basic Tables</a></li>
             <li><a href="../tables/table-layout.html">Table Layouts</a></li>
@@ -215,7 +217,7 @@
             <li><a href="../tables/table-jsgrid.html">Editable Tables</a></li>
           </ul>
         </li>
-        <li><a href="#"><i class="fa fa-th"></i> <span>Extras</span></a>
+        <li><a href="#"><i class="fa fa-th" aria-hidden="true"></i> <span>Extras</span></a>
           <ul>
             <li><a href="#">Widgets</a>
               <ul>
@@ -258,7 +260,7 @@
             </li>
           </ul>
         </li>
-        <li> <a href="#"> <i class="fa fa-files-o"></i> <span>Sample Pages</span></a>
+        <li> <a href="#"> <i class="fa fa-files-o" aria-hidden="true"></i> <span>Sample Pages</span></a>
           <ul>
             <li><a href="../pages/pages-blank.html">Blank page</a></li>
             <li><a href="#">Authentication</a>
@@ -285,14 +287,14 @@
   </div>
   <!-- Main Nav --> 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper"> 
+  <div class="content-wrapper" id="main-content" tabindex="-1" role="main">
     <!-- Content Header (Page header) -->
     <div class="content-header sty-one">
       <h1 class="text-black">Profile Page</h1>
       <ol class="breadcrumb">
         <li><a href="#">Home</a></li>
-        <li class="sub-bread"><i class="fa fa-angle-right"></i> Pages</li>
-        <li><i class="fa fa-angle-right"></i> Profile Page</li>
+        <li class="sub-bread"><i class="fa fa-angle-right" aria-hidden="true"></i> Pages</li>
+        <li><i class="fa fa-angle-right" aria-hidden="true"></i> Profile Page</li>
       </ol>
     </div>
     
@@ -301,32 +303,32 @@
       <div class="row">
         <div class="col-lg-4">
           <div class="user-profile-box m-b-3">
-            <div class="box-profile text-white"> <img class="profile-user-img img-fluid rounded-circle m-b-2" src="../assets/img/img1.jpg" alt="User profile picture">
+            <div class="box-profile text-white"> <img class="profile-user-img img-fluid rounded-circle m-b-2" src="../assets/img/img1.webp" alt="User profile picture" width="160" height="160" decoding="async" loading="eager">
               <h3 class="profile-username text-center">Alexander Pierce</h3>
               <p class="text-center">&copy; alexanderpierce</p>
               <p class="text-center">Praesent libero. Sed cursus ante dapi bus diam. Sed nisi nulla quis sem at nibh elementum imperdiet. Duis sagi diam ipsum resent.</p>
             </div>
           </div>
           <div class="info-box">
-            <div class="box-body"> <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+            <div class="box-body"> <strong><i class="fa fa-book margin-r-5" aria-hidden="true"></i> Education</strong>
               <p class="text-muted"> B.S. in Computer Science from the University of Tennessee at Knoxville </p>
               <hr>
-              <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+              <strong><i class="fa fa-map-marker margin-r-5" aria-hidden="true"></i> Location</strong>
               <p class="text-muted">Malibu, California</p>
               <hr>
-              <strong><i class="fa fa-envelope margin-r-5"></i> Email address </strong>
+              <strong><i class="fa fa-envelope margin-r-5" aria-hidden="true"></i> Email address </strong>
               <p class="text-muted">alexanderpierce@gmail.com</p>
               <hr>
-              <strong><i class="fa fa-phone margin-r-5"></i> Phone</strong>
+              <strong><i class="fa fa-phone margin-r-5" aria-hidden="true"></i> Phone</strong>
               <p>(123) 456-7890 </p>
               <hr>
-              <strong><i class="fa fa-map-marker margin-r-5"></i> Address</strong>
+              <strong><i class="fa fa-map-marker margin-r-5" aria-hidden="true"></i> Address</strong>
               <div class="embed-container maps">
                 <iframe class="full-wid" src="https://maps.google.co.in/maps?sll=34.0204989,-118.4117325&amp;sspn=0.8745562,1.4073488&amp;cid=16298491244936825076&amp;q=Los+Angeles,+CA,+USA&amp;ie=UTF8&amp;hq=&amp;hnear=Los+Angeles,+Los+Angeles+County,+California,+United+States&amp;t=m&amp;ll=34.052234,-118.243685&amp;spn=0.697085,0.848982&amp;output=embed" style="pointer-events: none;"></iframe>
               </div>
               <hr>
-              <strong><i class="fa fa-phone margin-r-5"></i> Social Profile</strong>
-              <div class="text-start"> <a class="btn btn-social-icon btn-facebook"><i class="fa fa-facebook"></i></a> <a class="btn btn-social-icon btn-google"><i class="fa fa-google-plus"></i></a> <a class="btn btn-social-icon btn-linkedin"><i class="fa fa-linkedin"></i></a> <a class="btn btn-social-icon btn-twitter"><i class="fa fa-twitter"></i></a> </div>
+              <strong><i class="fa fa-phone margin-r-5" aria-hidden="true"></i> Social Profile</strong>
+              <div class="text-start"> <a class="btn btn-social-icon btn-facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a> <a class="btn btn-social-icon btn-google"><i class="fa fa-google-plus" aria-hidden="true"></i></a> <a class="btn btn-social-icon btn-linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a> <a class="btn btn-social-icon btn-twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a> </div>
             </div>
             <!-- /.box-body --> 
           </div>
@@ -336,9 +338,9 @@
             <div class="card tab-style1"> 
               <!-- Nav tabs -->
               <ul class="nav nav-tabs profile-tab" role="tablist">
-                <li class="nav-item"> <a class="nav-link active" data-bs-toggle="tab" href="#home" role="tab" aria-expanded="true" id="home-tab" aria-controls="home" aria-selected="true">Activity</a> </li>
-                <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab" aria-expanded="false" id="profile-tab" aria-controls="profile" aria-selected="false" tabindex="-1">Profile</a> </li>
-                <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#settings" role="tab" id="settings-tab" aria-controls="settings" aria-selected="false" tabindex="-1">Settings</a> </li>
+                <li class="nav-item"> <a class="nav-link active" data-bs-toggle="tab" href="#home" role="tab" aria-expanded="true" id="home-tab" aria-controls="home" aria-selected="true" aria-label="Activity">Activity</a> </li>
+                <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab" aria-expanded="false" id="profile-tab" aria-controls="profile" aria-selected="false" tabindex="-1" aria-label="Profile">Profile</a> </li>
+                <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#settings" role="tab" id="settings-tab" aria-controls="settings" aria-selected="false" tabindex="-1" aria-label="Settings">Settings</a> </li>
               </ul>
               <!-- Tab panes -->
               <div class="tab-content">
@@ -346,7 +348,7 @@
                   <div class="card-body">
                     <div class="row">
                       <div class="col-lg-2">
-                        <div class="user-img float-start"> <img src="../assets/img/img3.jpg" class="rounded-circle img-fluid" alt="User Image"> </div>
+                        <div class="user-img float-start"> <img src="../assets/img/img3.webp" class="rounded-circle img-fluid" alt="User Image" width="160" height="160" decoding="async" loading="eager"> </div>
                       </div>
                       <div class="col-lg-10">
                         <div class="mail-contnet">
@@ -354,31 +356,31 @@
                           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum raesent mauris nec.</p>
                           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum raesent mauris nec.</p>
                           <div class="row">
-                            <div class="col-lg-3 col-4 m-bot-2"><img src="../assets/img/img7.jpg" alt="user" class="img-fluid rounded"></div>
-                            <div class="col-lg-3 col-4 m-bot-2"><img src="../assets/img/img8.jpg" alt="user" class="img-fluid rounded"></div>
-                            <div class="col-lg-3 col-4 m-bot-2"><img src="../assets/img/img9.jpg" alt="user" class="img-fluid rounded"></div>
-                            <div class="col-lg-3 col-4 m-bot-2"><img src="../assets/img/img10.jpg" alt="user" class="img-fluid rounded"></div>
+                            <div class="col-lg-3 col-4 m-bot-2"><img src="../assets/img/img7.webp" alt="user" class="img-fluid rounded" width="1000" height="665" decoding="async" loading="lazy"></div>
+                            <div class="col-lg-3 col-4 m-bot-2"><img src="../assets/img/img8.webp" alt="user" class="img-fluid rounded" width="1000" height="665" decoding="async" loading="lazy"></div>
+                            <div class="col-lg-3 col-4 m-bot-2"><img src="../assets/img/img9.webp" alt="user" class="img-fluid rounded" width="1000" height="665" decoding="async" loading="lazy"></div>
+                            <div class="col-lg-3 col-4 m-bot-2"><img src="../assets/img/img10.webp" alt="user" class="img-fluid rounded" width="1000" height="665" decoding="async" loading="lazy"></div>
                           </div>
-                          <div class="like-comm m-t-1"> <a href="#">150 comment</a> <a href="#"><i class="fa fa-heart text-danger"></i> 25 Love</a> </div>
+                          <div class="like-comm m-t-1"> <a href="#">150 comment</a> <a href="#"><i class="fa fa-heart text-danger" aria-hidden="true"></i> 25 Love</a> </div>
                         </div>
                       </div>
                     </div>
                     <div class="row m-t-3">
                       <div class="col-lg-2">
-                        <div class="user-img float-start"> <img src="../assets/img/img5.jpg" class="rounded-circle img-fluid" alt="User Image"> </div>
+                        <div class="user-img float-start"> <img src="../assets/img/img5.webp" class="rounded-circle img-fluid" alt="User Image" width="160" height="160" decoding="async" loading="lazy"> </div>
                       </div>
                       <div class="col-lg-10">
                         <div class="mail-contnet">
                           <h5>Florence Douglas</h5>
                           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum raesent mauris nec.</p>
                           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum raesent mauris nec.</p>
-                          <div class="like-comm m-t-1"> <a href="#">150 comment</a> <a href="#"><i class="fa fa-heart text-danger"></i> 25 Love</a> </div>
+                          <div class="like-comm m-t-1"> <a href="#">150 comment</a> <a href="#"><i class="fa fa-heart text-danger" aria-hidden="true"></i> 25 Love</a> </div>
                         </div>
                       </div>
                     </div>
                     <div class="row m-t-3">
                       <div class="col-lg-2">
-                        <div class="user-img float-start"> <img src="../assets/img/img3.jpg" class="rounded-circle img-fluid" alt="User Image"> </div>
+                        <div class="user-img float-start"> <img src="../assets/img/img3.webp" class="rounded-circle img-fluid" alt="User Image" width="160" height="160" decoding="async" loading="lazy"> </div>
                       </div>
                       <div class="col-lg-10">
                         <div class="mail-contnet">
@@ -386,12 +388,12 @@
                           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum raesent mauris nec.</p>
                           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum raesent mauris nec.</p>
                           <div class="row">
-                            <div class="col-lg-3 col-4 m-bot-2"><img src="../assets/img/img7.jpg" alt="user" class="img-fluid rounded"></div>
-                            <div class="col-lg-3 col-4 m-bot-2"><img src="../assets/img/img8.jpg" alt="user" class="img-fluid rounded"></div>
-                            <div class="col-lg-3 col-4 m-bot-2"><img src="../assets/img/img9.jpg" alt="user" class="img-fluid rounded"></div>
-                            <div class="col-lg-3 col-4 m-bot-2"><img src="../assets/img/img10.jpg" alt="user" class="img-fluid rounded"></div>
+                            <div class="col-lg-3 col-4 m-bot-2"><img src="../assets/img/img7.webp" alt="user" class="img-fluid rounded" width="1000" height="665" decoding="async" loading="lazy"></div>
+                            <div class="col-lg-3 col-4 m-bot-2"><img src="../assets/img/img8.webp" alt="user" class="img-fluid rounded" width="1000" height="665" decoding="async" loading="lazy"></div>
+                            <div class="col-lg-3 col-4 m-bot-2"><img src="../assets/img/img9.webp" alt="user" class="img-fluid rounded" width="1000" height="665" decoding="async" loading="lazy"></div>
+                            <div class="col-lg-3 col-4 m-bot-2"><img src="../assets/img/img10.webp" alt="user" class="img-fluid rounded" width="1000" height="665" decoding="async" loading="lazy"></div>
                           </div>
-                          <div class="like-comm m-t-1"> <a href="#">150 comment</a> <a href="#"><i class="fa fa-heart text-danger"></i> 25 Love</a> </div>
+                          <div class="like-comm m-t-1"> <a href="#">150 comment</a> <a href="#"><i class="fa fa-heart text-danger" aria-hidden="true"></i> 25 Love</a> </div>
                         </div>
                       </div>
                     </div>
@@ -440,9 +442,9 @@
                   <div class="card-body">
                     <form class="form-material">
                       <div class="mb-3">
-                        <label class="col-md-12">Full Name</label>
+                        <label class="col-md-12" for="field-2">Full Name</label>
                         <div class="col-md-12">
-                          <input placeholder="Florence Douglas" class="form-control form-control-line" type="text">
+                          <input placeholder="Florence Douglas" class="form-control form-control-line" type="text" id="field-2">
                         </div>
                       </div>
                       <div class="mb-3">
@@ -452,27 +454,27 @@
                         </div>
                       </div>
                       <div class="mb-3">
-                        <label class="col-md-12">Password</label>
+                        <label class="col-md-12" for="field-4">Password</label>
                         <div class="col-md-12">
-                          <input value="password" class="form-control form-control-line" type="password">
+                          <input value="password" class="form-control form-control-line" type="password" id="field-4">
                         </div>
                       </div>
                       <div class="mb-3">
-                        <label class="col-md-12">Phone No</label>
+                        <label class="col-md-12" for="field-5">Phone No</label>
                         <div class="col-md-12">
-                          <input placeholder="123 456 7890" class="form-control form-control-line" type="text">
+                          <input placeholder="123 456 7890" class="form-control form-control-line" type="text" id="field-5">
                         </div>
                       </div>
                       <div class="mb-3">
-                        <label class="col-md-12">Message</label>
+                        <label class="col-md-12" for="field-6">Message</label>
                         <div class="col-md-12">
-                          <textarea rows="5" class="form-control form-control-line"></textarea>
+                          <textarea rows="5" class="form-control form-control-line" id="field-6"></textarea>
                         </div>
                       </div>
                       <div class="mb-3">
-                        <label class="col-sm-12">Select Country</label>
+                        <label class="col-sm-12" for="field-7">Select Country</label>
                         <div class="col-sm-12">
-                          <select class="form-select form-control-line">
+                          <select class="form-select form-control-line" id="field-7">
                             <option>London</option>
                             <option>India</option>
                             <option>Usa</option>
@@ -512,16 +514,16 @@
         <div class="col-md-6 text-md-end">
           <div class="d-flex flex-column align-items-md-end">
             <div class="mb-1">
-              <a href="#" class="text-decoration-none me-3"><i class="fa fa-home"></i> Home</a>
-              <a href="#" class="text-decoration-none me-3"><i class="fa fa-info-circle"></i> About</a>
-              <a href="#" class="text-decoration-none me-3"><i class="fa fa-envelope"></i> Contact</a>
-              <a href="#" class="text-decoration-none"><i class="fa fa-life-ring"></i> Support</a>
+              <a href="#" class="text-decoration-none me-3"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+              <a href="#" class="text-decoration-none me-3"><i class="fa fa-info-circle" aria-hidden="true"></i> About</a>
+              <a href="#" class="text-decoration-none me-3"><i class="fa fa-envelope" aria-hidden="true"></i> Contact</a>
+              <a href="#" class="text-decoration-none"><i class="fa fa-life-ring" aria-hidden="true"></i> Support</a>
             </div>
             <div class="social-links">
-              <a href="#" class="text-primary me-2" title="Facebook"><i class="fa fa-facebook"></i></a>
-              <a href="#" class="text-info me-2" title="Twitter"><i class="fa fa-twitter"></i></a>
-              <a href="#" class="text-primary me-2" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
-              <a href="#" class="text-danger" title="Instagram"><i class="fa fa-instagram"></i></a>
+              <a href="#" class="text-primary me-2" title="Facebook" aria-label="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+              <a href="#" class="text-info me-2" title="Twitter" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+              <a href="#" class="text-primary me-2" title="LinkedIn" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+              <a href="#" class="text-danger" title="Instagram" aria-label="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
             </div>
           </div>
         </div>
@@ -535,7 +537,7 @@
         </div>
         <div class="col-md-6 text-md-end">
           <small class="text-muted">
-            Version 2.0 | Built with <i class="fa fa-heart text-danger"></i> and Bootstrap 5
+            Version 2.0 | Built with <i class="fa fa-heart text-danger" aria-hidden="true"></i> and Bootstrap 5
           </small>
         </div>
       </div>
