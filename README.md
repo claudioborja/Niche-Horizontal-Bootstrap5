@@ -385,6 +385,17 @@ Los gráficos comparten la tipografía y el color de texto del tema mediante
 `assets/js/chart-theme.js`. Cárgalo después de Chart.js y antes del inicializador
 de la página. Las leyendas se generan desde los datos del gráfico.
 
+`assets/js/chart-accessibility.js` se carga después de `chart-theme.js` y antes
+de los inicializadores. Añade nombres y resúmenes asociados al canvas, y tablas
+con encabezados de fila y columna bajo «View chart data». Se abren con Enter o
+Espacio y permiten desplazamiento horizontal con teclado en móvil. Las tablas
+usan los mismos datos del gráfico y se actualizan con `chart.update()`, incluida
+la indicación de series ocultas; siguen mostrando todos los valores.
+Los minigráficos incluyen sus valores y proporciones en el nombre accesible.
+Los indicadores Knob muestran el valor y su rango como texto actualizado al
+cambiar el control. Sigue las recomendaciones de
+[accesibilidad de Chart.js](https://www.chartjs.org/docs/latest/general/accessibility.html).
+
 - Edita [assets/css/style.css](assets/css/style.css) para ajustar los estilos de la plantilla.
 - Usa [assets/js/niche.js](assets/js/niche.js) para el comportamiento general.
 - Ajusta [assets/js/bootstrap-components.js](assets/js/bootstrap-components.js) para inicializar tooltips y popovers nativos.

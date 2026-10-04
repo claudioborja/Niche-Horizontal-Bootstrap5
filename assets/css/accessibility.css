@@ -49,6 +49,18 @@ a:hover, a:focus { color: var(--niche-color-link-hover); }
 .text-yellow, .text-warning { color: var(--niche-readable-yellow) !important; }
 .text-orange { color: var(--niche-readable-orange) !important; }
 .text-danger, .invalid-feedback { color: var(--niche-readable-red) !important; }
+.chart-data { margin-top: var(--niche-space-4); color: var(--niche-color-text); }
+.chart-data-description { margin-bottom: var(--niche-space-2); font-size: var(--niche-font-size-sm); }
+.chart-data summary {
+  min-height: var(--niche-control-hit-size); padding: var(--niche-space-2) 0;
+  cursor: pointer; color: var(--niche-color-link); overflow-wrap: anywhere;
+}
+.chart-data summary:focus-visible {
+  outline: 3px solid var(--niche-color-focus); outline-offset: 3px;
+}
+.chart-data-scroll { max-width: 100%; overflow-x: auto; }
+.chart-data caption { color: var(--niche-color-text); caption-side: top; }
+.chart-data th, .chart-data td { white-space: nowrap; }
 .bg-aqua { background-color: var(--niche-readable-aqua) !important; }
 .bg-green { background-color: var(--niche-readable-green) !important; }
 .bg-orange { background-color: var(--niche-readable-orange) !important; }

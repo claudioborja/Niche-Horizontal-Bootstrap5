@@ -14,6 +14,7 @@ import threading
 from playwright.async_api import async_playwright
 from check_native_components import check_native
 from check_design_quality import check_design
+from check_chart_accessibility import check_chart_accessibility
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -369,6 +370,7 @@ FullCalendar.Calendar = class extends FullCalendar.Calendar {
     assert not failures, '\n'.join(failures)
     print('PASS: upgraded widgets also render at a mobile viewport.', flush=True)
     await check_design(page, visit)
+    await check_chart_accessibility(page, visit)
     await context.close()
 
 

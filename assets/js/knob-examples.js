@@ -2,8 +2,24 @@
 jQuery(function ($) {
     'use strict';
     if (typeof $.fn.knob !== 'function') return;
+    const gaugeDescriptions = new WeakMap();
+    function describeGauge(input, value) {
+        const description = gaugeDescriptions.get(input);
+        if (!description) return;
+        description.textContent = 'Value: ' + value + '. Range: ' + (input.dataset.min || 0) + ' to ' + (input.dataset.max || 100) + '.';
+    }
+    $('.knob').each(function (index) {
+        const description = document.createElement('p');
+        description.id = 'niche-gauge-value-' + index;
+        description.className = 'form-text';
+        gaugeDescriptions.set(this, description);
+        this.setAttribute('aria-describedby', [this.getAttribute('aria-describedby'), description.id].filter(Boolean).join(' '));
+        describeGauge(this, this.value);
+    });
 
     $('.knob').knob({
+        change: function (value) { describeGauge(this.$[0], value); },
+        release: function (value) { describeGauge(this.$[0], value); },
         draw: function () {
             if (this.$.data('skin') !== 'tron') return;
             this.cursorExt = 0.3;
@@ -30,6 +46,11 @@ jQuery(function ($) {
             context.stroke();
             return false;
         }
+    });
+    $('.knob').each(function () {
+        this.parentElement.after(gaugeDescriptions.get(this));
+        this.parentElement.querySelectorAll('canvas').forEach(canvas => canvas.setAttribute('aria-hidden', 'true'));
+        $(this).on('change', () => describeGauge(this, this.value));
     });
 
     let previousValue;

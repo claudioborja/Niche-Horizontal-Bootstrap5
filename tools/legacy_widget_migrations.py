@@ -84,4 +84,7 @@ def migrate(path, original):
     text = re.sub(r'(<!-- Native gallery -->\n){2,}', '<!-- Native gallery -->\n', text)
     if chart_loader in text and 'js/chart-theme.js' not in text:
         text = text.replace(chart_loader, chart_loader + '\n<script src="' + prefix + 'js/chart-theme.js"></script>')
+    theme_script = '<script src="' + prefix + 'js/chart-theme.js"></script>'
+    if theme_script in text and 'js/chart-accessibility.js' not in text:
+        text = text.replace(theme_script, theme_script + '\n<script src="' + prefix + 'js/chart-accessibility.js"></script>')
     return text.encode('utf-8')
