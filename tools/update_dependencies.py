@@ -41,9 +41,9 @@ UPDATES = (
         ('css/dataTables.bootstrap5.min.css', 'https://cdn.jsdelivr.net/npm/datatables.net-bs5@3.1.3/css/dataTables.bootstrap5.min.css', b'.dt-'),
     )),
     ('fullcalendar-6.1.21', 'fullcalendar-7.1.0', (
-        ('js/fullcalendar.min.js', 'https://cdn.jsdelivr.net/npm/fullcalendar@7.1.0/all/global.js', b'v7.1.0'),
+        ('js/fullcalendar.min.js', 'https://cdn.jsdelivr.net/npm/fullcalendar@7.1.0/all/global.min.js', b'v7.1.0'),
         ('css/skeleton.css', 'https://cdn.jsdelivr.net/npm/fullcalendar@7.1.0/skeleton.css', b'fc-'),
-        ('js/bootstrap5.js', 'https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5@7.1.0/global.js', b'v7.1.0'),
+        ('js/bootstrap5.js', 'https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5@7.1.0/global.min.js', b'v7.1.0'),
         ('css/bootstrap5.css', 'https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5@7.1.0/theme.css', b'.fc-bootstrap5-'),
     )),
     ('summernote', 'summernote-0.9.1', (
