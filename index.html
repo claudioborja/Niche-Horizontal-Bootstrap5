@@ -15,6 +15,7 @@
 <link href="assets/plugins/poppins-5.3.0/poppins.css" rel="stylesheet">
 
 <!-- Theme style -->
+<link rel="stylesheet" href="assets/css/theme.css">
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/plugins/bootstrap-icons-1.13.1/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="assets/css/icon-compat.css">
@@ -25,15 +26,15 @@
 <style>
 .info-box {
     background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    padding: 20px;
-    margin-bottom: 20px;
+    border-radius: var(--niche-radius-dashboard-card);
+    box-shadow: var(--niche-shadow-dashboard);
+    padding: var(--niche-dashboard-card-padding);
+    margin-bottom: var(--niche-space-5);
 }
 
 .chart-container {
     position: relative;
-    padding: 10px;
+    padding: var(--niche-space-control);
 }
 
 canvas {
@@ -51,7 +52,7 @@ canvas {
 
 @media (max-width: 768px) {
     .info-box {
-        margin-bottom: 15px;
+        margin-bottom: var(--niche-space-content);
     }
     
     .chart-container {
@@ -484,7 +485,7 @@ canvas {
             <!-- Widget: user widget style 1 -->
             <div class="box box-widget widget-user"> 
               <!-- Add the bg color to the header using any of the bg-* classes -->
-              <div class="widget-user-header bg-black" style="background-color: #5867dd;">
+              <div class="widget-user-header bg-black" style="background-color: var(--niche-color-primary);">
                 <h3 class="widget-user-username">Angela Dominic</h3>
                 <h5 class="widget-user-desc">Web Designer & Developer</h5>
               </div>

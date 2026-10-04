@@ -25,7 +25,7 @@
 .jtline .events-wrapper {
   position: relative;
   height: 100%;
-  margin: 0 40px;
+  margin: 0 var(--niche-space-8);
   overflow: hidden;
 }
 .jtline .events-wrapper::after, .jtline .events-wrapper::before {
@@ -68,7 +68,7 @@
   top: 0;
   height: 100%;
   width: 100%;
-  background-color: #5867dd;
+  background-color: var(--niche-color-primary);
   -webkit-transform: scaleX(0);
   -moz-transform: scaleX(0);
   -ms-transform: scaleX(0);
@@ -88,8 +88,8 @@
   bottom: 0;
   z-index: 2;
   text-align: center;
-  font-size:16px;
-  padding-bottom: 15px;
+  font-size:var(--niche-font-size-md);
+  padding-bottom: var(--niche-space-content);
   color: #383838;
   /* fix bug on Safari - text flickering while timeline translates */
   -webkit-transform: translateZ(0);
@@ -120,18 +120,18 @@
   transition: background-color 0.3s, border-color 0.3s;
 }
 .no-touch .jtline .events a:hover::after {
-  background-color: #5867dd;
-  border-color: #5867dd;
+  background-color: var(--niche-color-primary);
+  border-color: var(--niche-color-primary);
 }
 .jtline .events a.selected {
   pointer-events: none;
 }
 .jtline .events a.selected::after {
-  background-color: #5867dd;
-  border-color: #5867dd;
+  background-color: var(--niche-color-primary);
+  border-color: var(--niche-color-primary);
 }
 .jtline .events a.older-event::after {
-  border-color: #5867dd;
+  border-color: var(--niche-color-primary);
 }
 @media only screen and (min-width: 1100px) {
   .jtline {
@@ -196,7 +196,7 @@
   right: 0;
 }
 .no-touch .cd-timeline-navigation a:hover {
-  border-color: #5867dd;
+  border-color: var(--niche-color-primary);
 }
 .cd-timeline-navigation a.inactive {
   cursor: not-allowed;
@@ -283,7 +283,7 @@
 .jtline .events-content em {
   display: block;
   font-style: italic;
-  margin: 10px auto;
+  margin: var(--niche-space-control) auto;
   border-bottom:1px dashed #dbdbdb;
 }
 .jtline .events-content em::before {
@@ -301,10 +301,10 @@
     font-size: 35px;
   }
   .jtline .events-content em {
-    font-size: 18px;
+    font-size: var(--niche-font-size-lg);
   }
   .jtline .events-content p {
-    font-size: 16px;
+    font-size: var(--niche-font-size-md);
   }
 }
 

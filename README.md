@@ -330,6 +330,51 @@ el borde de las etiquetas del correo y los cambios de vista de los calendarios.
 
 ## Personalización
 
+- Edita [assets/css/theme.css](assets/css/theme.css) para los colores, tipografía,
+  espaciados, bordes redondeados y sombras compartidos. Las 67 páginas lo cargan
+  antes de las hojas de componentes; no requiere compilación.
+
+Las variables conservan el aspecto por defecto y distinguen el color de marca
+de los tonos utilizados para texto legible. Estos son los ajustes principales:
+
+| Variable | Elementos que controla |
+| --- | --- |
+| `--niche-color-primary` | Cabecera, botones principales y pestañas de la plantilla |
+| `--niche-color-primary-border` | Borde de los botones principales |
+| `--niche-color-link`, `--niche-color-link-hover` | Enlaces y sus estados |
+| `--niche-color-text`, `--niche-color-muted` | Texto general y secundario |
+| `--niche-color-surface`, `--niche-color-page` | Superficies de componentes y fondo del contenido |
+| `--niche-color-info`, `--niche-color-success`, `--niche-color-warning`, `--niche-color-danger` | Estados legibles en los componentes de la plantilla |
+| `--niche-font-family`, `--niche-font-size-base` | Fuente compartida y tamaño base |
+| `--niche-content-padding`, `--niche-card-padding` | Espacio interior del contenido y de las tarjetas estándar |
+| `--niche-dashboard-card-padding` | Espacio interior de las tarjetas del primer dashboard |
+| `--niche-button-padding-x`, `--niche-button-padding-y` | Espacio interior de los botones estándar |
+| `--niche-radius-card`, `--niche-radius-dashboard-card`, `--niche-radius-button` | Forma de tarjetas y botones |
+| `--niche-shadow-card`, `--niche-shadow-dashboard` | Sombras de las dos variantes de tarjetas |
+| `--niche-space-1` a `--niche-space-8` | Escala compartida de espaciado, incluidos los huecos de la galería |
+| `--niche-control-hit-size` | Área pulsable de los controles pequeños; valor por defecto: 44 px |
+
+Puedes editar los valores en `theme.css` o cargar tu propia hoja **después de
+`accessibility.css`**, con ajustes globales en `:root`. Por ejemplo:
+
+```css
+:root {
+  --niche-color-primary: #233b6e;
+  --niche-color-primary-border: var(--niche-color-primary);
+  --niche-color-link: var(--niche-color-primary);
+  --niche-card-padding: 24px;
+  --niche-dashboard-card-padding: 24px;
+  --niche-radius-card: 8px;
+  --niche-radius-button: 8px;
+}
+```
+
+Los estilos específicos y las variantes de demostración de los plugins mantienen
+sus propias opciones. Los gráficos conservan las paletas de sus inicializadores.
+Tras cambiar colores o tamaños, ejecuta las pruebas para revisar contraste y
+adaptación móvil. `check_design_quality.py` comprueba que las variables modifican
+los componentes reales en el navegador.
+
 - Edita [assets/css/style.css](assets/css/style.css) para ajustar los estilos de la plantilla.
 - Usa [assets/js/niche.js](assets/js/niche.js) para el comportamiento general.
 - Ajusta [assets/js/bootstrap-components.js](assets/js/bootstrap-components.js) para inicializar tooltips y popovers nativos.

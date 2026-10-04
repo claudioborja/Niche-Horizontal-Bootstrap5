@@ -10,11 +10,11 @@ ul {
 .ace-responsive-menu {
     list-style: none;
     margin: 0;
-    padding: 0 10px;
-    background:#fff;  
+    padding: 0 var(--niche-space-control);
+    background:var(--niche-color-surface);
     float:left;
     width:100%;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--niche-font-family);
     border-bottom: 1px solid #e2e6ea;        
 }
 .ace-responsive-menu li{
@@ -38,9 +38,9 @@ ul {
     position: relative;
     margin: 0;
     border: 0px;
-    padding: 18px 15px 18px 10px;
+    padding: 18px var(--niche-space-content) 18px var(--niche-space-control);
     text-decoration: none;
-    font-size: 15px;
+    font-size: var(--niche-font-size-base);
     font-weight: 300;
     color: #7e8e96;
 }
@@ -49,25 +49,25 @@ ul {
     color: #FF5737;
 }
 .ace-responsive-menu > li > a i {
-    font-size: 15px;
+    font-size: var(--niche-font-size-base);
     text-shadow: none;
     color: #7e8e96;
 }
 .ace-responsive-menu li ul.sub-menu li a i {
-    padding-right: 10px;
+    padding-right: var(--niche-space-control);
 }
 .ace-responsive-menu li.menu-active > a {
     background: #272727 !important;
-    color:#fff;
+    color:var(--niche-color-on-accent);
 }
 .ace-responsive-menu li .menu-active {
     position: relative;
 }
 
 .ace-responsive-menu > li > a > .arrow:before {  
-    margin-left: 15px;
+    margin-left: var(--niche-space-content);
     display: inline;
-    font-size: 15px;
+    font-size: var(--niche-font-size-base);
     font-family: bootstrap-icons;
     height: auto;
     content: "\f282";
@@ -96,9 +96,9 @@ ul {
 .ace-responsive-menu li ul.sub-menu li a {
     display: block;
     margin: 0px 0px;
-    padding: 12px 20px 12px 15px;
+    padding: var(--niche-space-3) var(--niche-space-5) var(--niche-space-3) var(--niche-space-content);
     text-decoration: none;
-    font-size: 13px;
+    font-size: var(--niche-font-size-caption);
     font-weight: normal;
     background: none;
 }
@@ -124,7 +124,7 @@ ul {
     margin-top: 1px;
     margin-right: 0px;
     display: inline;
-    font-size: 16px;
+    font-size: var(--niche-font-size-md);
     font-family: bootstrap-icons;
     height: auto;
     content: "\f284";
@@ -142,10 +142,10 @@ ul {
 }
 .menu-toggle h3 {
     float: left;
-    color: #FFF;
-    padding: 20px 10px 0px 10px;
+    color: var(--niche-color-on-accent);
+    padding: var(--niche-space-5) var(--niche-space-control) 0px var(--niche-space-control);
     font-weight: 600;
-    font-size: 16px;
+    font-size: var(--niche-font-size-md);
 	margin-bottom:0;
 }
 .menu-toggle .icon-bar {
@@ -168,10 +168,10 @@ ul {
     float: right;
     background: #202020;
     border: 1px solid #0C0C0C;
-    padding: 8px;
-    border-radius: 5px;
+    padding: var(--niche-space-2);
+    border-radius: var(--niche-radius-md);
     cursor: pointer;
-    margin: 10px;
+    margin: var(--niche-space-control);
 }
 .hide-menu {
     display: none;
@@ -208,7 +208,7 @@ ul[data-menu-style="accordion"] > li > ul.sub-menu {
     position: static;
 }
 ul[data-menu-style="accordion"] > li > a i {
-    padding-right: 10px;
+    padding-right: var(--niche-space-control);
     color: #FF5737;
 }
 ul[data-menu-style="accordion"] > li > ul.sub-menu > li ul.sub-menu {
@@ -256,7 +256,7 @@ ul[data-menu-style="vertical"] > li > ul.sub-menu {
     width:200px;
 }
 ul[data-menu-style="vertical"] > li > a i {
-    padding-right: 10px;
+    padding-right: var(--niche-space-control);
     color: #FF5737;
 }
 ul[data-menu-style="vertical"]> li > ul.sub-menu > li ul.sub-menu {
@@ -304,7 +304,7 @@ ul[data-menu-style="vertical"] li a:hover {
         border-top: 2px solid #242424;
     }    
     .ace-responsive-menu > li > a i {
-        padding-right: 10px;
+        padding-right: var(--niche-space-control);
     }
 	.ace-responsive-menu {
     background:#333333;
@@ -323,7 +323,7 @@ ul[data-menu-style="vertical"] li a:hover {
     }
     .ace-responsive-menu li ul.sub-menu li ul.sub-menu li a
         {
-        padding-left: 30px;
+        padding-left: var(--niche-space-7);
     }  
     .ace-responsive-menu li ul.sub-menu li ul.sub-menu li ul.sub-menu li a 
        {

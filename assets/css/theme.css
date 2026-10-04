@@ -1,0 +1,86 @@
+/* Shared theme values. Load before style.css; override in a later stylesheet. */
+:root {
+  /* Brand and readable semantic colors have distinct roles. */
+  --niche-color-primary: #5867dd;
+  --niche-color-primary-border: #4857d0;
+  --niche-color-link: #3b48a3;
+  --niche-color-link-hover: #303b88;
+  --niche-color-text: #505b62;
+  --niche-color-muted: #505b62;
+  --niche-color-heading: #000;
+  --niche-color-strong: #253047;
+  --niche-color-surface: #fff;
+  --niche-color-page: #ecf0f5;
+  --niche-color-border: #ddd;
+  --niche-color-on-accent: #fff;
+  --niche-color-blue: #075fca;
+  --niche-color-info: #087d82;
+  --niche-color-success: #087d43;
+  --niche-color-success-hover: #086237;
+  --niche-color-orange: #b84e08;
+  --niche-color-warning: #aa6400;
+  --niche-color-danger: #c23728;
+  --niche-color-light-blue: #226f9b;
+  --niche-color-focus: #005fcc;
+  --niche-color-skip-link: #17324d;
+  --niche-color-overlay: rgb(0 0 0 / 75%);
+  --niche-color-backdrop: rgb(0 0 0 / 80%);
+
+  /* Typography: retain the existing Poppins sizes. */
+  --niche-font-family: 'Poppins', sans-serif;
+  --niche-font-size-tiny: 10px;
+  --niche-font-size-micro: 11px;
+  --niche-font-size-xs: 12px;
+  --niche-font-size-caption: 13px;
+  --niche-font-size-sm: 14px;
+  --niche-font-size-base: 15px;
+  --niche-font-size-md: 16px;
+  --niche-font-size-lg: 18px;
+  --niche-font-size-xl: 22px;
+  --niche-font-size-title: 24px;
+  --niche-font-size-h3: 25px;
+  --niche-font-size-h2: 30px;
+  --niche-font-size-display: 40px;
+
+  /* Spacing scale plus the original content/control spacing. */
+  --niche-space-1: 4px;
+  --niche-space-2: 8px;
+  --niche-space-3: 12px;
+  --niche-space-4: 16px;
+  --niche-space-5: 20px;
+  --niche-space-6: 24px;
+  --niche-space-7: 30px;
+  --niche-space-8: 40px;
+  --niche-space-control: 10px;
+  --niche-space-content: 15px;
+  --niche-content-padding: var(--niche-space-content);
+  --niche-card-padding: var(--niche-space-content);
+  --niche-dashboard-card-padding: var(--niche-space-5);
+  --niche-button-padding-y: var(--niche-space-control);
+  --niche-button-padding-x: var(--niche-space-5);
+  --niche-control-hit-size: 44px;
+
+  /* Shapes and elevation; dashboard and compact cards keep their variants. */
+  --niche-radius-xs: 3px;
+  --niche-radius-sm: 4px;
+  --niche-radius-md: 5px;
+  --niche-radius-lg: 8px;
+  --niche-radius-card: var(--niche-radius-md);
+  --niche-radius-dashboard-card: var(--niche-radius-lg);
+  --niche-radius-button: var(--niche-radius-md);
+  --niche-radius-gallery-filter: .25rem;
+  --niche-radius-dialog: .5rem;
+  --niche-shadow-card: 0 1px 1px rgba(0, 0, 0, .1);
+  --niche-shadow-dashboard: 0 2px 10px rgba(0, 0, 0, .1);
+
+  /* Compatibility with the contrast variables used by existing examples. */
+  --niche-readable-muted: var(--niche-color-muted);
+  --niche-readable-primary: var(--niche-color-link);
+  --niche-readable-blue: var(--niche-color-blue);
+  --niche-readable-aqua: var(--niche-color-info);
+  --niche-readable-green: var(--niche-color-success);
+  --niche-readable-orange: var(--niche-color-orange);
+  --niche-readable-yellow: var(--niche-color-warning);
+  --niche-readable-red: var(--niche-color-danger);
+  --niche-readable-light-blue: var(--niche-color-light-blue);
+}

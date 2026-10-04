@@ -8,6 +8,9 @@ def migrate(path, original):
         return original
     text = original.decode('utf-8')
     prefix = 'assets/' if path.name in {'index.html', 'index2.html', 'index3.html', 'index4.html'} else '../assets/'
+    if 'css/theme.css' not in text:
+        text = re.sub(r'(?=<link\b[^>]*href="[^"\n]*assets/css/style\.css")',
+                      '<link rel="stylesheet" href="' + prefix + 'css/theme.css">\n', text, count=1)
     text = re.sub(r'<script\b[^>]*src="[^"\n]*jquery-migrate[^"\n]*"[^>]*></script>\s*\n?', '', text)
     text = text.replace('>Summernote</a>', '>Rich Text Editor</a>').replace('>Peity Chart</a>', '>Mini Charts</a>')
     text = re.sub(r'<script\b[^>]*src="[^"\n]*assets/plugins/(?:hmenu/ace-responsive-menu\.js|jquery-slimscroll/[^"\n]+)"[^>]*></script>[^\S\r\n]*\r?\n?', '', text)

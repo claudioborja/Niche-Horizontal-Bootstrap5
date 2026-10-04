@@ -1,6 +1,6 @@
 .timeline {
 	list-style: none;
-	padding: 20px 0 20px;
+	padding: var(--niche-space-5) 0 var(--niche-space-5);
 	position: relative;
 }
 .timeline:before {
@@ -14,7 +14,7 @@
 	margin-left: -1.5px;
 }
 .timeline > li {
-	margin-bottom: 20px;
+	margin-bottom: var(--niche-space-5);
 	position: relative;
 	width: 50%;
 	float: left;
@@ -40,7 +40,7 @@
 	float: left;
 	border: 1px solid #d4d4d4;
 	/*border-radius: 2px;*/
-  /*padding: 20px;*/
+  /*padding: var(--niche-space-5);*/
 	position: relative;
 	-webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
 	box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
@@ -68,7 +68,7 @@
 	content: " ";
 }
 .timeline > li > .timeline-badge {
-	color: #fff;
+	color: var(--niche-color-on-accent);
 	width: 35px;
 	height: 35px;
 	line-height: 50px;
@@ -104,21 +104,21 @@
 	color: #C5C7C5 !important;
 }
 .timeline-badge a:hover {
-	color: #000 !important;
+	color: var(--niche-color-heading) !important;
 }
 .timeline-title {
 	margin-top: 0;
 	color: inherit;
 }
 .timeline-body > p, .timeline-body > ul {
-	padding: 20px;
+	padding: var(--niche-space-5);
 	margin-bottom: 0;
 }
 .timeline-body > p + p {
 	margin-top: 5px;
 }
 .timeline-footer {
-	padding: 20px;
+	padding: var(--niche-space-5);
 	background-color: #f4f4f4;
 }
 .timeline-footer > a {
@@ -131,7 +131,7 @@
 	display: block;
 	visibility: visible;
 	padding: 5px;
-	font-size: 11px;
+	font-size: var(--niche-font-size-micro);
 	opacity: 0;
 	filter: alpha(opacity=0);
 }
@@ -186,8 +186,8 @@ opacity:0;
 }
 .tooltip-inner {
 	width: 200px;
-	padding: 3px 8px;
-	color: #fff;
+	padding: 3px var(--niche-space-2);
+	color: var(--niche-color-on-accent);
 	text-align: center;
 	text-decoration: none;
 	background-color: #313131;
@@ -203,8 +203,8 @@ opacity:0;
 .timeline > li.timeline-inverted {
 	float: right;
 	clear: right;
-	margin-top: 30px;
-	margin-bottom: 30px;
+	margin-top: var(--niche-space-7);
+	margin-bottom: var(--niche-space-7);
 }
 .timeline > li.timeline-inverted.sty-1{
 	margin-top: 50px;
@@ -220,7 +220,7 @@ ul.timeline:before {
 	left: 40px;
 }
 ul.timeline > li {
-	margin-bottom: 20px;
+	margin-bottom: var(--niche-space-5);
 	position: relative;
 	width: 100%;
 	float: left;
@@ -254,8 +254,8 @@ ul.timeline > li > .timeline-panel:after {
 .timeline > li.timeline-inverted {
 	float: left;
 	clear: left;
-	margin-top: 30px;
-	margin-bottom: 30px;
+	margin-top: var(--niche-space-7);
+	margin-bottom: var(--niche-space-7);
 }
 .timeline > li.timeline-inverted > .timeline-badge {
 	left: 28px;

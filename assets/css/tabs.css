@@ -19,33 +19,33 @@ Designed By: UXLiner
 }
 .vtabs .tabs-vertical li .nav-link {
 	color: #263238;
-	margin-bottom: 10px;
+	margin-bottom: var(--niche-space-control);
 	border: 0px;
-	border-radius: 4px 0 0 4px;
+	border-radius: var(--niche-radius-sm) 0 0 var(--niche-radius-sm);
 }
 .vtabs .tab-content {
 	display: table-cell;
-	padding: 20px;
+	padding: var(--niche-space-5);
 	vertical-align: top;
 }
 .tabs-vertical li .nav-link.active, .tabs-vertical li .nav-link:hover, .tabs-vertical li .nav-link.active:focus {
-	background: #5867dd;
+	background: var(--niche-color-primary);
 	border: 0px;
-	color: #ffffff;
+	color: var(--niche-color-on-accent);
 }
 /*Custom vertical tab*/
 .customtab li a.nav-link{
 	border:0;
 }
 .customvtab .tabs-vertical li .nav-link.active, .customvtab .tabs-vertical li .nav-link:hover, .customvtab .tabs-vertical li .nav-link:focus {
-	background: #ffffff;
+	background: var(--niche-color-surface);
 	border: 0px;
-	border-right: 2px solid #5867dd;
+	border-right: 2px solid var(--niche-color-primary);
 	margin-right: -1px;
-	color: #5867dd;
+	color: var(--niche-color-primary);
 }
 .tabcontent-border {
-	border: 1px solid #ddd;
+	border: 1px solid var(--niche-color-border);
 	border-top: 0px;
 }
 .customtab2 li a.nav-link {
@@ -54,10 +54,10 @@ Designed By: UXLiner
 	color: #67757c;
 }
 .customtab2 li a.nav-link.active {
-	background: #5867dd;
-	color: #ffffff;
+	background: var(--niche-color-primary);
+	color: var(--niche-color-on-accent);
 }
 .customtab2 li a.nav-link:hover {
-	color: #ffffff;
-	background: #5867dd;
+	color: var(--niche-color-on-accent);
+	background: var(--niche-color-primary);
 }

@@ -59,3 +59,39 @@ async def check_design(page, visit):
     await page.set_viewport_size({'width': 1440, 'height': 1000})
     await page.wait_for_function("testCalendars[0].view.type === 'timeGridWeek' && testCalendars[1].view.type === 'dayGridMonth'")
     print('PASS: header/timeline fit 320–1440px, mailbox hit areas activate their controls, and calendars preserve desktop view choices.', flush=True)
+    await check_theme(page, visit)
+
+
+async def check_theme(page, visit):
+    # Exercise actual customization through the shared variables, including aliases.
+    await visit('index3.html')
+    await page.evaluate("""() => {
+        const theme = document.documentElement.style;
+        for (const [name, value] of Object.entries({
+            '--niche-color-primary': '#233b6e', '--niche-color-link': '#202020',
+            '--niche-font-size-base': '18px', '--niche-card-padding': '28px',
+            '--niche-radius-card': '12px'
+        })) theme.setProperty(name, value);
+    }""")
+    await page.wait_for_function("getComputedStyle(document.querySelector('.content-header .breadcrumb a')).color === 'rgb(32, 32, 32)'")
+    assert await page.evaluate("""() => {
+        const header = getComputedStyle(document.querySelector('.navbar.blue-bg'));
+        const link = getComputedStyle(document.querySelector('.content-header .breadcrumb a'));
+        const card = getComputedStyle(document.querySelector('.info-box'));
+        return header.backgroundColor === 'rgb(35, 59, 110)' && link.color === 'rgb(32, 32, 32)'
+            && getComputedStyle(document.body).fontSize === '18px'
+            && card.paddingTop === '28px' && card.borderRadius === '12px';
+    }"""), 'Shared theme changes do not reach the rendered components'
+    await visit('ui/ui-buttons.html')
+    await page.evaluate("""() => {
+        document.documentElement.style.setProperty('--niche-button-padding-x', '32px');
+        document.documentElement.style.setProperty('--niche-radius-button', '9px');
+    }""")
+    assert await page.locator('.info-box .btn-primary').first.evaluate("""el => {
+        const button = getComputedStyle(el);
+        return button.paddingLeft === '32px' && button.borderRadius === '9px';
+    }"""), 'Shared button variables do not reach the rendered buttons'
+    await visit('pages/pages-gallery.html')
+    await page.evaluate("document.documentElement.style.setProperty('--niche-space-5', '28px')")
+    assert await page.locator('.gallery-grid').evaluate("el => getComputedStyle(el).gap === '28px'")
+    print('PASS: shared theme customizes brand/link colors, typography, card/button shapes and spacing, and gallery gaps.', flush=True)

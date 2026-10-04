@@ -23,6 +23,7 @@ async def check_native(browser, base_url):
 <div class="direct-chat"><button data-widget="chat-pane-toggle">Chat</button></div>
 <button data-toggle="push-menu">Sidebar</button><button data-toggle="control-sidebar">Settings</button><aside class="control-sidebar"></aside>
 </div><footer class="main-footer" style="height:30px"></footer></div></body></html>''')
+    await page.add_style_tag(url=base_url + '/assets/css/theme.css')
     await page.add_style_tag(url=base_url + '/assets/plugins/hmenu/ace-responsive-menu.css')
     for source in ('niche.js', 'niche/layout.js', 'niche/navigation.js', 'niche/widgets.js'):
         await page.add_script_tag(path=str(ROOT / 'assets/js' / source))
