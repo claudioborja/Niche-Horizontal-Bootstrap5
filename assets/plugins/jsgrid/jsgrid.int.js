@@ -7,11 +7,11 @@
             tableClass: "jsgrid-table table table-striped table-hover"
         }), jsGrid.setDefaults("text", {
             _createTextBox: function() {
-                return $("<input>").attr("type", "text").attr("class", "form-control input-sm")
+                return $("<input>").attr("type", "text").attr("class", "form-control form-control-sm")
             }
         }), jsGrid.setDefaults("number", {
             _createTextBox: function() {
-                return $("<input>").attr("type", "number").attr("class", "form-control input-sm")
+                return $("<input>").attr("type", "number").attr("class", "form-control form-control-sm")
             }
         }), jsGrid.setDefaults("textarea", {
             _createTextBox: function() {
@@ -29,7 +29,7 @@
             }
         }), jsGrid.setDefaults("select", {
             _createSelect: function() {
-                var $result = $("<select>").attr("class", "form-control input-sm"),
+                var $result = $("<select>").attr("class", "form-select form-select-sm"),
                     valueField = this.valueField,
                     textField = this.textField,
                     selectedIndex = this.selectedIndex;
@@ -179,7 +179,7 @@
                     return this.editControl.datepicker("getDate")
                 },
                 _createTextBox: function() {
-                    return $("<input>").attr("type", "text").addClass("form-control input-sm").datepicker({
+                    return $("<input>").attr("type", "text").addClass("form-control form-control-sm").datepicker({
                         autoclose: !0
                     })
                 }

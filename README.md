@@ -1,308 +1,271 @@
-# Niche Horizontal - Bootstrap- **🌐 Cross-browser** - Compatible con todos los navegadores modernos
-- **🎯 Profesional** - Diseño UI/UX limpio y empresarial
+# Niche Horizontal — Bootstrap 5
 
-## 🔄 Mejoras y Actualizaciones Realizadas
+Plantilla de administración con navegación horizontal, construida con HTML, CSS
+y JavaScript. Incluye **67 páginas de ejemplo**, cuatro dashboards y componentes
+para tablas, gráficos, calendarios, formularios y editores de texto.
 
-### 🎨 **Mejoras en Páginas de Autenticación**
-- **Login Principal (pages-login.html)**: Diseño completamente renovado con card moderna, efectos glassmorphism y gradientes
-- **Login Lateral (pages-login-2.html)**: Diseño lateral con imagen de fondo, hero content y formulario moderno
-- **Registro (pages-register.html)**: Formulario completo con validaciones y diseño responsive
-- **Registro Lateral (pages-register2.html)**: Versión lateral con imagen de fondo y contenido hero
-- **Lockscreen (pages-lockscreen.html)**: Centrado perfecto con flexbox, imagen de usuario circular
-- **Recuperar Password (pages-recover-password.html)**: Formulario simplificado con icono y diseño moderno
+Este repositorio mantiene y moderniza una plantilla original de terceros. Las
+pantallas utilizan datos de demostración: para gestionar usuarios, enviar correo,
+guardar archivos o persistir eventos, debes conectarlas a tu propia aplicación.
 
-### ⚡ **Mejoras Técnicas**
-- **Bootstrap 5.3.8**: Migración completa desde versiones anteriores
-- **Grid System Moderno**: Reemplazo de clases obsoletas `col-xs-*` por sistema actual
-- **Flexbox Layout**: Uso de flexbox para centrado perfecto y layouts responsivos
-- **CSS Moderno**: Implementación de gradientes, glassmorphism y efectos hover
-- **Responsive Design**: Optimización para dispositivos móviles y tablets
+## Inicio rápido
 
-### 🎯 **Correcciones de UX/UI**
-- **Alineación de Formularios**: Corrección de problemas de alineación en todos los formularios
-- **Botones Sociales**: Mejora de diseño y estados hover/focus
-- **Campos de Entrada**: Estilos modernos con focus states y transiciones suaves
-- **Navegación**: Enlaces y rutas corregidas entre páginas
-- **Tipografía**: Mejora de jerarquía y legibilidad
+Necesitas un navegador moderno y Python 3 para servir los archivos localmente.
+No hay un paso de compilación ni dependencias que instalar con npm.
 
-## 📝 **Historial de Cambios**
-- **v2.0 (Agosto 2025)**: Actualización completa a Bootstrap 5, mejoras en autenticación
-- **v1.x**: Versión original propietaria (base del proyecto)
+Si todavía no tienes el repositorio:
 
-## 📁 Estructura del Proyectodmin Template (Updated Version)
-
-## ⚠️ Aviso Importante
-Esta plantilla ha sido **actualizada y modernizada** desde una versión propietaria original. Las mejoras incluyen:
-
-- ✅ **Migración completa a Bootstrap 5.3.8** desde versiones anteriores
-- ✅ **Corrección de problemas de alineación** en formularios de autenticación
-- ✅ **Modernización del diseño** con efectos glassmorphism y gradientes
-- ✅ **Mejoras en responsive design** para dispositivos móviles
-- ✅ **Optimización de estructura HTML** con grid system moderno
-- ✅ **Actualización de componentes UI** y estilos CSS
-
-### 📄 Descarga de Responsabilidad
-Este proyecto es una **versión actualizada y mejorada** de una plantilla administrativa. El código original no es de mi autoría, pero las modificaciones, mejoras y actualizaciones sí han sido realizadas por mí. 
-
-**Uso bajo tu propia responsabilidad:**
-- Este template se proporciona "tal como está" sin garantías
-- Verifica siempre las licencias de los componentes incluidos
-- Realiza tus propias pruebas antes de usar en producción
-- No me hago responsable por problemas derivados de su uso
-
-## 🚀 Descripción
-**Niche Horizontal** es un template de administración moderno y completo construido con **Bootstrap 5.3.8**. Este template proporciona una interfaz administrativa profesional con componentes UI avanzados, gráficos interactivos, formularios dinámicos y layouts responsivos para el desarrollo de aplicaciones web empresariales.
-
-## ✨ Características Principales
-- **📱 Responsive Design** - Diseño móvil-first adaptable a todos los dispositivos
-- **🎨 Bootstrap 5.3.8** - Framework CSS más reciente con componentes modernos
-- **📊 67 Páginas HTML** - Interfaz administrativa completa y funcional
-- **🔧 30+ Plugins** - Herramientas integradas para desarrollo avanzado
-- **⚡ Optimizado** - Código limpio y estructura organizada
-- **🌐 Cross-browser** - Compatible con todos los navegadores modernos
-- **🎯 Profesional** - Diseño UI/UX limpio y empresarial
-
-## � Estructura del Proyecto
-```
-niche_horizontal/
-├── 📁 apps/                 # Aplicaciones (8 archivos)
-│   ├── apps-calendar.html   # Calendario interactivo
-│   ├── apps-contacts.html   # Gestión de contactos
-│   ├── apps-mailbox.html    # Sistema de correo
-│   └── ...
-├── 📁 charts/               # Gráficos (5 archivos)
-│   ├── chart-chart-js.html  # Chart.js
-│   ├── chart-morris.html    # Morris.js
-│   ├── chart-chartist.html  # Chartist.js
-│   └── ...
-├── 📁 forms/                # Formularios (6 archivos)
-│   ├── form-elements.html   # Elementos básicos
-│   ├── form-validation.html # Validaciones
-│   ├── form-wizard.html     # Formularios paso a paso
-│   └── ...
-├── 📁 icons/                # Iconografía (6 archivos)
-│   ├── icon-fontawesome.html # FontAwesome
-│   ├── icon-themify.html     # Themify Icons
-│   ├── icon-linea.html       # Linea Icons
-│   └── ...
-├── 📁 maps/                 # Mapas (2 archivos)
-│   ├── map-google.html      # Google Maps
-│   └── map-vector.html      # Mapas vectoriales
-├── � pages/                # Páginas especiales (14 archivos)
-│   ├── pages-login.html     # Autenticación
-│   ├── pages-profile.html   # Perfil de usuario
-│   ├── pages-404.html       # Error 404
-│   └── ...
-├── 📁 tables/               # Tablas (4 archivos)
-│   ├── table-data-table.html # DataTables
-│   ├── table-basic.html      # Tablas básicas
-│   └── ...
-├── 📁 ui/                   # Elementos UI (16 archivos)
-│   ├── ui-buttons.html      # Botones
-│   ├── ui-cards.html        # Cards
-│   ├── ui-tabs.html         # Pestañas
-│   └── ...
-├── 📁 widgets/              # Widgets (2 archivos)
-│   ├── widget-apps.html     # Widgets de aplicaciones
-│   └── widget-data.html     # Widgets de datos
-├── 📁 assets/               # Recursos estáticos
-│   ├── 📁 plugins/          # Librerías y plugins
-│   │   ├── bootstrap-5.3.8/ # Bootstrap framework
-│   │   ├── datatables-3.1.3/      # DataTables 3.1.3
-│   │   ├── chart-js-4.5.1/   # Chart.js gráficos
-│   │   └── ...
-│   ├── 📁 css/              # Hojas de estilo
-│   │   ├── style.css        # Estilos principales
-│   │   ├── font-awesome/    # Iconos FontAwesome
-│   │   └── ...
-│   ├── 📁 js/               # JavaScript
-│   └── 📁 img/              # Imágenes y recursos
-├── 🏠 index.html            # Dashboard principal
-├── 🏠 index2.html           # Dashboard alternativo 2
-├── 🏠 index3.html           # Dashboard alternativo 3
-├── 🏠 index4.html           # Dashboard alternativo 4
-└── 📄 README.md
+```bash
+git clone https://github.com/claudioborja/Niche-Horizontal-Bootstrap5.git
+cd Niche-Horizontal-Bootstrap5
 ```
 
-## � Aplicaciones Incluidas
-### 🗓️ **Apps (8 páginas)**
-- **Calendar** - Calendario interactivo con eventos
-- **Contacts** - Gestión completa de contactos
-- **Mailbox** - Sistema de correo interno
-- **Support Ticket** - Sistema de tickets de soporte
+Desde la raíz del proyecto:
 
-### 📊 **Charts (5 páginas)**
-- **Chart.js** - Gráficos modernos e interactivos
-- **Morris.js** - Gráficos elegantes y responsivos
-- **Chartist.js** - Gráficos SVG ligeros
-- **Knob** - Medidores circulares
-- **Peity** - Mini gráficos inline
+```bash
+python3 -m http.server 8000 --bind 127.0.0.1
+```
 
-### 📝 **Forms (6 páginas)**
-- **Form Elements** - Elementos básicos de formulario
-- **Form Layouts** - Layouts avanzados
-- **Form Validation** - Validaciones client-side
-- **Form Wizard** - Formularios multi-paso
-- **Summernote 0.9.1** - Editor WYSIWYG
-- **File Uploads** - Carga de archivos
+Abre [http://localhost:8000](http://localhost:8000) y navega por el menú.
+Para detener el servidor, pulsa `Ctrl+C` en la terminal.
 
-### 🎨 **Icons (6 páginas)**
-- **FontAwesome** - +5000 iconos vectoriales
-- **Themify Icons** - Iconos temáticos
-- **Linea Icons** - Iconos lineales
-- **Simple Line Icons** - Iconografía minimalista
-- **Weather Icons** - Iconos meteorológicos
-- **Flag Icons** - Banderas de países
+El servidor de Python permite explorar la plantilla. Los formularios de
+login y registro envían un `POST` a `index.html`; este servidor no procesa esos
+envíos. Conecta los formularios a un backend para implementar la autenticación.
 
-### 🗺️ **Maps (2 páginas)**
-- **Google Maps** - Integración con Google Maps API
-- **Vector Maps** - Mapas vectoriales interactivos
+## Páginas incluidas
 
-### 📄 **Pages (14 páginas)**
-- **Authentication** - Login, registro, recuperación
-- **User Profile** - Perfil de usuario completo
-- **Error Pages** - 404, páginas en blanco
-- **Gallery** - Galería de imágenes
-- **Invoice** - Facturación
-- **Pricing** - Planes de precios
-- **FAQ** - Preguntas frecuentes
-- **Treeview** - Vistas de árbol
+| Sección | Páginas | Ejemplo |
+| --- | ---: | --- |
+| Dashboards | 4 | [Dashboard principal](index.html) |
+| Aplicaciones | 8 | [Calendario](apps/apps-calendar.html) |
+| Gráficos | 5 | [Chart.js](charts/chart-chart-js.html) |
+| Formularios | 6 | [Editor Summernote](forms/form-summernote.html) |
+| Iconos | 6 | [Font Awesome](icons/icon-fontawesome.html) |
+| Mapas | 2 | [Mapa vectorial](maps/map-vector.html) |
+| Páginas generales y autenticación | 14 | [Login](pages/pages-login.html) |
+| Tablas | 4 | [DataTables y exportación](tables/table-data-table.html) |
+| Componentes de interfaz | 16 | [Botones](ui/ui-buttons.html) |
+| Widgets | 2 | [Widgets de datos](widgets/widget-data.html) |
+| **Total** | **67** | |
 
-### � **Tables (4 páginas)**
-- **DataTables** - Tablas avanzadas con filtros
-- **Basic Tables** - Tablas estándar
-- **jsGrid** - Grid editable
-- **Table Layouts** - Diseños de tabla
+Los dashboards alternativos están en [index2.html](index2.html),
+[index3.html](index3.html) e [index4.html](index4.html).
 
-### 🎛️ **UI Elements (16 páginas)**
-- **Buttons** - Botones y grupos
-- **Cards** - Tarjetas y paneles
-- **Tabs** - Pestañas y acordeones
-- **Timeline** - Líneas de tiempo
-- **Notifications** - Alertas y notificaciones
-- **Progressbar** - Barras de progreso
-- **Typography** - Tipografía
-- **Carousel** - Carruseles de imágenes
+## Dependencias principales
 
-### 📊 **Widgets (2 páginas)**
-- **App Widgets** - Widgets de aplicaciones
-- **Data Widgets** - Widgets de datos
+Versiones incluidas y referenciadas por las páginas después de la actualización:
 
-## 🔧 Tecnologías y Plugins
-### **�️ Framework Principal**
-- **Bootstrap 5.3.8** - Framework CSS responsivo
-- **jQuery 3.7.1** - Librería JavaScript
+| Dependencia | Versión | Uso |
+| --- | --- | --- |
+| Bootstrap | 5.3.8 | Layout, estilos y componentes de interfaz |
+| Popper | 2.11.8 | Posicionamiento de dropdowns, tooltips y popovers |
+| jQuery | 3.7.1 | Plugins existentes y comportamiento de la plantilla |
+| jQuery UI | 1.14.2 | Componentes utilizados por las páginas de ejemplo |
+| Chart.js | 4.5.1 | Gráficos en dashboards y página de demostración |
+| DataTables | 3.1.3 | Tablas con integración Bootstrap 5 |
+| FullCalendar | 6.1.21 | Calendarios y arrastre de eventos |
+| Summernote | 0.9.1 | Editor de texto con integración Bootstrap 5 |
+| jQuery Validation | 1.22.1 | Validación del formulario por pasos |
+| SheetJS | 0.20.3 | Exportación de tablas a XLSX, XLS, CSV y TXT |
 
-### **📊 Gráficos y Visualización**
-- **Chart.js 4.5.1** - Gráficos modernos
-- **Morris.js** - Gráficos elegantes
-- **Chartist.js** - Gráficos SVG
-- **Knob** - Medidores circulares
-- **Peity** - Mini gráficos
+Los ejemplos que utilizaban Morris.js, Raphaël y Chartist ahora usan Chart.js.
+Los interruptores, checkboxes y radios utilizan controles nativos con estilos de
+Bootstrap 5. El calendario utiliza `Date` y ya no carga Moment.
 
-### **📝 Formularios y Editores**
-- **Summernote 0.9.1** - Editor WYSIWYG
-- **Bootstrap Validator** - Validación de formularios
-- **File Upload** - Carga de archivos
+La siguiente migración está preparada en el actualizador: FilePond 4.32.12
+sustituye Dropify y Dropzone; Tabulator 6.6.1 sustituye jsGrid; Bootstrap Icons
+1.13.1 unifica los iconos generales. Se aplica al ejecutar el script con acceso
+a Internet, después de descargar y validar todos los recursos. Hasta entonces,
+las páginas correspondientes siguen utilizando los componentes anteriores.
 
-### **📊 Tablas y Datos**
-- **DataTables 3.1.3** - Tablas avanzadas
-- **jsGrid** - Grid editable
+FilePond incluye Image Preview 4.6.12 y File Validate Size 2.2.8. Las cargas son
+locales: conectar `server` a una API permite guardar los archivos. Las tablas
+conservan sus datos originales, filtros, edición, borrado y paginación; los
+cambios se pierden al recargar. Los catálogos de iconos mantienen sus rutas y
+pasan a mostrar Bootstrap Icons con búsqueda. Los logotipos que no incluye la
+nueva fuente se conservan como SVG de Font Awesome (SIL OFL 1.1). Las banderas
+y los iconos meteorológicos conservan sus bibliotecas especializadas.
 
-### **🗓️ Aplicaciones**
-- **FullCalendar 6.1.21** - Calendario completo
-- **Moment 2.30.1** - Copia utilizada por el calendario
-- **Google Maps API** - Integración de mapas
+jQuery permanece en 3.7.1 para mantener la compatibilidad con los plugins
+que todavía lo requieren. Los archivos de bibliotecas reemplazadas se conservan
+en sus carpetas, pero las páginas migradas no los cargan.
 
-### Actualización de dependencias locales
+Las dependencias principales se sirven desde `assets/plugins/`. Algunas páginas
+cargan recursos externos, como Google Fonts y Google Maps, que requieren conexión.
+Para usar Google Maps en tu aplicación, configura tu propia clave en
+[maps/map-google.html](maps/map-google.html).
 
-Con Python 3 y acceso a Internet, ejecutar desde la raíz del repositorio:
+## Estructura del proyecto
+
+```text
+Niche-Horizontal-Bootstrap5/
+├── index.html                   # Dashboard principal
+├── index2.html                  # Dashboards alternativos
+├── index3.html
+├── index4.html
+├── apps/                        # Calendario, contactos y pantallas de correo
+├── charts/                      # Ejemplos de gráficos
+├── forms/                       # Formularios, validación y editor
+├── icons/                       # Catálogos de iconos
+├── maps/                        # Google Maps y mapas vectoriales
+├── pages/                       # Autenticación, perfil, factura y otras páginas
+├── tables/                      # Tablas y exportación
+├── ui/                          # Componentes de interfaz
+├── widgets/                     # Widgets de ejemplo
+├── assets/
+│   ├── css/                     # Estilos de la plantilla y fuentes
+│   ├── img/                     # Imágenes
+│   ├── js/
+│   │   ├── niche.js             # Comportamiento general
+│   │   ├── chart-examples.js    # Galerías y dashboards con Chart.js
+│   │   ├── mailbox.js           # Selección de mensajes y estrellas
+│   │   ├── switches.js          # Estados de los controles nativos
+│   │   └── table-export.js      # Exportación con SheetJS
+│   └── plugins/                 # Bibliotecas y sus inicializadores
+├── tools/
+│   └── update_dependencies.py   # Instalación de versiones fijadas
+└── README.md
+```
+
+## Actualizar las dependencias
+
+Desde la raíz del repositorio, con Python 3 y acceso a Internet:
 
 ```bash
 python3 tools/update_dependencies.py
 ```
 
-El script instala estas versiones y adapta sus rutas e inicializaciones:
+El script instala las versiones fijadas en `UPDATES`; no busca automáticamente
+la última versión de cada biblioteca. Reutiliza archivos que cumplen sus
+comprobaciones de contenido y descarga los pendientes.
+
+Antes de modificar el proyecto, prepara todas las descargas, adapta las rutas e
+inicializaciones y comprueba las referencias locales de JavaScript y CSS de las
+67 páginas. Si una descarga o validación falla, no aplica la migración. Si falla
+una escritura, intenta restaurar los archivos que ya había modificado.
+
+Para los paquetes npm utiliza jsDelivr, con UNPKG como alternativa. SheetJS se
+descarga desde su CDN. Summernote y Bootstrap Icons incluyen las fuentes necesarias para sus iconos.
+Las carpetas antiguas con versiones distintas se conservan; jQuery UI se actualiza
+en su ubicación existente.
+
+Las comprobaciones de contenido detectan respuestas inesperadas; no sustituyen
+las pruebas de funcionamiento en el navegador.
+
+Para comprobar las migraciones sin descargar bibliotecas ni modificar los
+recursos instalados:
+
+```bash
+python3 tools/test_component_migrations.py
+```
+
+Estas pruebas verifican rutas, opciones conservadas, catálogos de iconos y que
+un fallo de descarga no modifique las páginas. La instalación completa se
+simula en una carpeta temporal.
+
+Si falla la ejecución:
+
+- **Error de DNS:** comprueba la conexión de la terminal y vuelve a ejecutar.
+- **HTTP 403:** el script intenta UNPKG para los paquetes npm disponibles desde jsDelivr.
+- **Contenido inesperado:** revisa la URL, el tamaño y el marcador indicados en el error.
+- **Ruta local inexistente:** corrige el archivo o su referencia antes de repetir la migración.
+
+## Comprobar los componentes
+
+Después de actualizar o personalizar la plantilla, inicia el servidor local y
+revisa la consola y la pestaña de red del navegador.
+
+| Componente | Comprobación |
+| --- | --- |
+| Dashboards | Navegación, dropdowns y distribución en escritorio y móvil |
+| Chart.js | Los seis tipos de gráfico aparecen y se adaptan al tamaño de la ventana |
+| DataTables | Búsqueda, ordenación, paginación y selección del tamaño de página donde estén habilitadas |
+| Exportación | Descarga y apertura de XLSX, XLS, CSV y TXT; incluye filas filtradas de otras páginas |
+| Calendario | Crear eventos externos, arrastrarlos al calendario y usar «remove after drop» |
+| Summernote | Escribir, dar formato, insertar una imagen y cambiar a vista de código |
+| Formulario por pasos | Campos obligatorios, mensajes de error y avance entre pasos |
+| Bootstrap 5 | Cerrar alertas; cambiar pestañas; abrir dropdowns y el acordeón del FAQ; usar indicadores de carrusel y tooltips/popovers |
+| Controles nativos | Cambiar interruptores; comprobar los estados deshabilitados, de solo lectura y la limpieza del grupo de radios |
+| FilePond | Arrastrar archivos, previsualizar imágenes, comprobar el límite de 2 MB, los inputs deshabilitados y los adjuntos múltiples |
+| Tabulator | Editar celdas, filtrar, paginar, confirmar el borrado y ordenar desde el selector externo |
+| Iconos | Iconos del menú, estados dinámicos del correo, logotipos y búsqueda en los catálogos |
+| Correo | Seleccionar y deseleccionar mensajes, también en otras páginas de la tabla, y cambiar sus estrellas |
+
+La exportación utiliza el texto de las celdas y conserva el orden y el filtro
+aplicados en DataTables. No reproduce imágenes ni estilos visuales de la tabla.
+Los cambios en calendarios y formularios necesitan un backend para persistirse.
+
+## Personalización
+
+- Edita [assets/css/style.css](assets/css/style.css) para ajustar los estilos de la plantilla.
+- Usa [assets/js/niche.js](assets/js/niche.js) para el comportamiento general.
+- Ajusta [assets/js/bootstrap-components.js](assets/js/bootstrap-components.js) para inicializar tooltips y popovers nativos.
+- Modifica [assets/plugins/functions/calendar-init.js](assets/plugins/functions/calendar-init.js) para los eventos de demostración.
+- Ajusta [assets/plugins/chartjs/chart-int.js](assets/plugins/chartjs/chart-int.js) para los seis gráficos de Chart.js.
+- Modifica [assets/js/chart-examples.js](assets/js/chart-examples.js) para las galerías de líneas, áreas y gráficos animados, y los dashboards alternativos.
+- Usa [assets/js/mailbox.js](assets/js/mailbox.js) para la selección de mensajes y estrellas.
+- Ajusta [assets/css/switches.css](assets/css/switches.css) y [assets/js/switches.js](assets/js/switches.js) para los controles nativos.
+- Ajusta [assets/js/file-uploads.js](assets/js/file-uploads.js) para FilePond y [assets/js/editable-tables.js](assets/js/editable-tables.js) para Tabulator.
+- Modifica [tools/component_migrations.py](tools/component_migrations.py) para las migraciones de páginas y la compatibilidad de iconos.
+- Edita [assets/js/table-export.js](assets/js/table-export.js) para cambiar los botones y formatos de exportación.
+
+Conserva las rutas relativas al mover páginas entre carpetas. Los datos de ejemplo
+pueden sustituirse por respuestas de tu API en los inicializadores correspondientes.
+
+## Historial de cambios
+
+### Compatibilidad con Bootstrap 5 — octubre de 2026
+
+- Sustitución de utilidades antiguas de floats, imágenes, columnas, texto y tamaños de controles.
+- Botones, insignias, selects, archivos, checkboxes, radios y grupos de inputs con clases Bootstrap 5.
+- Cierre de alertas con `btn-close` y `data-bs-dismiss`; acordeón nativo en el FAQ.
+- Indicadores de carrusel como botones, relaciones entre pestañas y paneles, y estados de validación nativos.
+- Tooltips y popovers nativos sustituyen los plugins anteriores; se conservan las direcciones, alineaciones y temas de los ejemplos.
+- Inicialización compartida y ajustes del menú horizontal para Bootstrap 5.
+
+### Simplificación de componentes — octubre de 2026
+
+- Chart.js sustituye Morris.js, Raphaël y Chartist en las páginas y dashboards que los cargaban.
+- Las galerías conservan sus datos de ejemplo, tooltips y gráficos animados; las animaciones respetan la preferencia de movimiento reducido.
+- Bootstrap Switch e iCheck se sustituyen por controles nativos con estilos Bootstrap 5 y etiquetas asociadas.
+- La selección de mensajes funciona con las filas filtradas de DataTables, incluidas las de otras páginas.
+- El grupo de radios que admite quedar vacío dispone de un botón «Clear selection».
+- El calendario deja de cargar Moment y el dashboard alternativo utiliza la copia local de jQuery.
+- Se conservan las rutas `chart-morris.html`, `chart-chartist.html` y `ui-bootstrap-switch.html` para mantener los enlaces existentes.
+
+### Actualización de dependencias — octubre de 2026
 
 - Bootstrap 5.3.8, Chart.js 4.5.1 y jQuery UI 1.14.2.
-- DataTables 3.1.3 con CSS e integración Bootstrap 5 de la misma versión.
-- FullCalendar 6.1.21 con estilos incorporados en su bundle JavaScript.
-- Summernote 0.9.1 para Bootstrap 5, incluyendo las fuentes de sus iconos.
-- jQuery Validation 1.22.1 como archivo local.
-- SheetJS 0.20.3, sustituyendo TableExport y FileSaver en la página de tablas.
+- Migración a DataTables 3.1.3 con integración Bootstrap 5 de la misma versión.
+- FullCalendar 6.1.21 y arrastre de eventos mediante `FullCalendar.Draggable`.
+- Eliminación de referencias a un CSS de calendario que contenía un error de descarga.
+- Summernote 0.9.1 y sus fuentes; jQuery Validation 1.22.1 servido localmente.
+- SheetJS 0.20.3 sustituye TableExport y FileSaver en la página de tablas.
+- Calendario utilizando la copia incluida de Moment 2.30.1.
+- Restauración de los seis gráficos de Chart.js y de la inicialización de Bootstrap Switch.
+- Corrección de rutas inexistentes de Chart.js, Popper y Bootstrap Switch.
+- Script de actualización con preparación de descargas y comprobación de rutas locales.
 
-Reutiliza las versiones ya instaladas, descarga los archivos pendientes y
-comprueba las referencias locales de todas las páginas antes de aplicar cambios.
-Si una descarga falla, no modifica el repositorio. Conserva las carpetas
-anteriores para facilitar la reversión. Mantiene jQuery 3.7.1 por compatibilidad.
-Después de ejecutarlo, comprobar en el navegador los gráficos, el calendario
-(incluido arrastrar eventos), el editor, las validaciones y las tablas.
-La exportación incluye todas las filas filtradas, incluso las de otras páginas.
+### Migración a Bootstrap 5 — agosto de 2025
 
-### **🎨 Iconografía**
-- **FontAwesome** - Iconos vectoriales
-- **Themify Icons** - Iconos temáticos
-- **Linea Icons** - Iconografía lineal
+- Modernización de las pantallas de login, registro y recuperación de contraseña.
+- Ajustes de alineación, estilos y distribución responsive.
+- Adaptación del sistema de columnas y de componentes de interfaz.
 
-## 🎯 Casos de Uso
-Este template es ideal para:
-- **🏢 Paneles de administración empresarial**
-- **📊 Dashboards analíticos y de reporting**
-- **👥 Sistemas de gestión de usuarios**
-- **💼 Aplicaciones de gestión de proyectos**
-- **📈 Plataformas de análisis de datos**
-- **🛒 Backends de comercio electrónico**
-- **📋 Sistemas de tickets y soporte**
-- **📱 Aplicaciones web responsivas**
+## Contribuciones
 
-## 🌟 Características Destacadas
-- **📱 Mobile-First Design** - Optimizado para dispositivos móviles
-- **⚡ Performance Optimizado** - Carga rápida y eficiente
-- **🎨 UI/UX Profesional** - Diseño limpio y moderno
-- **🔧 Fácil Personalización** - CSS y JS organizados
-- **📊 Componentes Interactivos** - Gráficos y tablas dinámicas
-- **🌐 Cross-Browser** - Compatible con todos los navegadores
-- **♿ Accesible** - Cumple estándares de accesibilidad
+Abre un [issue](https://github.com/claudioborja/Niche-Horizontal-Bootstrap5/issues)
+con la página afectada, los pasos para reproducir el problema y el navegador usado.
+Para proponer cambios, envía un pull request y describe las comprobaciones realizadas.
 
-## 📄 Páginas de Dashboard
-- **🏠 index.html** - Dashboard principal con métricas
-- **📊 index2.html** - Dashboard analítico
-- **📈 index3.html** - Dashboard de reportes
-- **💼 index4.html** - Dashboard ejecutivo
+## Origen y licencias
 
-## 🤝 Contribuciones y Mantenimiento
-Este proyecto está **activamente mantenido** con mejoras continuas. Si encuentras problemas o tienes sugerencias:
+La plantilla procede de una versión original propietaria de terceros. Este
+repositorio incorpora modificaciones de mantenimiento y modernización, pero no
+incluye un archivo `LICENSE` general que establezca permisos para todo el proyecto.
+Las bibliotecas incorporadas conservan sus avisos de licencia en sus archivos.
+Revisa las condiciones aplicables a la plantilla, imágenes, fuentes y componentes
+antes de reutilizarlos o redistribuirlos.
 
-1. 🐛 **Reporta bugs** mediante issues
-2. 💡 **Sugiere mejoras** para futuras versiones
-3. 🔧 **Contribuye** con pull requests
-
-## 📋 Licencia y Uso
-- **Uso educativo y comercial permitido**
-- **Verificar licencias** de componentes de terceros incluidos
-- **Atribución apreciada** pero no requerida para las mejoras realizadas
-- **Sin garantías** - usar bajo propia responsabilidad
-
-## 🎯 Próximas Mejoras Planificadas
-- 🔄 Actualización de más componentes a Bootstrap 5
-- 📱 Mejoras adicionales en responsive design
-- ⚡ Optimización de performance
-- 🎨 Nuevos temas de color
-- 📊 Componentes adicionales
-
----
-
-## 📄 Información del Proyecto
-
-**Versión Actualizada:** 2.0 (Bootstrap 5 Migration)  
-**Fecha de Actualización:** 13 de Agosto, 2025  
-**Bootstrap:** 5.3.8<br>
-**Total de Páginas:** 67 archivos HTML  
-**Mantenido por:** [@claudioborja](https://github.com/claudioborja)
-
-### 📞 Contacto y Soporte
-- **GitHub:** [Niche-Horizontal-Bootstrapt5](https://github.com/claudioborja/Niche-Horizontal-Bootstrapt5)
-- **Issues:** Para reportar problemas o sugerencias
-- **Documentación:** README.md (este archivo)
-
-**⚠️ Recordatorio:** Esta es una versión actualizada y mejorada de un template propietario. Todas las mejoras y actualizaciones han sido realizadas independientemente para modernizar el código y corregir problemas existentes.
+Mantenedor indicado por el proyecto: [@claudioborja](https://github.com/claudioborja).

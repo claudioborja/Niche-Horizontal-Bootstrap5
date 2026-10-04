@@ -7,6 +7,7 @@ import sys
 import tempfile
 import urllib.request
 import urllib.error
+import component_migrations
 
 ROOT = Path(__file__).resolve().parents[1]
 # Each asset has its own content marker; small CSS/integration files are valid.
@@ -38,6 +39,26 @@ UPDATES = (
     )),
     ('sheetjs', 'sheetjs-0.20.3', (
         ('xlsx.full.min.js', 'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js', b'0.20.3'),
+    )),
+    ('filepond', 'filepond-4.32.12', (
+        ('filepond.min.js', 'https://cdn.jsdelivr.net/npm/filepond@4.32.12/dist/filepond.min.js', b'FilePond'),
+        ('filepond.min.css', 'https://cdn.jsdelivr.net/npm/filepond@4.32.12/dist/filepond.min.css', b'.filepond--'),
+    )),
+    ('filepond-plugin-image-preview', 'filepond-plugin-image-preview-4.6.12', (
+        ('filepond-plugin-image-preview.min.js', 'https://cdn.jsdelivr.net/npm/filepond-plugin-image-preview@4.6.12/dist/filepond-plugin-image-preview.min.js', b'FilePondPluginImagePreview'),
+        ('filepond-plugin-image-preview.min.css', 'https://cdn.jsdelivr.net/npm/filepond-plugin-image-preview@4.6.12/dist/filepond-plugin-image-preview.min.css', b'.filepond--image-preview'),
+    )),
+    ('filepond-plugin-file-validate-size', 'filepond-plugin-file-validate-size-2.2.8', (
+        ('filepond-plugin-file-validate-size.min.js', 'https://cdn.jsdelivr.net/npm/filepond-plugin-file-validate-size@2.2.8/dist/filepond-plugin-file-validate-size.min.js', b'FilePondPluginFileValidateSize'),
+    )),
+    ('tabulator', 'tabulator-6.6.1', (
+        ('js/tabulator.min.js', 'https://cdn.jsdelivr.net/npm/tabulator-tables@6.6.1/dist/js/tabulator.min.js', b'Tabulator'),
+        ('css/tabulator_bootstrap5.min.css', 'https://cdn.jsdelivr.net/npm/tabulator-tables@6.6.1/dist/css/tabulator_bootstrap5.min.css', b'.tabulator'),
+    )),
+    ('bootstrap-icons', 'bootstrap-icons-1.13.1', (
+        ('font/bootstrap-icons.min.css', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css', b'bootstrap-icons'),
+        ('font/fonts/bootstrap-icons.woff2', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/fonts/bootstrap-icons.woff2', b'wOF2'),
+        ('font/fonts/bootstrap-icons.woff', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/fonts/bootstrap-icons.woff', b'wOFF'),
     )),
 )
 
@@ -157,9 +178,13 @@ def main():
                             raise ValueError('Unexpected Summernote font path')
                         stage(target + '/' + relative, 'https://cdn.jsdelivr.net/npm/summernote@0.9.1/dist/' + relative, None)
 
+        icon_css = staged[ROOT / 'assets/plugins/bootstrap-icons-1.13.1/font/bootstrap-icons.min.css']
+        staged.update(component_migrations.icon_assets(ROOT, icon_css.decode('utf-8')))
+
         for path in list(ROOT.rglob('*.html')) + [ROOT / 'README.md']:
             original = path.read_bytes()
             updated = migrate(path, original)
+            updated = component_migrations.migrate(path, updated)
             if updated != original:
                 staged[path] = updated
 
@@ -192,7 +217,8 @@ def main():
                     path.write_bytes(backups[path])
             raise
         print('Updated Bootstrap 5.3.8, Chart.js 4.5.1, jQuery UI 1.14.2, DataTables 3.1.3, '
-              'FullCalendar 6.1.21, Summernote 0.9.1, jQuery Validation 1.22.1 and SheetJS 0.20.3.')
+              'FullCalendar 6.1.21, Summernote 0.9.1, jQuery Validation 1.22.1, SheetJS 0.20.3, '
+              'FilePond 4.32.12, Tabulator 6.6.1 and Bootstrap Icons 1.13.1.')
         print('Checked local JavaScript and CSS references in', len(pages), 'HTML pages.')
 
 

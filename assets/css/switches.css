@@ -1,0 +1,18 @@
+.switch-demo .form-check-input {
+    cursor: pointer;
+}
+.switch-demo .form-check-input:checked {
+    background-color: var(--switch-on, var(--bs-primary));
+    border-color: var(--switch-on, var(--bs-primary));
+}
+.switch-demo .form-check-input:not(:checked) {
+    background-color: var(--switch-off, var(--bs-light));
+    border-color: var(--switch-off, var(--bs-border-color));
+}
+.switch-demo .form-check-input:disabled,
+.switch-demo .form-check-input[aria-readonly="true"] {
+    cursor: default;
+}
+.switch-size-mini { font-size: 0.75rem; }
+.switch-size-small { font-size: 0.875rem; }
+.switch-size-large { font-size: 1.25rem; }
