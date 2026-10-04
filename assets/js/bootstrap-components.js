@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', function () {
     'use strict';
     if (!window.bootstrap) return;
 
+    document.querySelectorAll('[data-bs-toggle="dropdown"]').forEach(function (element) {
+        bootstrap.Dropdown.getOrCreateInstance(element);
+    });
+
     document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (element) {
         bootstrap.Tooltip.getOrCreateInstance(element);
     });

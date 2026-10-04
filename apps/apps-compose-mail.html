@@ -437,7 +437,10 @@
 <script src="../assets/js/bootstrap-components.js"></script>
 
 <!-- template --> 
-<script src="../assets/js/niche.js"></script> 
+<script src="../assets/js/niche.js"></script>
+<script src="../assets/js/niche/layout.js"></script>
+<script src="../assets/js/niche/navigation.js"></script>
+<script src="../assets/js/niche/widgets.js"></script>
 
 
 <!-- Summernote Bootstrap 5 --> 
@@ -448,37 +451,7 @@
 <script src="../assets/plugins/filepond-plugin-file-validate-size-2.2.8/filepond-plugin-file-validate-size.min.js"></script>
 <script src="../assets/plugins/filepond-4.32.12/filepond.min.js"></script>
 <script src="../assets/js/file-uploads.js"></script>
-<script>
-  $(function () {
-    //Add text editor with Summernote Bootstrap 5
-    $("#compose-textarea").summernote({
-      height: 300,
-      minHeight: null,
-      maxHeight: null,
-      focus: true,
-      toolbar: [
-        ['style', ['style']],
-        ['font', ['bold', 'underline', 'clear']],
-        ['fontname', ['fontname']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['table', ['table']],
-        ['insert', ['link', 'picture', 'video']],
-        ['view', ['fullscreen', 'help']]
-      ]
-    });
-  });
-</script>
+<script src="../assets/js/text-editor.js"></script>
 <script src="../assets/plugins/hmenu/ace-responsive-menu.js" type="text/javascript"></script> 
-<!--Plugin Initialization--> 
-<script type="text/javascript">
-         $(document).ready(function () {
-             $("#respMenu").aceResponsiveMenu({
-                 resizeWidth: '768', // Set the same in Media query       
-                 animationSpeed: 'fast', //slow, medium, fast
-                 accoridonExpAll: false //Expands all the accordion menu on click
-             });
-         });
-</script>
 </body>
 </html>

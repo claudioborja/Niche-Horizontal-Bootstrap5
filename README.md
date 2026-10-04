@@ -252,7 +252,45 @@ Los cambios en calendarios y formularios necesitan un backend para persistirse.
 Conserva las rutas relativas al mover páginas entre carpetas. Los datos de ejemplo
 pueden sustituirse por respuestas de tu API en los inicializadores correspondientes.
 
+## JavaScript de la plantilla
+
+La lógica de aplicación está en archivos externos. Las páginas con la plantilla
+cargan estos scripts en orden, después de jQuery:
+
+1. `assets/js/niche.js`: registro compartido de plugins y callbacks de carga.
+2. `assets/js/niche/layout.js`: cálculo de alturas y scroll opcional de la barra lateral.
+3. `assets/js/niche/navigation.js`: menú horizontal, navegación lateral y árboles.
+4. `assets/js/niche/widgets.js`: cajas colapsables, listas de tareas y paneles de chat.
+
+Los componentes conservan sus APIs jQuery, opciones `data-*` y eventos de la
+plantilla. El menú se inicializa desde el módulo de navegación cuando el DOM y
+su plugin están disponibles; no necesita un bloque repetido en cada página.
+
+Los scripts específicos se cargan después de sus bibliotecas:
+
+| Archivo | Responsabilidad |
+| --- | --- |
+| `assets/js/dashboard-charts.js` | Tres gráficos del dashboard principal |
+| `assets/js/knob-examples.js` | Ejemplos de indicadores circulares |
+| `assets/js/data-tables.js` | Inicialización compartida de las tablas de ejemplo |
+| `assets/js/text-editor.js` | Summernote, redacción de correo y acciones de edición/guardado |
+| `assets/js/form-wizard.js` | Validación y navegación del formulario por pasos |
+
+Para añadir acciones a botones, utiliza atributos `data-*` y listeners en su
+archivo de componente. Evita scripts inline y atributos `onclick` en los HTML.
+Las pruebas comprueban esa estructura, el orden de carga y las interacciones del
+menú móvil, widgets, gráficos y formulario por pasos.
+
 ## Historial de cambios
+
+### Organización del JavaScript — octubre de 2026
+
+- División del núcleo minificado en registro de plugins, layout, navegación y widgets legibles.
+- Centralización de 61 inicializaciones repetidas del menú horizontal.
+- Extracción de scripts inline de gráficos, tablas, Summernote y formularios por pasos.
+- Acciones de edición/guardado mediante listeners y atributos `data-editor-action`.
+- Inicialización de dropdowns compartida y protección contra registros duplicados.
+- Pruebas de estructura y de comportamiento para los componentes reorganizados.
 
 ### Bibliotecas y migraciones completadas — octubre de 2026
 

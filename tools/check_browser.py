@@ -61,6 +61,77 @@ FullCalendar.Calendar = class extends FullCalendar.Calendar {
         await page.goto(base_url + '/' + path, wait_until='load')
         await page.wait_for_timeout(600)
 
+    await visit('index.html')
+    assert await page.evaluate("['line-chart', 'pie-chart', 'area-chart'].every(id => Chart.getChart(id))")
+    assert await page.evaluate("typeof jQuery.fn.layout.Constructor === 'function' && !!jQuery('body').data('lte.layout')")
+    assert await page.evaluate("document.getElementById('respMenu').dataset.nicheMenuInitialized === 'true'")
+    await page.set_viewport_size({'width': 390, 'height': 844})
+    await page.wait_for_timeout(300)
+    await page.click('#menu-btn')
+    await page.wait_for_function("!document.getElementById('respMenu').classList.contains('hide-menu')")
+    await page.click('#menu-btn')
+    await page.wait_for_function("document.getElementById('respMenu').classList.contains('hide-menu')")
+    await page.set_viewport_size({'width': 1440, 'height': 1000})
+    print('PASS: shared navigation initializes once, mobile menu toggles and three dashboard charts render.', flush=True)
+
+    await visit('apps/apps-mailbox.html')
+    box = page.locator('.box').first
+    await page.evaluate("jQuery('.box').boxWidget()")  # Reusing the plugin must not bind click handlers again.
+    await box.locator('[data-widget=collapse]').click()
+    await page.wait_for_function("document.querySelector('.box').classList.contains('collapsed-box')")
+    await box.locator('[data-widget=collapse]').click()
+    await page.wait_for_function("!document.querySelector('.box').classList.contains('collapsed-box')")
+    await box.locator('.box-body').wait_for(state='visible')
+    await visit('tables/table-data-table.html')
+    assert await page.evaluate('DataTable.isDataTable(document.getElementById("example1"))')
+    print('PASS: shared DataTables initializes and box widgets collapse/expand without duplicate handlers.', flush=True)
+
+    # Exercise retained plugin APIs whose components are optional in this horizontal template.
+    assert await page.evaluate('''() => {
+        const fixture = document.createElement('div');
+        fixture.innerHTML = '<ul id="test-tree"><li class="treeview"><a href="#">Parent</a><ul class="treeview-menu" style="display:none"><li>Child</li></ul></li></ul>'
+            + '<ul id="test-todo"><li><input type="checkbox"></li></ul>'
+            + '<div class="direct-chat"><button data-widget="chat-pane-toggle">Chat</button></div>'
+            + '<button data-toggle="push-menu">Sidebar</button><button data-toggle="control-sidebar">Settings</button><aside class="control-sidebar"></aside>';
+        document.body.appendChild(fixture);
+        const $ = jQuery;
+        $('#test-tree').tree({animationSpeed: 0});
+        $('#test-tree > li > a').trigger('click');
+        const opened = $('#test-tree > li').hasClass('menu-open');
+        $('#test-tree > li > a').trigger('click');
+        const treeClosed = !$('#test-tree > li').hasClass('menu-open');
+        $('#test-todo').todoList();
+        const checkbox = $('#test-todo input');
+        checkbox.prop('checked', true).trigger('change');
+        const done = checkbox.closest('li').hasClass('done');
+        checkbox.prop('checked', false).trigger('change');
+        const unchecked = !checkbox.closest('li').hasClass('done');
+        $('.direct-chat button', fixture).trigger('click');
+        const chat = $('.direct-chat', fixture).hasClass('direct-chat-contacts-open');
+        $('[data-toggle="push-menu"]', fixture).trigger('click');
+        const collapsed = $('body').hasClass('sidebar-collapse');
+        $('[data-toggle="push-menu"]', fixture).trigger('click');
+        $('[data-toggle="control-sidebar"]', fixture).trigger('click');
+        const settings = $('.control-sidebar', fixture).hasClass('control-sidebar-open');
+        $('[data-toggle="control-sidebar"]', fixture).trigger('click');
+        const closed = !$('.control-sidebar', fixture).hasClass('control-sidebar-open');
+        fixture.remove();
+        return opened && treeClosed && done && unchecked && chat && collapsed && settings && closed;
+    }''')
+    print('PASS: retained tree, todo, chat and sidebar plugin APIs work with delegated events.', flush=True)
+
+    await visit('forms/form-wizard.html')
+    await page.locator('#demo1 [data-direction=next]').click()
+    await page.locator('#frmRes').wait_for(state='visible')
+    for field, value in {'firstname': 'Example', 'lastname': 'User', 'email': 'tester@example.com', 'phoneno': '5551234'}.items():
+        await page.locator('#frmRes [name=' + field + ']').fill(value)
+    await page.locator('#frmRes [name=phoneno]').press('Tab')
+    await page.locator('#demo1 [data-direction=next]').click()
+    await page.locator('#frmInfo').wait_for(state='visible')
+    await page.locator('#demo1 [data-direction=prev]').click()
+    await page.locator('#frmRes').wait_for(state='visible')
+    print('PASS: extracted wizard blocks invalid steps, advances with required fields and returns to previous steps.', flush=True)
+
     await visit('apps/apps-calendar.html')
     assert await page.evaluate('testCalendars.length') == 2
     assert await page.evaluate('testCalendars.every(c => c.getEvents().length === 6)')
