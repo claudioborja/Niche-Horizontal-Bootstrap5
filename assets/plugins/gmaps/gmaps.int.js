@@ -4,6 +4,12 @@ Author: UXLiner
 */
 $(function() {
     "use strict";
+    if (!window.google || !window.google.maps) {
+        document.querySelectorAll('#simplemap, #mapmarker, #overlaylayer, #polyline, #styled').forEach(function (element) {
+            element.textContent = 'Google Maps is unavailable. Check the connection and API key.';
+        });
+        return;
+    }
 
 //Simple Basic Map
 	var map;
@@ -147,4 +153,4 @@ $(function () {
         
         map.setStyle("map_style");
       });
-})(jQuery);
+});

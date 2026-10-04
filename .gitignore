@@ -80,3 +80,6 @@ NOTES_*.md
 # Python tooling caches
 __pycache__/
 *.py[cod]
+
+# Optional browser test environment
+.venv/

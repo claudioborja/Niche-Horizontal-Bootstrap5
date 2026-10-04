@@ -5,14 +5,16 @@ Author: UXLiner
 $(function() {
     "use strict";
 
-$("#range_01").ionRangeSlider();
+$("#range_01").ionRangeSlider({ skin: "modern" });
 
 $("#range_02").ionRangeSlider({
+    skin: "modern",
     min: 100,
     max: 1000,
     from: 550
 });
 $("#range_03").ionRangeSlider({
+    skin: "modern",
     type: "double",
     grid: true,
     min: 0,
@@ -22,6 +24,7 @@ $("#range_03").ionRangeSlider({
     prefix: "$"
 });
 $("#range_04").ionRangeSlider({
+    skin: "modern",
     type: "double",
     grid: true,
     min: -1000,
@@ -30,6 +33,7 @@ $("#range_04").ionRangeSlider({
     to: 500
 });
 $("#range_16").ionRangeSlider({
+    skin: "modern",
     grid: true,
     min: 18,
     max: 70,
@@ -38,6 +42,7 @@ $("#range_16").ionRangeSlider({
     max_postfix: "+"
 });
 $("#range_18").ionRangeSlider({
+    skin: "modern",
     type: "double",
     min: 100,
     max: 200,
@@ -48,6 +53,7 @@ $("#range_18").ionRangeSlider({
     decorate_both: false
 });
 $("#range_22").ionRangeSlider({
+    skin: "modern",
     type: "double",
     min: 1000,
     max: 2000,
@@ -58,4 +64,4 @@ $("#range_22").ionRangeSlider({
     grid: true
 });
 
-})(jQuery);
+});

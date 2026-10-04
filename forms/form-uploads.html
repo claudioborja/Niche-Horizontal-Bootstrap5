@@ -16,13 +16,13 @@
 
 <!-- Theme style -->
 <link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="../assets/css/et-line-font/et-line-font.css">
-<link rel="stylesheet" href="../assets/css/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="../assets/plugins/bootstrap-icons-1.13.1/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../assets/css/icon-compat.css">
 <link rel="stylesheet" href="../assets/plugins/hmenu/ace-responsive-menu.css">
 
 <!-- dropify -->
-<link rel="stylesheet" href="../assets/plugins/dropify/dropify.min.css">
+<link rel="stylesheet" href="../assets/plugins/filepond-4.32.12/filepond.min.css">
+<link rel="stylesheet" href="../assets/plugins/filepond-plugin-image-preview-4.6.12/filepond-plugin-image-preview.min.css">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -213,7 +213,7 @@
             <li><a href="../tables/table-basic.html">Basic Tables</a></li>
             <li><a href="../tables/table-layout.html">Table Layouts</a></li>
             <li><a href="../tables/table-data-table.html">Data Tables</a></li>
-            <li><a href="../tables/table-jsgrid.html">Js Grid Table</a></li>
+            <li><a href="../tables/table-jsgrid.html">Editable Tables</a></li>
           </ul>
         </li>
         <li><a href="#"><i class="fa fa-th"></i> <span>Extras</span></a>
@@ -242,11 +242,11 @@
             </li>
             <li><a href="#">Icons</a>
               <ul>
-                <li><a href="../icons/icon-fontawesome.html">Fontawesome Icons</a></li>
-                <li><a href="../icons/icon-themify.html">Themify Icons</a></li>
-                <li><a href="../icons/icon-linea.html">Linea Icons</a></li>
+                <li><a href="../icons/icon-fontawesome.html">Bootstrap Icons</a></li>
+                <li><a href="../icons/icon-themify.html">Interface Icons</a></li>
+                <li><a href="../icons/icon-linea.html">Arrow Icons</a></li>
                 <li><a href="../icons/icon-weather.html">Weather Icons</a></li>
-                <li><a href="../icons/icon-simple-lineicon.html">Simple Lineicons</a></li>
+                <li><a href="../icons/icon-simple-lineicon.html">Brand Icons</a></li>
                 <li><a href="../icons/icon-flag.html">Flag Icons</a></li>
               </ul>
             </li>
@@ -305,7 +305,7 @@
             <div class="card-body">
               <h4 class="text-black">File Upload 1</h4>
               <label for="input-file-now">Your so fresh input file — Default version</label>
-              <input type="file" id="input-file-now" class="dropify">
+              <input type="file" id="input-file-now" class="filepond">
             </div>
           </div>
         </div>
@@ -314,7 +314,7 @@
             <div class="card-body">
               <h4 class="card-title">File Upload 2</h4>
               <label for="input-file-now-custom-1">You can add a default value</label>
-              <input type="file" id="input-file-now-custom-1" class="dropify" data-default-file="assets/img/img13.jpg">
+              <input type="file" id="input-file-now-custom-1" class="filepond" data-default-file="../assets/img/img13.jpg">
             </div>
           </div>
         </div>
@@ -325,7 +325,7 @@
             <div class="card-body">
               <h4 class="text-black">File Upload 3</h4>
               <label for="input-file-now-custom-2">You can set the height</label>
-              <input type="file" id="input-file-now-custom-2" class="dropify" data-height="500">
+              <input type="file" id="input-file-now-custom-2" class="filepond" data-height="500">
             </div>
           </div>
         </div>
@@ -334,7 +334,7 @@
             <div class="card-body">
               <h4 class="card-title">File Upload 4</h4>
               <label for="input-file-now-custom-3">You can combine options</label>
-              <input type="file" id="input-file-now-custom-3" class="dropify" data-height="500" data-default-file="assets/img/img14.jpg">
+              <input type="file" id="input-file-now-custom-3" class="filepond" data-height="500" data-default-file="../assets/img/img14.jpg">
             </div>
           </div>
         </div>
@@ -345,7 +345,7 @@
             <div class="card-body">
               <h4 class="text-black">File Upload 5</h4>
               <label for="input-file-now-disabled-1">You can disabled the input</label>
-              <input type="file" id="input-file-now-disabled-1" class="dropify" disabled="disabled">
+              <input type="file" id="input-file-now-disabled-1" class="filepond" disabled="disabled">
             </div>
           </div>
         </div>
@@ -354,7 +354,7 @@
             <div class="card-body">
               <h4 class="card-title">File Upload 6</h4>
               <label for="input-file-now-disabled-2">Also with a default file</label>
-              <input type="file" id="input-file-now-disabled-2" class="dropify" disabled="disabled" data-default-file="assets/img/img15.jpg">
+              <input type="file" id="input-file-now-disabled-2" class="filepond" disabled="disabled" data-default-file="../assets/img/img15.jpg">
             </div>
           </div>
         </div>
@@ -365,7 +365,7 @@
             <div class="card-body">
               <h4 class="text-black">File Upload 7</h4>
               <label for="input-file-max-fs">You can add a max file size</label>
-              <input type="file" id="input-file-max-fs" class="dropify" data-max-file-size="2M">
+              <input type="file" id="input-file-max-fs" class="filepond" data-max-file-size="2MB">
             </div>
           </div>
         </div>
@@ -374,7 +374,7 @@
             <div class="card-body">
               <h4 class="card-title">File Upload 8</h4>
               <label for="input-file-disable-remove">You can disable remove button</label>
-              <input type="file" id="input-file-disable-remove" class="dropify" data-show-remove="false">
+              <input type="file" id="input-file-disable-remove" class="filepond" data-show-remove="false">
             </div>
           </div>
         </div>
@@ -428,8 +428,8 @@
 </div>
 <!-- ./wrapper --> 
 
-<!-- jQuery 3 --> 
-<script src="../assets/plugins/jquery-3.7.1/jquery.min.js"></script> 
+<!-- jQuery 4 -->
+<script src="../assets/plugins/jquery-4.0.0/jquery.min.js"></script>
 
 <!-- Bootstrap 5.3.8 -->
 <!-- Bootstrap 5.3.8 with Popper.js -->
@@ -441,49 +441,10 @@
 <script src="../assets/js/niche.js"></script> 
 
 <!-- dropify --> 
-<script src="../assets/plugins/dropify/dropify.min.js"></script> 
-<script>
-            $(document).ready(function(){
-                // Basic
-                $('.dropify').dropify();
-
-                // Translated
-                $('.dropify-fr').dropify({
-                    messages: {
-                        default: 'Glissez-déposez un fichier ici ou cliquez',
-                        replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
-                        remove:  'Supprimer',
-                        error:   'Désolé, le fichier trop volumineux'
-                    }
-                });
-
-                // Used events
-                var drEvent = $('#input-file-events').dropify();
-
-                drEvent.on('dropify.beforeClear', function(event, element){
-                    return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
-                });
-
-                drEvent.on('dropify.afterClear', function(event, element){
-                    alert('File deleted');
-                });
-
-                drEvent.on('dropify.errors', function(event, element){
-                    console.log('Has Errors');
-                });
-
-                var drDestroy = $('#input-file-to-destroy').dropify();
-                drDestroy = drDestroy.data('dropify')
-                $('#toggleDropify').on('click', function(e){
-                    e.preventDefault();
-                    if (drDestroy.isDropified()) {
-                        drDestroy.destroy();
-                    } else {
-                        drDestroy.init();
-                    }
-                })
-            });
-        </script>
+<script src="../assets/plugins/filepond-plugin-image-preview-4.6.12/filepond-plugin-image-preview.min.js"></script>
+<script src="../assets/plugins/filepond-plugin-file-validate-size-2.2.8/filepond-plugin-file-validate-size.min.js"></script>
+<script src="../assets/plugins/filepond-4.32.12/filepond.min.js"></script>
+<script src="../assets/js/file-uploads.js"></script>
 <script src="../assets/plugins/hmenu/ace-responsive-menu.js" type="text/javascript"></script> 
 <!--Plugin Initialization--> 
 <script type="text/javascript">

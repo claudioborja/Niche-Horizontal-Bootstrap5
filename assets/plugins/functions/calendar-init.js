@@ -1,7 +1,7 @@
 /*
 Template Name: Niche
 Author: UXLiner
-Updated for FullCalendar 6.x
+Updated for FullCalendar 7.x
 */
 (function($) {
     "use strict";
@@ -12,14 +12,13 @@ Updated for FullCalendar 6.x
          -----------------------------------------------------------------*/
         var externalEvents = document.getElementById('external-events');
         if (externalEvents) {
-            new FullCalendar.Draggable(externalEvents, {
+            new FullCalendar.Interaction.Draggable(externalEvents, {
                 itemSelector: '.external-event',
                 eventData: function (element) {
                     var style = window.getComputedStyle(element);
                     return {
                         title: element.textContent.trim(),
-                        backgroundColor: style.backgroundColor,
-                        borderColor: style.borderColor
+                        color: style.backgroundColor
                     };
                 }
             });
@@ -48,47 +47,44 @@ Updated for FullCalendar 6.x
                 events: [
                     {
                         title: 'All Day Event',
+                        allDay: true,
                         start: new Date(y, m, 1),
-                        backgroundColor: '#f56954', //red
-                        borderColor: '#f56954' //red
+                        color: '#f56954' //red
                     },
                     {
                         title: 'Long Event',
+                        allDay: true,
                         start: new Date(y, m, d - 5),
                         end: new Date(y, m, d - 2),
-                        backgroundColor: '#f39c12', //yellow
-                        borderColor: '#f39c12' //yellow
+                        color: '#f39c12' //yellow
                     },
                     {
                         title: 'Meeting',
                         start: new Date(y, m, d, 10, 30),
                         allDay: false,
-                        backgroundColor: '#0073b7', //Blue
-                        borderColor: '#0073b7' //Blue
+                        color: '#0073b7' //Blue
                     },
                     {
                         title: 'Lunch',
                         start: new Date(y, m, d, 12, 0),
                         end: new Date(y, m, d, 14, 0),
                         allDay: false,
-                        backgroundColor: '#00c0ef', //Info (aqua)
-                        borderColor: '#00c0ef' //Info (aqua)
+                        color: '#00c0ef' //Info (aqua)
                     },
                     {
                         title: 'Birthday Party',
                         start: new Date(y, m, d + 1, 19, 0),
                         end: new Date(y, m, d + 1, 22, 30),
                         allDay: false,
-                        backgroundColor: '#00a65a', //Success (green)
-                        borderColor: '#00a65a' //Success (green)
+                        color: '#00a65a' //Success (green)
                     },
                     {
                         title: 'Click for Google',
+                        allDay: true,
                         start: new Date(y, m, 28),
                         end: new Date(y, m, 29),
                         url: 'http://google.com/',
-                        backgroundColor: '#3c8dbc', //Primary (light-blue)
-                        borderColor: '#3c8dbc' //Primary (light-blue)
+                        color: '#3c8dbc' //Primary (light-blue)
                     }
                 ],
                 eventReceive: function (info) {
@@ -162,47 +158,44 @@ Updated for FullCalendar 6.x
                 events: [
                     {
                         title: 'All Day Event',
+                        allDay: true,
                         start: new Date(y1, m1, 1),
-                        backgroundColor: '#f56954', //red
-                        borderColor: '#f56954' //red
+                        color: '#f56954' //red
                     },
                     {
                         title: 'Long Event',
+                        allDay: true,
                         start: new Date(y1, m1, d1 - 5),
                         end: new Date(y1, m1, d1 - 2),
-                        backgroundColor: '#f39c12', //yellow
-                        borderColor: '#f39c12' //yellow
+                        color: '#f39c12' //yellow
                     },
                     {
                         title: 'Meeting',
                         start: new Date(y1, m1, d1, 10, 30),
                         allDay: false,
-                        backgroundColor: '#0073b7', //Blue
-                        borderColor: '#0073b7' //Blue
+                        color: '#0073b7' //Blue
                     },
                     {
                         title: 'Lunch',
                         start: new Date(y1, m1, d1, 12, 0),
                         end: new Date(y1, m1, d1, 14, 0),
                         allDay: false,
-                        backgroundColor: '#00c0ef', //Info (aqua)
-                        borderColor: '#00c0ef' //Info (aqua)
+                        color: '#00c0ef' //Info (aqua)
                     },
                     {
                         title: 'Birthday Party',
                         start: new Date(y1, m1, d1 + 1, 19, 0),
                         end: new Date(y1, m1, d1 + 1, 22, 30),
                         allDay: false,
-                        backgroundColor: '#00a65a', //Success (green)
-                        borderColor: '#00a65a' //Success (green)
+                        color: '#00a65a' //Success (green)
                     },
                     {
                         title: 'Click for Google',
+                        allDay: true,
                         start: new Date(y1, m1, 28),
                         end: new Date(y1, m1, 29),
                         url: 'http://google.com/',
-                        backgroundColor: '#3c8dbc', //Primary (light-blue)
-                        borderColor: '#3c8dbc' //Primary (light-blue)
+                        color: '#3c8dbc' //Primary (light-blue)
                     }
                 ],
                 eventReceive: function (info) {

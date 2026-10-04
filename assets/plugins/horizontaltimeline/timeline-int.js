@@ -58,4 +58,4 @@ $(function() {
                 structureObj: myjSonObject
             });
         });
-})(jQuery);
+});

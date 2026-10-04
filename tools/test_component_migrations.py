@@ -23,7 +23,31 @@ class Migrations(unittest.TestCase):
     def test_every_page_can_migrate_twice(self):
         for path in list(ROOT.rglob('*.html')) + [ROOT / 'README.md']:
             first = components.migrate(path, updater.migrate(path, path.read_bytes()))
-            self.assertEqual(components.migrate(path, first), first, str(path))
+            self.assertEqual(components.migrate(path, updater.migrate(path, first)), first, str(path))
+
+    def test_calendar_v7_dependencies_are_ordered_and_unique(self):
+        text = updater.migrate(ROOT / 'apps/apps-calendar.html', (ROOT / 'apps/apps-calendar.html').read_bytes()).decode()
+        self.assertEqual(text.count('fullcalendar-7.1.0/css/skeleton.css'), 1)
+        self.assertEqual(text.count('fullcalendar-7.1.0/css/bootstrap5.css'), 1)
+        self.assertLess(text.index('fullcalendar-7.1.0/js/fullcalendar.min.js'), text.index('fullcalendar-7.1.0/js/bootstrap5.js'))
+        self.assertLess(text.index('fullcalendar-7.1.0/js/bootstrap5.js'), text.index('functions/calendar-init.js'))
+
+    def test_jquery_bridge_is_scoped_and_ordered(self):
+        for path in ROOT.rglob('*.html'):
+            text = updater.migrate(path, path.read_bytes()).decode()
+            self.assertNotIn('jquery-3.7.1/', text)
+            expected = str(path.relative_to(ROOT)) in updater.JQUERY_MIGRATE_PAGES
+            self.assertEqual('jquery-migrate-4.0.2/' in text, expected, str(path))
+            if expected:
+                self.assertEqual(text.count('jquery-migrate-4.0.2/'), 1)
+                self.assertLess(text.index('jquery-4.0.0/'), text.index('jquery-migrate-4.0.2/'))
+
+    def test_range_sliders_use_labelled_inputs(self):
+        text = updater.migrate(ROOT / 'ui/ui-range-slider.html', (ROOT / 'ui/ui-range-slider.html').read_bytes()).decode()
+        self.assertNotIn('skinModern.css', text)
+        for number in ('01', '02', '03', '04', '16', '18', '22'):
+            self.assertIn('type="text" id="range_' + number + '" aria-labelledby="range_' + number + '-label"', text)
+            self.assertIn('id="range_' + number + '-label"', text)
 
     def test_previews_and_upload_options(self):
         path = ROOT / 'forms/form-uploads.html'

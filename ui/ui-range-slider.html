@@ -16,14 +16,12 @@
 
 <!-- Theme style -->
 <link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="../assets/css/et-line-font/et-line-font.css">
-<link rel="stylesheet" href="../assets/css/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="../assets/plugins/bootstrap-icons-1.13.1/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../assets/css/icon-compat.css">
 <link rel="stylesheet" href="../assets/plugins/hmenu/ace-responsive-menu.css">
 
 <!-- ion-rangeslider -->
-<link rel="stylesheet" href="../assets/plugins/ion-rangeslider/ion.rangeSlider.css">
-<link rel="stylesheet" href="../assets/plugins/ion-rangeslider/ion.rangeSlider.skinModern.css">
+<link rel="stylesheet" href="../assets/plugins/ion-rangeslider-2.5.0/ion.rangeSlider.css">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -214,7 +212,7 @@
             <li><a href="../tables/table-basic.html">Basic Tables</a></li>
             <li><a href="../tables/table-layout.html">Table Layouts</a></li>
             <li><a href="../tables/table-data-table.html">Data Tables</a></li>
-            <li><a href="../tables/table-jsgrid.html">Js Grid Table</a></li>
+            <li><a href="../tables/table-jsgrid.html">Editable Tables</a></li>
           </ul>
         </li>
         <li><a href="#"><i class="fa fa-th"></i> <span>Extras</span></a>
@@ -243,11 +241,11 @@
             </li>
             <li><a href="#">Icons</a>
               <ul>
-                <li><a href="../icons/icon-fontawesome.html">Fontawesome Icons</a></li>
-                <li><a href="../icons/icon-themify.html">Themify Icons</a></li>
-                <li><a href="../icons/icon-linea.html">Linea Icons</a></li>
+                <li><a href="../icons/icon-fontawesome.html">Bootstrap Icons</a></li>
+                <li><a href="../icons/icon-themify.html">Interface Icons</a></li>
+                <li><a href="../icons/icon-linea.html">Arrow Icons</a></li>
                 <li><a href="../icons/icon-weather.html">Weather Icons</a></li>
-                <li><a href="../icons/icon-simple-lineicon.html">Simple Lineicons</a></li>
+                <li><a href="../icons/icon-simple-lineicon.html">Brand Icons</a></li>
                 <li><a href="../icons/icon-flag.html">Flag Icons</a></li>
               </ul>
             </li>
@@ -301,26 +299,26 @@
     <!-- Main content -->
     <div class="content">
       <div class="info-box">
-        <h4 class="text-black m-b-2">Start without params</h4>
-        <div id="range_01"></div>
+        <h4 class="text-black m-b-2" id="range_01-label">Start without params</h4>
+        <input type="text" id="range_01" aria-labelledby="range_01-label">
         <hr class="m-t-5 m-b-5">
-        <h4 class="text-black m-b-2">Set min value, max value and start point</h4>
-        <div id="range_02"></div>
+        <h4 class="text-black m-b-2" id="range_02-label">Set min value, max value and start point</h4>
+        <input type="text" id="range_02" aria-labelledby="range_02-label">
         <hr class="m-t-5 m-b-5">
-        <h4 class="text-black m-b-2">Set type to double and specify range, also showing grid and adding prefix "$"</h4>
-        <div id="range_03"></div>
+        <h4 class="text-black m-b-2" id="range_03-label">Set type to double and specify range, also showing grid and adding prefix "$"</h4>
+        <input type="text" id="range_03" aria-labelledby="range_03-label">
         <hr class="m-t-5 m-b-5">
-        <h4 class="text-black m-b-2">Set up range with negative values</h4>
-        <div id="range_04"></div>
+        <h4 class="text-black m-b-2" id="range_04-label">Set up range with negative values</h4>
+        <input type="text" id="range_04" aria-labelledby="range_04-label">
         <hr class="m-t-5 m-b-5">
-        <h4 class="text-black m-b-2">Whant to show that max number is not the biggest one?</h4>
-        <div id="range_16"></div>
+        <h4 class="text-black m-b-2" id="range_16-label">Whant to show that max number is not the biggest one?</h4>
+        <input type="text" id="range_16" aria-labelledby="range_16-label">
         <hr class="m-t-5 m-b-5">
-        <h4 class="text-black m-b-2">Remove double decoration</h4>
-        <div id="range_18"></div>
+        <h4 class="text-black m-b-2" id="range_18-label">Remove double decoration</h4>
+        <input type="text" id="range_18" aria-labelledby="range_18-label">
         <hr class="m-t-5 m-b-5">
-        <h4 class="text-black m-b-2">Visual details</h4>
-        <div id="range_22"></div>
+        <h4 class="text-black m-b-2" id="range_22-label">Visual details</h4>
+        <input type="text" id="range_22" aria-labelledby="range_22-label">
       </div>
       
       <!-- Main row --> 
@@ -373,8 +371,8 @@
 </div>
 <!-- ./wrapper --> 
 
-<!-- jQuery 3 --> 
-<script src="../assets/plugins/jquery-3.7.1/jquery.min.js"></script> 
+<!-- jQuery 4 -->
+<script src="../assets/plugins/jquery-4.0.0/jquery.min.js"></script>
 
 <!-- Bootstrap 5.3.8 -->
 <!-- Bootstrap 5.3.8 with Popper.js -->
@@ -386,7 +384,7 @@
 <script src="../assets/js/niche.js"></script> 
 
 <!-- ion-rangeslider --> 
-<script src="../assets/plugins/ion-rangeslider/ion.rangeSlider.min.js"></script> 
+<script src="../assets/plugins/ion-rangeslider-2.5.0/ion.rangeSlider.min.js"></script>
 <script src="../assets/plugins/functions/ion-rangeslider-int.js"></script>
 <script src="../assets/plugins/hmenu/ace-responsive-menu.js" type="text/javascript"></script> 
 <!--Plugin Initialization--> 

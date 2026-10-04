@@ -41,7 +41,7 @@ envíos. Conecta los formularios a un backend para implementar la autenticación
 | Aplicaciones | 8 | [Calendario](apps/apps-calendar.html) |
 | Gráficos | 5 | [Chart.js](charts/chart-chart-js.html) |
 | Formularios | 6 | [Editor Summernote](forms/form-summernote.html) |
-| Iconos | 6 | [Font Awesome](icons/icon-fontawesome.html) |
+| Iconos | 6 | [Bootstrap Icons](icons/icon-fontawesome.html) |
 | Mapas | 2 | [Mapa vectorial](maps/map-vector.html) |
 | Páginas generales y autenticación | 14 | [Login](pages/pages-login.html) |
 | Tablas | 4 | [DataTables y exportación](tables/table-data-table.html) |
@@ -60,24 +60,26 @@ Versiones incluidas y referenciadas por las páginas después de la actualizaci�
 | --- | --- | --- |
 | Bootstrap | 5.3.8 | Layout, estilos y componentes de interfaz |
 | Popper | 2.11.8 | Posicionamiento de dropdowns, tooltips y popovers |
-| jQuery | 3.7.1 | Plugins existentes y comportamiento de la plantilla |
+| jQuery | 4.0.0 | Plugins existentes y comportamiento de la plantilla |
+| jQuery Migrate | 4.0.2 | Compatibilidad temporal de Summernote, Peity y CubePortfolio |
 | jQuery UI | 1.14.2 | Componentes utilizados por las páginas de ejemplo |
 | Chart.js | 4.5.1 | Gráficos en dashboards y página de demostración |
 | DataTables | 3.1.3 | Tablas con integración Bootstrap 5 |
-| FullCalendar | 6.1.21 | Calendarios y arrastre de eventos |
+| FullCalendar | 7.1.0 | Calendarios y arrastre de eventos |
 | Summernote | 0.9.1 | Editor de texto con integración Bootstrap 5 |
 | jQuery Validation | 1.22.1 | Validación del formulario por pasos |
 | SheetJS | 0.20.3 | Exportación de tablas a XLSX, XLS, CSV y TXT |
+| FilePond | 4.32.12 | Selección de archivos y adjuntos con vistas previas |
+| Tabulator | 6.6.1 | Tablas editables, filtros y paginación local |
+| Bootstrap Icons | 1.13.1 | Iconos generales y catálogos con búsqueda |
+| Ion.RangeSlider | 2.5.0 | Siete ejemplos de selección de rangos |
 
 Los ejemplos que utilizaban Morris.js, Raphaël y Chartist ahora usan Chart.js.
 Los interruptores, checkboxes y radios utilizan controles nativos con estilos de
 Bootstrap 5. El calendario utiliza `Date` y ya no carga Moment.
 
-La siguiente migración está preparada en el actualizador: FilePond 4.32.12
-sustituye Dropify y Dropzone; Tabulator 6.6.1 sustituye jsGrid; Bootstrap Icons
-1.13.1 unifica los iconos generales. Se aplica al ejecutar el script con acceso
-a Internet, después de descargar y validar todos los recursos. Hasta entonces,
-las páginas correspondientes siguen utilizando los componentes anteriores.
+FilePond 4.32.12 sustituye Dropify y Dropzone; Tabulator 6.6.1 sustituye jsGrid;
+Bootstrap Icons 1.13.1 unifica los iconos generales.
 
 FilePond incluye Image Preview 4.6.12 y File Validate Size 2.2.8. Las cargas son
 locales: conectar `server` a una API permite guardar los archivos. Las tablas
@@ -87,12 +89,21 @@ pasan a mostrar Bootstrap Icons con búsqueda. Los logotipos que no incluye la
 nueva fuente se conservan como SVG de Font Awesome (SIL OFL 1.1). Las banderas
 y los iconos meteorológicos conservan sus bibliotecas especializadas.
 
-jQuery permanece en 3.7.1 para mantener la compatibilidad con los plugins
-que todavía lo requieren. La limpieza retiró las versiones antiguas de Bootstrap, Chart.js, DataTables,
-FullCalendar y Summernote, además de Morris, Raphaël, Chartist, iCheck, Moment
-y otros plugins sin uso. Dropify, Dropzone, jsGrid y las fuentes de iconos
-anteriores se conservan mientras esté pendiente su migración. El historial
-de Git permite recuperar los archivos retirados.
+jQuery se actualizó a 4.0.0. Summernote, Peity y CubePortfolio todavía utilizan
+APIs retiradas: sus cinco páginas cargan jQuery Migrate 4.0.2 inmediatamente
+después de jQuery. El resto utiliza jQuery 4 directamente. Este puente se podrá
+retirar cuando esos plugins sean compatibles sin él.
+
+FullCalendar 7.1.0 carga el bundle global, el plugin de Bootstrap 5 y sus dos
+hojas de estilo locales. El inicializador utiliza `FullCalendar.Interaction.Draggable`
+y los campos de evento `color` y `allDay`. Los sliders utilizan inputs
+etiquetados y el tema integrado `modern` de Ion.RangeSlider 2.5.0.
+
+Se retiraron Dropify, Dropzone, jsGrid y las cinco fuentes generales anteriores,
+así como las copias sustituidas de jQuery, FullCalendar e Ion.RangeSlider.
+Los SVG de marcas conservan su atribución y licencia en
+[assets/img/brands/LICENSE.txt](assets/img/brands/LICENSE.txt). El historial de
+Git permite recuperar los archivos retirados.
 
 Las dependencias principales se sirven desde `assets/plugins/`. Algunas páginas
 cargan recursos externos, como Google Fonts y Google Maps, que requieren conexión.
@@ -184,6 +195,23 @@ Si falla la ejecución:
 
 ## Comprobar los componentes
 
+La prueba automatizada abre las 67 páginas en Chromium, comprueba errores de
+JavaScript y recursos locales, y prueba los calendarios, sliders, archivos,
+tablas, editor e iconos. Incluye vistas móviles de los componentes actualizados.
+Playwright es una herramienta opcional de pruebas; la plantilla continúa
+funcionando sin Node.js ni un proceso de compilación.
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install playwright==1.63.0
+.venv/bin/python -m playwright install chromium
+.venv/bin/python tools/check_browser.py
+```
+
+El comprobador inicia y cierra su propio servidor local. Bloquea los servicios
+externos para no depender de Google Fonts ni de una clave de Google Maps;
+la conexión real con Google Maps se debe comprobar con una clave válida.
+
 Después de actualizar o personalizar la plantilla, inicia el servidor local y
 revisa la consola y la pestaña de red del navegador.
 
@@ -226,6 +254,17 @@ pueden sustituirse por respuestas de tu API en los inicializadores correspondien
 
 ## Historial de cambios
 
+### Bibliotecas y migraciones completadas — octubre de 2026
+
+- jQuery 4.0.0 y jQuery Migrate 4.0.2, limitado a las páginas con plugins antiguos.
+- FullCalendar 7.1.0: estilos Bootstrap 5, API de arrastre y colores actualizados; eventos de día completo explícitos.
+- Ion.RangeSlider 2.5.0: restauración de los siete controles mediante inputs etiquetados y su tema integrado.
+- FilePond 4.32.12 y plugins de vista previa/validación sustituyen Dropify y Dropzone.
+- Tabulator 6.6.1 sustituye jsGrid; Bootstrap Icons 1.13.1 sustituye cinco fuentes generales.
+- Retirada de once carpetas sustituidas, conservando las marcas SVG y su licencia.
+- Corrección de inicializadores de mapas y timeline, orden de carga del editor y fondos inexistentes.
+- Pruebas de navegador reproducibles y comprobaciones de rutas y migraciones idempotentes.
+
 ### Limpieza de recursos — octubre de 2026
 
 - Eliminación de 21 carpetas de plugins y siete inicializadores sin referencias activas.
@@ -262,7 +301,7 @@ pueden sustituirse por respuestas de tu API en los inicializadores correspondien
 - Eliminación de referencias a un CSS de calendario que contenía un error de descarga.
 - Summernote 0.9.1 y sus fuentes; jQuery Validation 1.22.1 servido localmente.
 - SheetJS 0.20.3 sustituye TableExport y FileSaver en la página de tablas.
-- Calendario utilizando la copia incluida de Moment 2.30.1.
+- El calendario utiliza `Date`; Moment se retiró en la simplificación posterior.
 - Restauración de los seis gráficos de Chart.js y de la inicialización de Bootstrap Switch.
 - Corrección de rutas inexistentes de Chart.js, Popper y Bootstrap Switch.
 - Script de actualización con preparación de descargas y comprobación de rutas locales.

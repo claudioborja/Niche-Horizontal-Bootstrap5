@@ -11,7 +11,20 @@ import component_migrations
 
 ROOT = Path(__file__).resolve().parents[1]
 # Each asset has its own content marker; small CSS/integration files are valid.
+# Legacy widgets use removed jQuery APIs; load the official bridge only on those pages.
+JQUERY_MIGRATE_PAGES = {'apps/apps-compose-mail.html', 'forms/form-summernote.html',
+                        'charts/chart-peity.html', 'index3.html', 'pages/pages-gallery.html'}
 UPDATES = (
+    ('jquery-migrate', 'jquery-migrate-4.0.2', (
+        ('jquery-migrate.min.js', 'https://cdn.jsdelivr.net/npm/jquery-migrate@4.0.2/dist/jquery-migrate.min.js', b'Migrate v4.0.2'),
+    )),
+    ('jquery-3.7.1', 'jquery-4.0.0', (
+        ('jquery.min.js', 'https://cdn.jsdelivr.net/npm/jquery@4.0.0/dist/jquery.min.js', b'jQuery v4.0.0'),
+    )),
+    ('ion-rangeslider', 'ion-rangeslider-2.5.0', (
+        ('ion.rangeSlider.min.js', 'https://cdn.jsdelivr.net/npm/ion-rangeslider@2.5.0/js/ion.rangeSlider.min.js', b'Ion.RangeSlider, 2.5.0'),
+        ('ion.rangeSlider.css', 'https://cdn.jsdelivr.net/npm/ion-rangeslider@2.5.0/css/ion.rangeSlider.min.css', b'.irs'),
+    )),
     ('bootstrap-5.3.2', 'bootstrap-5.3.8', (
         ('css/bootstrap.min.css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css', b'Bootstrap v5.3.8'),
         ('js/bootstrap.min.js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js', b'Bootstrap v5.3.8'),
@@ -27,8 +40,11 @@ UPDATES = (
         ('dataTables.bootstrap5.min.js', 'https://cdn.jsdelivr.net/npm/datatables.net-bs5@3.1.3/js/dataTables.bootstrap5.min.js', b'DataTables'),
         ('css/dataTables.bootstrap5.min.css', 'https://cdn.jsdelivr.net/npm/datatables.net-bs5@3.1.3/css/dataTables.bootstrap5.min.css', b'.dt-'),
     )),
-    ('fullcalendar-6.1.8', 'fullcalendar-6.1.21', (
-        ('js/fullcalendar.min.js', 'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.21/index.global.min.js', b'v6.1.21'),
+    ('fullcalendar-6.1.21', 'fullcalendar-7.1.0', (
+        ('js/fullcalendar.min.js', 'https://cdn.jsdelivr.net/npm/fullcalendar@7.1.0/all/global.js', b'v7.1.0'),
+        ('css/skeleton.css', 'https://cdn.jsdelivr.net/npm/fullcalendar@7.1.0/skeleton.css', b'fc-'),
+        ('js/bootstrap5.js', 'https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5@7.1.0/global.js', b'v7.1.0'),
+        ('css/bootstrap5.css', 'https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5@7.1.0/theme.css', b'.fc-bootstrap5-'),
     )),
     ('summernote', 'summernote-0.9.1', (
         ('summernote-bs5.min.js', 'https://cdn.jsdelivr.net/npm/summernote@0.9.1/dist/summernote-bs5.min.js', b'v0.9.1'),
@@ -111,9 +127,24 @@ def migrate(path, original):
     if path.suffix == '.html':
         # FullCalendar v6 injects its own styles; these old files contain a CDN error.
         updated = re.sub(rb'<link\b[^>]*href="[^"\n]*fullcalendar-6\.1\.(?:8|21)/css/fullcalendar\.min\.css"[^>]*>[^\S\r\n]*\r?\n', b'', updated)
+        updated = updated.replace(b'assets/plugins/fullcalendar-6.1.8/', b'assets/plugins/fullcalendar-6.1.21/')
+        updated = re.sub(rb'<link\b[^>]*href="[^"\n]*ion-rangeslider(?:-2\.5\.0)?/ion\.rangeSlider\.skinModern\.css"[^>]*>[^\S\r\n]*\r?\n', b'', updated)
         for old, new, _ in UPDATES:
             if old != new:
                 updated = updated.replace(('assets/plugins/' + old + '/').encode(), ('assets/plugins/' + new + '/').encode())
+        if path.name == 'ui-range-slider.html':
+            updated = re.sub(rb'(<h4[^>]*)(>[^<]*</h4>\s*)<div id="(range_\d+)"></div>',
+                             lambda m: m[1] + b' id="' + m[3] + b'-label"' + m[2]
+                             + b'<input type="text" id="' + m[3] + b'" aria-labelledby="' + m[3] + b'-label">', updated)
+        if str(path.relative_to(ROOT)) in JQUERY_MIGRATE_PAGES and b'jquery-migrate-4.0.2/jquery-migrate.min.js' not in updated:
+            updated = re.sub(rb'(<script src="([^"]*assets/plugins/)jquery-4\.0\.0/jquery\.min\.js"></script>)',
+                             lambda match: match[1] + b'\n<script src="' + match[2] + b'jquery-migrate-4.0.2/jquery-migrate.min.js"></script>', updated)
+        calendar_script = b'<script src="../assets/plugins/fullcalendar-7.1.0/js/fullcalendar.min.js"></script>'
+        if calendar_script in updated:
+            if b'fullcalendar-7.1.0/css/skeleton.css' not in updated:
+                updated = updated.replace(b'<!-- Calendar -->', b'<!-- Calendar -->\n<link rel="stylesheet" href="../assets/plugins/fullcalendar-7.1.0/css/skeleton.css">\n<link rel="stylesheet" href="../assets/plugins/fullcalendar-7.1.0/css/bootstrap5.css">', 1)
+            if b'fullcalendar-7.1.0/js/bootstrap5.js' not in updated:
+                updated = updated.replace(calendar_script, calendar_script + b'\n<script src="../assets/plugins/fullcalendar-7.1.0/js/bootstrap5.js"></script>')
         updated = updated.replace(b'datatables-3.1.3/jquery.dataTables.min.js', b'datatables-3.1.3/dataTables.min.js')
         updated = updated.replace(b'https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js', b'../assets/plugins/jquery-validation-1.22.1/jquery.validate.min.js')
         updated = updated.replace(b"$('#example1').DataTable()", b"if (document.getElementById('example1')) new DataTable('#example1', { deferRender: false })")
@@ -123,6 +154,7 @@ def migrate(path, original):
             updated = updated.replace(b'../assets/plugins/table-expo/tableexport.js', b'../assets/plugins/sheetjs-0.20.3/xlsx.full.min.js')
             updated = re.sub(rb'<script>\s*\$\("table"\)\.tableExport\([^<]*</script>', b'<script src="../assets/js/table-export.js"></script>', updated)
         updated = updated.replace(b'Bootstrap 5.3.2', b'Bootstrap 5.3.8')
+        updated = updated.replace(b'<!-- jQuery 3 -->', b'<!-- jQuery 4 -->').replace(b'<!-- jQuery UI 1.11.4 -->', b'<!-- jQuery UI 1.14.2 -->')
         lines = updated.splitlines(keepends=True)
         previous = original.splitlines(keepends=True)
         # Only clean newly changed lines; preserve untouched formatting.
@@ -132,6 +164,7 @@ def migrate(path, original):
     elif path.name == 'README.md':
         for old, new, _ in UPDATES:
             updated = updated.replace((old + '/').encode(), (new + '/').encode())
+        updated = updated.replace(b'| jQuery | 3.7.1 |', b'| jQuery | 4.0.0 |').replace(b'| FullCalendar | 6.1.21 |', b'| FullCalendar | 7.1.0 |')
         for old, new in [
             (b'DataTables 1.10.15', b'DataTables 3.1.3'),
             (b' (migraci\xc3\xb3n pendiente)', b''),
@@ -217,7 +250,7 @@ def main():
                     path.write_bytes(backups[path])
             raise
         print('Updated Bootstrap 5.3.8, Chart.js 4.5.1, jQuery UI 1.14.2, DataTables 3.1.3, '
-              'FullCalendar 6.1.21, Summernote 0.9.1, jQuery Validation 1.22.1, SheetJS 0.20.3, '
+              'jQuery 4.0.0, jQuery Migrate 4.0.2, Ion.RangeSlider 2.5.0, FullCalendar 7.1.0, Summernote 0.9.1, jQuery Validation 1.22.1, SheetJS 0.20.3, '
               'FilePond 4.32.12, Tabulator 6.6.1 and Bootstrap Icons 1.13.1.')
         print('Checked local JavaScript and CSS references in', len(pages), 'HTML pages.')
 
